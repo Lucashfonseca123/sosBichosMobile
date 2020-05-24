@@ -16,17 +16,14 @@ const Container = styled.View`
 `;
 
 const DivMiddle = styled.View`
-  /* ${(props: ILoginScreen) => css`
-    flex: ${props.focus ? '' : 1};
-  `} */
   width: 100%
-  padding-top: 56px;
+  padding-top: 48px;
   justify-content: center;
   align-items: center;
 `;
 
 const DivButton = styled.View`
-  padding-top: 40px;
+  padding-top: 32px;
   padding-bottom: 12px;
   align-items: center;
   justify-content: flex-end;

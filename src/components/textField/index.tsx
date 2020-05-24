@@ -1,49 +1,20 @@
-import React, {forwardRef, useEffect} from 'react';
-import {TextInput} from 'react-native';
+import React, {forwardRef} from 'react';
+import {TextInputProps} from 'react-native';
 
-interface ITextField {
-  onChangeText?: Function;
-  placeholder?: string;
-  keyboardType?:
-    | 'default'
-    | 'email-address'
-    | 'numeric'
-    | 'phone-pad'
-    | 'number-pad'
-    | 'decimal-pad'
-    | 'visible-password'
-    | 'ascii-capable'
-    | 'numbers-and-punctuation'
-    | 'url'
-    | 'name-phone-pad'
-    | 'twitter'
-    | 'web-search';
-  secureTextEntry?: boolean;
+import {TextInput} from './styles';
+
+interface ITextField extends TextInputProps {
+  borderFocus?: boolean;
 }
 
-const TextField = (
-  {onChangeText, placeholder, keyboardType, secureTextEntry}: ITextField,
-  ref: any,
-) => {
+const TextField = ({borderFocus, ...rest}: ITextField, ref: any) => {
   return (
-    <>
-      <TextInput
-        ref={ref}
-        style={{
-          height: 40,
-          borderWidth: 1,
-          borderLeftColor: 'transparent',
-          borderRightColor: 'transparent',
-          borderTopColor: 'transparent',
-          borderBottomColor: '#E9E9E9',
-          width: '100%',
-        }}
-        placeholder={placeholder}
-        keyboardType={keyboardType}
-        onChangeText={(text) => onChangeText(text)}
-        secureTextEntry={secureTextEntry}
-      />
-    </>
+    <TextInput
+      ref={ref}
+      placeholderTextColor={borderFocus ? '#59B1F0' : '#ADB0B3'}
+      border={borderFocus}
+      {...rest}
+    />
   );
 };
 

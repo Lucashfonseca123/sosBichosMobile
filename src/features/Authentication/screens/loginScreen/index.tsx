@@ -15,34 +15,75 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const LoginScreen = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
-  const [isFocused, setIsFocused] = useState();
-  const refForm = useRef();
+  const [isFocusedUser, setIsFocusedUser] = useState();
+  const [isFocusedPassword, setIsFocusedPassword] = useState();
 
-  useEffect(() => {
-    console.log(refForm.current.focus());
-  }, [isFocused]);
+  const userRef = useRef();
+  const passwordRef = useRef();
 
-  const setTextInput = useCallback(
-    (texto: string) => {
-      setText(texto);
-    },
-    [text],
-  );
+  const setFocus = (type: number) => {
+    if (type === 1) {
+      setIsFocusedUser(true);
+    } else {
+      if (text) {
+        setIsFocusedUser(true);
+      } else {
+        setIsFocusedUser(false);
+      }
+    }
+  };
+
+  const setBlur = (type: number) => {
+    if (type === 2) {
+      if (password) {
+        setIsFocusedPassword(true);
+      } else {
+        setIsFocusedPassword(false);
+      }
+    } else {
+      setIsFocusedPassword(true);
+    }
+  };
+  console.log({isFocusedUser});
+  console.log({isFocusedPassword});
 
   return (
     <Container>
       <DivMiddle>
         <Logo width={180} height={180} />
         <TextField
-          ref={refForm}
+          ref={userRef}
           placeholder="Digite seu usuário..."
-          onChangeText={setTextInput}
+          onChangeText={(text) => setText(text)}
+          onBlur={() => setBlur(1)}
+          onFocus={() => setFocus(1)}
+          borderFocus={isFocusedUser}
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current.focus()}
         />
         <TextField
-          ref={refForm}
+          ref={passwordRef}
           placeholder="Senha..."
-          onChangeText={setPassword}
+          onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
+          onBlur={() => setBlur(2)}
+          onFocus={() => setFocus(2)}
+          borderFocus={isFocusedPassword}
+          returnKeyType="send"
+          onSubmitEditing={() =>
+            Alert.alert(
+              'Bem vindo',
+              `Enaido. Usuário: ${text}`,
+              [
+                {
+                  text: 'Cancelar',
+                  onPress: () => console.log('Cancel pressed'),
+                },
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+              {cancelable: false},
+            )
+          }
         />
         <DivButton>
           <Button
@@ -52,7 +93,7 @@ const LoginScreen = () => {
             onPress={() =>
               Alert.alert(
                 'Bem vindo',
-                'QUERO AUTENTICAÇÃO',
+                `Assinado: ${text}`,
                 [
                   {
                     text: 'Cancelar',

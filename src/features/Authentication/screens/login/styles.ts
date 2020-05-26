@@ -17,13 +17,13 @@ const Container = styled.View`
 
 const DivMiddle = styled.View`
   width: 100%
-  padding-top: 48px;
+  padding-top: 32px;
   justify-content: center;
   align-items: center;
 `;
 
 const DivButton = styled.View`
-  padding-top: 32px;
+  padding-top: 24px;
   padding-bottom: 12px;
   align-items: center;
   justify-content: flex-end;
@@ -32,11 +32,11 @@ const DivButton = styled.View`
 const DivBottom = styled.View`
   width: 100%;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 48px;
 `;
 
 const DivBottomButton = styled.View`
-  padding-top: 20px;
+  padding-top: 8px;
   padding-bottom: 8px;
   width: 100%;
   justify-content: space-between;

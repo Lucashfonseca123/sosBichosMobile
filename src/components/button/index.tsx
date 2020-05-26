@@ -1,50 +1,26 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {RectButtonProperties} from 'react-native-gesture-handler';
+import {Container, ButtonText} from './styles';
 
-import {Markdown} from '../';
-import {Container} from './styles';
-
-interface IButton {
+interface ButtonProps extends RectButtonProperties {
+  children: string;
   text: string;
-  onPress: Function;
-  width?: number;
-  height?: number;
-  backgroundColor?: string;
-  fontColor?: string;
-  fontType?: 'regular' | 'light' | 'semiBold';
   fontSize?: number;
+  fontColor?: string;
 }
 
-const Button = ({
-  text,
-  onPress,
-  width,
-  height,
-  backgroundColor,
+const Button: React.FC<ButtonProps> = ({
+  children,
   fontColor,
-  fontType,
   fontSize,
-}: IButton) => {
-  return (
-    <Container backgroundColor={backgroundColor}>
-      <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: width ? width : 200,
-          height: height ? height : 51,
-          borderRadius: 20,
-        }}
-        onPress={onPress ? onPress : null}>
-        <Markdown
-          fontSize={fontSize}
-          fontColor={fontColor ? fontColor : 'white'}
-          type={fontType ? fontType : 'bold'}
-          text={text.toUpperCase()}
-        />
-      </TouchableOpacity>
-    </Container>
-  );
-};
+  text,
+  ...rest
+}) => (
+  <Container {...rest}>
+    <ButtonText fontColor={fontColor} fontSize={fontSize}>
+      {text}
+    </ButtonText>
+  </Container>
+);
 
-export default React.memo(Button);
+export default Button;

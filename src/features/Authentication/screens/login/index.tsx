@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import {View, Alert, Linking} from 'react-native';
 import {Markdown, TextField, Button} from 'components';
@@ -11,41 +11,20 @@ import {
   DivMiddle,
 } from './styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 
-const LoginScreen = () => {
+const Login = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
-  const [isFocusedUser, setIsFocusedUser] = useState();
-  const [isFocusedPassword, setIsFocusedPassword] = useState();
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
+  const navigation = useNavigation();
 
   const userRef = useRef();
   const passwordRef = useRef();
-
-  const setFocus = (type: number) => {
-    if (type === 1) {
-      setIsFocusedUser(true);
-    } else {
-      if (text) {
-        setIsFocusedUser(true);
-      } else {
-        setIsFocusedUser(false);
-      }
-    }
-  };
-
-  const setBlur = (type: number) => {
-    if (type === 2) {
-      if (password) {
-        setIsFocusedPassword(true);
-      } else {
-        setIsFocusedPassword(false);
-      }
-    } else {
-      setIsFocusedPassword(true);
-    }
-  };
-  console.log({isFocusedUser});
-  console.log({isFocusedPassword});
 
   return (
     <Container>
@@ -53,37 +32,22 @@ const LoginScreen = () => {
         <Logo width={180} height={180} />
         <TextField
           ref={userRef}
+          autoCorrect={false}
+          autoCapitalize="none"
           placeholder="Digite seu usuário..."
           onChangeText={(text) => setText(text)}
-          onBlur={() => setBlur(1)}
-          onFocus={() => setFocus(1)}
-          borderFocus={isFocusedUser}
           returnKeyType="next"
           onSubmitEditing={() => passwordRef.current.focus()}
         />
         <TextField
           ref={passwordRef}
+          autoCorrect={false}
+          autoCapitalize="none"
           placeholder="Senha..."
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
-          onBlur={() => setBlur(2)}
-          onFocus={() => setFocus(2)}
-          borderFocus={isFocusedPassword}
           returnKeyType="send"
-          onSubmitEditing={() =>
-            Alert.alert(
-              'Bem vindo',
-              `Enaido. Usuário: ${text}`,
-              [
-                {
-                  text: 'Cancelar',
-                  onPress: () => console.log('Cancel pressed'),
-                },
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
-              ],
-              {cancelable: false},
-            )
-          }
+          onSubmitEditing={() => {}}
         />
         <DivButton>
           <Button
@@ -91,37 +55,12 @@ const LoginScreen = () => {
             width={162}
             height={51}
             onPress={() =>
-              Alert.alert(
-                'Bem vindo',
-                `Assinado: ${text}`,
-                [
-                  {
-                    text: 'Cancelar',
-                    onPress: () => console.log('Cancel pressed'),
-                  },
-                  {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ],
-                {cancelable: false},
-              )
+              navigation.navigate('FeedNavigator', {screen: 'FeedHome'})
             }
             backgroundColor="#CE2020"
           />
         </DivButton>
-        <TouchableOpacity
-          onPress={() =>
-            Alert.alert(
-              'Bem vindo',
-              'Bora criar uma conta chegado',
-              [
-                {
-                  text: 'Não',
-                  onPress: () => console.log('Cancel pressed'),
-                },
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
-              ],
-              {cancelable: false},
-            )
-          }>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
           <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
         </TouchableOpacity>
       </DivMiddle>
@@ -184,4 +123,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default React.memo(Login);

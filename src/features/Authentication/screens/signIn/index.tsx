@@ -7,6 +7,7 @@ import {Container, DivImage, Padding, ContainerButton} from './styles';
 import {TextField, Button} from 'components';
 
 import {User} from 'assets/icons';
+import {useDispatch} from 'react-redux';
 
 const SignIn = () => {
   const refName = useRef();
@@ -14,7 +15,21 @@ const SignIn = () => {
   const refPassword = useRef();
   const refConfirmPassword = useRef();
 
-  const [text, setText] = useState();
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+
+  const sendAuthenticate = () => {
+    dispatch(
+      login({
+        username: name,
+        password: password,
+      }),
+    );
+  };
 
   return (
     <>
@@ -31,7 +46,7 @@ const SignIn = () => {
               ref={refName}
               autoCompleteType="email"
               autoCapitalize="none"
-              onChangeText={(text) => setText(text)}
+              onChangeText={(text) => setName(text)}
               returnKeyType="next"
               placeholder="Digite seu nome..."
               onSubmitEditing={() => refEmail.current.focus()}
@@ -40,7 +55,7 @@ const SignIn = () => {
             <TextField
               ref={refEmail}
               autoCapitalize="none"
-              onChangeText={(text) => setText(text)}
+              onChangeText={(text) => setEmail(text)}
               returnKeyType="next"
               placeholder="Digite seu e-mail..."
               onSubmitEditing={() => refPassword.current.focus()}
@@ -49,7 +64,7 @@ const SignIn = () => {
             <TextField
               ref={refPassword}
               autoCapitalize="none"
-              onChangeText={(text) => setText(text)}
+              onChangeText={(text) => setPassword(text)}
               returnKeyType="next"
               placeholder="Digite sua senha..."
               onSubmitEditing={() => refConfirmPassword.current.focus()}
@@ -59,7 +74,7 @@ const SignIn = () => {
             <TextField
               ref={refConfirmPassword}
               autoCapitalize="none"
-              onChangeText={(text) => setText(text)}
+              onChangeText={(text) => setConfirmPassword(text)}
               returnKeyType="next"
               placeholder="Confirme sua senha..."
               onSubmitEditing={() => passwordRef.current.focus()}
@@ -70,7 +85,7 @@ const SignIn = () => {
                 width={187}
                 height={59}
                 text="cadastrar"
-                onPress={() => {}}
+                onPress={() => sendRegister()}
               />
             </ContainerButton>
           </KeyboardAvoidingView>

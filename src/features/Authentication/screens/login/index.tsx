@@ -13,15 +13,29 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen';
+import {useDispatch} from 'react-redux';
+import {login} from 'features/Authentication/redux/action/LoginActions';
 
 const Login = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const userRef = useRef();
   const passwordRef = useRef();
+
+  const sendAuthenticate = () => {
+    dispatch(
+      login({
+        email: text,
+        password: password,
+      }),
+    );
+    navigation.navigate('FeedNavigator', {screen: 'FeedHome'});
+  };
 
   return (
     <Container>
@@ -51,9 +65,7 @@ const Login = () => {
             text="Entrar"
             width={162}
             height={51}
-            onPress={() =>
-              navigation.navigate('FeedNavigator', {screen: 'FeedHome'})
-            }
+            onPress={() => sendAuthenticate()}
             backgroundColor="#CE2020"
           />
         </DivButton>

@@ -1,7 +1,7 @@
 import {API_GATEWAY_ENDPOINT} from './Contants';
 
 interface IAuthentication {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -11,7 +11,6 @@ const AUTHENTICATION = (props: IAuthentication) => {
   const method = 'POST';
   const headers = {
     'Content-Type': 'application/json',
-    service: 'iam',
   };
 
   let queryParams = {

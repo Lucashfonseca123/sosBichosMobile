@@ -16,7 +16,7 @@ function* workerLoginRequest(action: ILoginAuthenticate) {
   try {
     const {payload} = action;
     const {token} = yield call(AUTHENTICATION, {
-      username: payload.username,
+      email: payload.email,
       password: payload.password,
     });
     if (token) {

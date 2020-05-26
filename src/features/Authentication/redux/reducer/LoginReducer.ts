@@ -3,7 +3,7 @@ import {ILoginState} from '../types/LoginStateTypes';
 import {ILoginBaseAction} from '../action/LoginActions';
 
 const initialState: ILoginState = {
-  username: '',
+  email: '',
   tokenAccess: '',
 };
 

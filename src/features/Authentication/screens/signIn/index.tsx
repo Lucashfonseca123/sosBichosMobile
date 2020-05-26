@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {ScrollView, KeyboardAvoidingView, View} from 'react-native';
 
@@ -14,6 +14,8 @@ const SignIn = () => {
   const refPassword = useRef();
   const refConfirmPassword = useRef();
 
+  const [text, setText] = useState();
+
   return (
     <>
       <ScrollView style={{flex: 1, backgroundColor: '#F8F8F8'}}>
@@ -27,6 +29,7 @@ const SignIn = () => {
             </DivImage>
             <TextField
               ref={refName}
+              autoCompleteType="email"
               autoCapitalize="none"
               onChangeText={(text) => setText(text)}
               returnKeyType="next"
@@ -50,6 +53,7 @@ const SignIn = () => {
               returnKeyType="next"
               placeholder="Digite sua senha..."
               onSubmitEditing={() => refConfirmPassword.current.focus()}
+              secureTextEntry={true}
             />
             <Padding />
             <TextField
@@ -59,6 +63,7 @@ const SignIn = () => {
               returnKeyType="next"
               placeholder="Confirme sua senha..."
               onSubmitEditing={() => passwordRef.current.focus()}
+              secureTextEntry={true}
             />
             <ContainerButton>
               <Button

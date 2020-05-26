@@ -17,9 +17,6 @@ import SplashScreen from 'react-native-splash-screen';
 const Login = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
 
   const navigation = useNavigation();
 

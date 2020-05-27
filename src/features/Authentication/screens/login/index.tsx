@@ -82,9 +82,9 @@ const Login = () => {
   const getErrored = () => {
     setVisibleToast(true);
     if (!isValidEmail) {
-      setMessage('Por favor, coloque um e-mail válido');
+      setMessage('Por favor, preencha com um e-mail válido.');
     } else {
-      setMessage('Por favor, coloque suas senha');
+      setMessage('Por favor, preencha com uma senha.');
     }
     setTimeout(() => {
       setVisibleToast(false);
@@ -104,9 +104,10 @@ const Login = () => {
           ref={userRef}
           autoCorrect={false}
           autoCapitalize="none"
-          placeholder="Digite seu usuário..."
+          placeholder="Digite seu email..."
           onChangeText={mailValidation}
           returnKeyType="next"
+          keyboardType="email-address"
           onSubmitEditing={() => passwordRef.current.focus()}
         />
         <TextField
@@ -117,7 +118,9 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
           returnKeyType="send"
-          onSubmitEditing={() => sendAuthenticate()}
+          onSubmitEditing={() =>
+            !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
+          }
         />
         <DivButton>
           <Button

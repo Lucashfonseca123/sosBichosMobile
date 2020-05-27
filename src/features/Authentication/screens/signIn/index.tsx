@@ -92,7 +92,7 @@ const SignIn = () => {
     if (name === '') {
       return (
         setVisibleToast(true),
-        setMessageToast('Por favor, preencha o campo do nome'),
+        setMessageToast('Por favor, preencha o campo do nome.'),
         setTimeout(() => {
           setVisibleToast(false);
         }, 3000)
@@ -100,7 +100,7 @@ const SignIn = () => {
     } else if (password !== confirmPassword) {
       return (
         setVisibleToast(true),
-        setMessageToast('Sua senha deve ser igual nos 2 campos'),
+        setMessageToast('Sua senha deve ser igual nos 2 campos.'),
         setTimeout(() => {
           setVisibleToast(false);
         }, 3000)
@@ -108,7 +108,7 @@ const SignIn = () => {
     } else if (isValidEmail === false) {
       return (
         setVisibleToast(true),
-        setMessageToast('Por favor, preencha com um e-mail válido'),
+        setMessageToast('Por favor, preencha com um e-mail válido.'),
         setTimeout(() => {
           setVisibleToast(false);
         }, 3000)
@@ -116,7 +116,7 @@ const SignIn = () => {
     } else if (password === '' || confirmPassword === '') {
       return (
         setVisibleToast(true),
-        setMessageToast('Por favor, preencha o campo de senha'),
+        setMessageToast('Por favor, preencha o campo de senha.'),
         setTimeout(() => {
           setVisibleToast(false);
         }, 3000)

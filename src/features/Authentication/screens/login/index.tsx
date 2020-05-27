@@ -1,7 +1,14 @@
 import React, {useState, useRef, useEffect} from 'react';
 
-import {View, Alert, Linking} from 'react-native';
-import {Markdown, TextField, Button} from 'components';
+import {View, Linking, TouchableOpacity} from 'react-native';
+import {
+  Markdown,
+  TextField,
+  Button,
+  ActivityIndicator,
+  Modal,
+  Toast,
+} from 'components';
 import {Logo} from 'assets/icons';
 import {
   Container,
@@ -10,15 +17,25 @@ import {
   DivBottomButton,
   DivMiddle,
 } from './styles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
-import {useDispatch} from 'react-redux';
-import {login} from 'features/Authentication/redux/action/LoginActions';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppState} from 'store/RootReducer';
+
+import * as EmailValidator from 'email-validator';
+
+import {
+  login,
+  initialTokenMatch,
+} from 'features/Authentication/redux/action/LoginActions';
 
 const Login = () => {
-  const [text, setText] = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [visibleToast, setVisibleToast] = useState(false);
+  const [modalError, setModalError] = useState<boolean>(false);
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const dispatch = useDispatch();
 
@@ -27,26 +44,68 @@ const Login = () => {
   const userRef = useRef();
   const passwordRef = useRef();
 
+  const tokenMatch = useSelector(
+    (appState: AppState) => appState.Authentication.state.match,
+  );
+
+  useEffect(() => {
+    if (tokenMatch === true) {
+      setLoading(false);
+      navigation.navigate('FeedNavigator', {screen: 'FeedHome'});
+      dispatch(initialTokenMatch());
+    } else if (tokenMatch === false) {
+      setLoading(false);
+      setModalError(true);
+      dispatch(initialTokenMatch());
+    }
+  }, [tokenMatch]);
+
   const sendAuthenticate = () => {
+    setLoading(true);
     dispatch(
       login({
-        email: text,
+        email: mail,
         password: password,
       }),
     );
-    navigation.navigate('FeedNavigator', {screen: 'FeedHome'});
+  };
+
+  const mailValidation = (text: string) => {
+    if (EmailValidator.validate(text)) {
+      setMail(text);
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+    }
+  };
+
+  const getErrored = () => {
+    setVisibleToast(true);
+    if (!isValidEmail) {
+      setMessage('Por favor, coloque um e-mail válido');
+    } else {
+      setMessage('Por favor, coloque suas senha');
+    }
+    setTimeout(() => {
+      setVisibleToast(false);
+    }, 3000);
+  };
+
+  const closeModalError = () => {
+    setModalError(false);
   };
 
   return (
     <Container>
       <DivMiddle>
+        <Toast visible={visibleToast} message={message} />
         <Logo width={180} height={180} />
         <TextField
           ref={userRef}
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Digite seu usuário..."
-          onChangeText={(text) => setText(text)}
+          onChangeText={mailValidation}
           returnKeyType="next"
           onSubmitEditing={() => passwordRef.current.focus()}
         />
@@ -58,14 +117,18 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
           returnKeyType="send"
-          onSubmitEditing={() => {}}
+          onSubmitEditing={() => sendAuthenticate()}
         />
         <DivButton>
           <Button
             text="Entrar"
             width={162}
             height={51}
-            onPress={() => sendAuthenticate()}
+            onPress={() =>
+              !isValidEmail || password === ''
+                ? getErrored()
+                : sendAuthenticate()
+            }
             backgroundColor="#CE2020"
           />
         </DivButton>
@@ -81,20 +144,7 @@ const Login = () => {
             fontSize={14}
             width={120}
             height={38}
-            onPress={() =>
-              Alert.alert(
-                'Gmail',
-                'Conta do faces',
-                [
-                  {
-                    text: 'Não',
-                    onPress: () => console.log('Cancel pressed'),
-                  },
-                  {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ],
-                {cancelable: false},
-              )
-            }
+            onPress={() => {}}
             backgroundColor="#3B5998"
             fontType="bold"
           />
@@ -103,20 +153,9 @@ const Login = () => {
             fontSize={14}
             width={120}
             height={38}
-            onPress={() =>
-              Alert.alert(
-                'Gmail',
-                'Conta do gmail',
-                [
-                  {
-                    text: 'Não',
-                    onPress: () => console.log('Cancel pressed'),
-                  },
-                  {text: 'OK', onPress: () => console.log('OK Pressed')},
-                ],
-                {cancelable: false},
-              )
-            }
+            onPress={() => {
+              console.log('Aqui');
+            }}
             backgroundColor="#FFFFFF"
             fontColor="#CE2020"
           />
@@ -128,6 +167,33 @@ const Login = () => {
           <Markdown text="http://www.sosbichosderua.org.br" />
         </TouchableOpacity>
       </View>
+      <Modal width={30} isVisible={loading}>
+        <ActivityIndicator size="large" />
+      </Modal>
+      <Modal width={80} closeModal={closeModalError} isVisible={modalError}>
+        <>
+          <Markdown
+            style={{textAlign: 'center', paddingBottom: 16}}
+            text="Usuário não identificado, tente novamente."
+          />
+          <TouchableOpacity
+            style={{
+              borderRadius: 20,
+              padding: 12,
+              borderWidth: 1,
+              borderColor: '#CE2020',
+              shadowRadius: 20,
+            }}
+            onPress={() => closeModalError()}>
+            <Markdown
+              fontColor="#CE2020"
+              type="semiBold"
+              fontSize={14}
+              text="TENTAR DE NOVO"
+            />
+          </TouchableOpacity>
+        </>
+      </Modal>
     </Container>
   );
 };

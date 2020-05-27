@@ -6,10 +6,16 @@ interface IButton {
   fontColor?: string;
 }
 
+interface IContainer {
+  disabled?: boolean;
+}
+
 export const Container = styled(RectButton)`
   width: 100%;
   height: 60px;
-  background: #ce2020;
+  ${(props: IContainer) => css`
+    background: ${props.disabled ? '#a9a9a9' : '#ce2020'};
+  `}
   border-radius: 20px;
   margin-top: 8px;
 

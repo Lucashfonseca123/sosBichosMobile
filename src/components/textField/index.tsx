@@ -15,6 +15,7 @@ interface ITextField extends TextInputProps {
 
 const TextField = ({borderFocus, ...rest}: ITextField, ref: any) => {
   const inputElementRef = useRef();
+
   const [isFocused, setIsFocused] = useState<boolean>();
   const [isFilled, setIsFilled] = useState<boolean>();
 

@@ -12,7 +12,9 @@ const TextInput = styled.TextInput`
   border-top-color: transparent;
   ${(props: ITextField) => css`
     border-width: ${props.border || props.isFilled ? 2 : 1}px;
-    border-bottom-color: ${props.border ? '#59B1F0' : '#e9e9e9'};
+    border-bottom-color: ${props.border || props.isFilled
+      ? '#59B1F0'
+      : '#e9e9e9'};
   `}
   width: 100%;
   font-size: 20px;

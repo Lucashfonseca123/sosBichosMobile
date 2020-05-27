@@ -11,6 +11,8 @@ import RootNavigator from './navigation/RootNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native';
 
+console.disableYellowBox = true;
+
 const App = () => {
   return (
     <Provider store={store}>

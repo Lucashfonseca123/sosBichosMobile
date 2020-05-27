@@ -5,6 +5,8 @@ import {ILoginBaseAction} from '../action/LoginActions';
 const initialState: ILoginState = {
   email: '',
   tokenAccess: '',
+  match: undefined,
+  user: {},
 };
 
 export default function (
@@ -14,11 +16,23 @@ export default function (
   const {type, payload} = action;
   switch (type) {
     case LoginActions.AUTHENTICATION_LOGIN_SUCCESS: {
-      return Object.assign({}, state, payload);
+      return Object.assign({}, state, payload, {match: true});
     }
 
     case LoginActions.AUTHENTICATION_LOGIN_ERRORED: {
-      return Object.assign({}, state, payload);
+      return Object.assign({}, state, payload, {match: false});
+    }
+
+    case LoginActions.CREATE_USER_SUCCESS: {
+      return Object.assign({}, state, payload, {match: true});
+    }
+
+    case LoginActions.CREATE_USER_ERRORED: {
+      return Object.assign({}, state, payload, {match: false});
+    }
+
+    case LoginActions.INITIAL_MATCH_TOKEN: {
+      return Object.assign({}, state, {match: undefined});
     }
 
     default:

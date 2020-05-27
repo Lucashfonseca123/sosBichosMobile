@@ -4,6 +4,7 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import AuthenticationNavigator from './AuthenticationNavigator';
+import BottomTabNavigator from './BottomTabNavigator';
 import FeedNavigator from './FeedNavigator';
 
 const Stack = createStackNavigator();
@@ -18,8 +19,8 @@ const RootNavigator = () => {
         },
       }}>
       <Stack.Screen
-        name="AuthenticationNavigator"
-        component={AuthenticationNavigator}
+        name="BottomTabNavigator"
+        component={BottomTabNavigator}
         options={{title: 'Primeira tela deu boa', headerShown: false}}
       />
       <Stack.Screen

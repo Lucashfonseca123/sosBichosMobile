@@ -50,13 +50,13 @@ function* workerLoginRequest(action: ILoginAuthenticate) {
 export function* workerCreateUser(action: ICreateUsers) {
   try {
     const {payload} = action;
-    const {token} = yield call(CREATE_USER, {
+    const {token, user} = yield call(CREATE_USER, {
       name: payload.name,
       email: payload.email,
       password: payload.password,
     });
     if (token) {
-      yield put(createUserSuccess({tokenAccess: token}));
+      yield put(createUserSuccess({tokenAccess: token, user: user}));
     } else {
       yield put(
         createUserErrored({tokenAccess: 'Deu ruim na criação de usuário'}),
@@ -73,7 +73,8 @@ export function* workerLoginWithSocialRequest(
   try {
     const {payload} = action;
     const {token, user} = yield call(AUTHENTICATION_WITH_SOCIAL_NETWORKS, {
-      tokenAccess: payload.tokenAccess,
+      accessToken: payload.tokenAccess,
+      provider: payload.provider,
     });
     if (token) {
       yield put(
@@ -82,7 +83,7 @@ export function* workerLoginWithSocialRequest(
     } else {
       yield put(
         loginWithSocialNetworksErrored({
-          tokenAccess: 'Deu ruim na criação de usuário com loginSocial',
+          accessToken: 'Deu ruim na criação de usuário com loginSocial',
         }),
       );
     }

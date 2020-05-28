@@ -16,10 +16,12 @@ export interface ICreateUser {
 
 export interface ICreateUserSuccess {
   tokenAccess: string;
+  user?: object;
 }
 
 export interface ILoginWithSocialNetworks {
   tokenAccess: string | null;
+  provider: string;
 }
 
 export interface ILoginWithSocialNetworksSuccess {

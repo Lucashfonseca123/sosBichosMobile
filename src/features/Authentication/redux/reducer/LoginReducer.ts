@@ -1,10 +1,8 @@
 import {LoginActions} from '../types/LoginActionsTypes';
 import {ILoginState} from '../types/LoginStateTypes';
 import {ILoginBaseAction} from '../action/LoginActions';
-import {Login} from 'features/Authentication/screens';
 
 const initialState: ILoginState = {
-  email: '',
   tokenAccess: '',
   match: undefined,
   user: {},

@@ -6,7 +6,8 @@ interface IAuthentication {
 }
 
 interface IAuthenticationWithSocialNetwork {
-  tokenAccess?: string;
+  accessToken?: string;
+  provider?: string;
 }
 
 interface ICreateUser {

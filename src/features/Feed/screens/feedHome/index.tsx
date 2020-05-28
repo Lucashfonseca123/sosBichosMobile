@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 
 import {Container} from './styles';
 import {Markdown} from 'components';
@@ -22,6 +22,10 @@ const FeedHome = () => {
         type="bold"
         fontSize={36}
         text={`Bem vindo ${user.name}`}
+      />
+      <Image
+        source={{uri: user.avatar}}
+        style={{width: 60, height: 60, borderRadius: 30}}
       />
       <View style={{padding: 8}} />
       <Markdown text="Ta aqui o token bicho:" />

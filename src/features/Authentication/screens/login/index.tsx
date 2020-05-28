@@ -87,11 +87,10 @@ const Login = () => {
       webClientId:
         '578889650978-hsdsorj4pv1f75d746m36itlvuut1i8a.apps.googleusercontent.com',
       offlineAccess: true,
+      forceCodeForRefreshToken: true,
     });
     return () => {};
   }, []);
-
-  console.log({facebookUser});
 
   const signInGmail = async () => {
     try {
@@ -102,6 +101,7 @@ const Login = () => {
       dispatch(
         loginWithSocialNetworks({
           tokenAccess: idToken,
+          provider: 'google',
         }),
       );
     } catch (error) {
@@ -119,6 +119,7 @@ const Login = () => {
 
   const loginFacebook = async () => {
     try {
+      setLoading(true);
       const result = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
@@ -128,33 +129,37 @@ const Login = () => {
         if (!data) {
           throw new Error('Something went wrong obtaining access token');
         }
-        // setFacebookToken(data);
-        getInfoFromToken(data);
+        dispatch(
+          loginWithSocialNetworks({
+            tokenAccess: data.accessToken,
+            provider: 'facebook',
+          }),
+        );
       }
     } catch (error) {
       console.log('Login fail with error: ' + error);
     }
   };
 
-  const getInfoFromToken = (token) => {
-    const PROFILE_REQUEST_PARAMS = {
-      fields: {
-        string: 'id,name,first_name,last_name,email,picture',
-      },
-    };
-    const profileRequest = new GraphRequest(
-      '/me',
-      {token, parameters: PROFILE_REQUEST_PARAMS},
-      (error, user) => {
-        if (error) {
-          console.log('login info has error: ' + error);
-        } else {
-          setFacebookUser({userInfo: user});
-        }
-      },
-    );
-    new GraphRequestManager().addRequest(profileRequest).start();
-  };
+  // const getInfoFromToken = (token) => {
+  //   const PROFILE_REQUEST_PARAMS = {
+  //     fields: {
+  //       string: 'id,name,first_name,last_name,email,picture',
+  //     },
+  //   };
+  //   const profileRequest = new GraphRequest(
+  //     '/me',
+  //     {token, parameters: PROFILE_REQUEST_PARAMS},
+  //     (error, user) => {
+  //       if (error) {
+  //         console.log('login info has error: ' + error);
+  //       } else {
+  //         setFacebookUser({userInfo: user});
+  //       }
+  //     },
+  //   );
+  //   new GraphRequestManager().addRequest(profileRequest).start();
+  // };
 
   const mailValidation = (text: string) => {
     if (EmailValidator.validate(text)) {

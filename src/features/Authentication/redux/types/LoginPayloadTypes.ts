@@ -17,3 +17,12 @@ export interface ICreateUser {
 export interface ICreateUserSuccess {
   tokenAccess: string;
 }
+
+export interface ILoginWithSocialNetworks {
+  tokenAccess: string | null;
+}
+
+export interface ILoginWithSocialNetworksSuccess {
+  tokenAccess: string;
+  user: object;
+}

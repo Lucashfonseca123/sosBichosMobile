@@ -19,8 +19,8 @@ const RootNavigator = () => {
         },
       }}>
       <Stack.Screen
-        name="BottomTabNavigator"
-        component={BottomTabNavigator}
+        name="AuthenticationNavigator"
+        component={AuthenticationNavigator}
         options={{title: 'Primeira tela deu boa', headerShown: false}}
       />
       <Stack.Screen

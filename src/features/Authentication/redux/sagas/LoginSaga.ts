@@ -7,13 +7,24 @@ import {
   ICreateUsers,
   createUserSuccess,
   createUserErrored,
+  ILoginAuthenticateWithSocial,
+  loginWithSocialNetworksSuccess,
+  loginWithSocialNetworksErrored,
 } from '../action/LoginActions';
 
-import {AUTHENTICATION, CREATE_USER} from 'api/Authentication';
+import {
+  AUTHENTICATION,
+  CREATE_USER,
+  AUTHENTICATION_WITH_SOCIAL_NETWORKS,
+} from 'api/Authentication';
 
 export function* watchLoginRequest() {
   yield takeLeading(LoginActions.AUTHENTICATION_LOGIN, workerLoginRequest);
   yield takeLeading(LoginActions.CREATE_USER, workerCreateUser);
+  yield takeLeading(
+    LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS,
+    workerLoginWithSocialRequest,
+  );
 }
 
 function* workerLoginRequest(action: ILoginAuthenticate) {
@@ -49,6 +60,30 @@ export function* workerCreateUser(action: ICreateUsers) {
     } else {
       yield put(
         createUserErrored({tokenAccess: 'Deu ruim na criação de usuário'}),
+      );
+    }
+  } catch (err) {
+    console.log('erro', err);
+  }
+}
+
+export function* workerLoginWithSocialRequest(
+  action: ILoginAuthenticateWithSocial,
+) {
+  try {
+    const {payload} = action;
+    const {token, user} = yield call(AUTHENTICATION_WITH_SOCIAL_NETWORKS, {
+      tokenAccess: payload.tokenAccess,
+    });
+    if (token) {
+      yield put(
+        loginWithSocialNetworksSuccess({tokenAccess: token, user: user}),
+      );
+    } else {
+      yield put(
+        loginWithSocialNetworksErrored({
+          tokenAccess: 'Deu ruim na criação de usuário com loginSocial',
+        }),
       );
     }
   } catch (err) {

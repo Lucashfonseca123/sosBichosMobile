@@ -5,6 +5,10 @@ interface IAuthentication {
   password: string;
 }
 
+interface IAuthenticationWithSocialNetwork {
+  tokenAccess?: string;
+}
+
 interface ICreateUser {
   name: string;
   email: string;
@@ -14,6 +18,35 @@ interface ICreateUser {
 const AUTHENTICATION = (props: IAuthentication) => {
   // const {username, password} = props;
   const url = API_GATEWAY_ENDPOINT + 'session';
+  const method = 'POST';
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  let queryParams = {
+    headers,
+    method: method,
+    body: JSON.stringify(props),
+  };
+
+  let result = fetch(url, queryParams)
+    .then((response) => {
+      return response.json().then((responseJson) => {
+        return responseJson;
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
+    });
+
+  return result;
+};
+
+const AUTHENTICATION_WITH_SOCIAL_NETWORKS = (
+  props: IAuthenticationWithSocialNetwork,
+) => {
+  const url = API_GATEWAY_ENDPOINT + 'session/social';
   const method = 'POST';
   const headers = {
     'Content-Type': 'application/json',
@@ -67,4 +100,4 @@ const CREATE_USER = (props: ICreateUser) => {
   return result;
 };
 
-export {AUTHENTICATION, CREATE_USER};
+export {AUTHENTICATION, AUTHENTICATION_WITH_SOCIAL_NETWORKS, CREATE_USER};

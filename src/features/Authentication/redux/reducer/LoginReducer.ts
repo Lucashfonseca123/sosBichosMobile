@@ -1,6 +1,7 @@
 import {LoginActions} from '../types/LoginActionsTypes';
 import {ILoginState} from '../types/LoginStateTypes';
 import {ILoginBaseAction} from '../action/LoginActions';
+import {Login} from 'features/Authentication/screens';
 
 const initialState: ILoginState = {
   email: '',
@@ -28,6 +29,14 @@ export default function (
     }
 
     case LoginActions.CREATE_USER_ERRORED: {
+      return Object.assign({}, state, payload, {match: false});
+    }
+
+    case LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS_SUCCESS: {
+      return Object.assign({}, state, payload, {match: true});
+    }
+
+    case LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS_ERRORED: {
       return Object.assign({}, state, payload, {match: false});
     }
 

@@ -17,15 +17,25 @@ import {
   DivBottomButton,
   DivMiddle,
 } from './styles';
+import SplashScreen from 'react-native-splash-screen';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
+
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import {
+  LoginManager,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk';
 
 import * as EmailValidator from 'email-validator';
 
 import {
   login,
   initialTokenMatch,
+  loginWithSocialNetworks,
 } from 'features/Authentication/redux/action/LoginActions';
 
 const Login = () => {
@@ -36,6 +46,7 @@ const Login = () => {
   const [modalError, setModalError] = useState<boolean>(false);
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [facebookUser, setFacebookUser] = useState({});
 
   const dispatch = useDispatch();
 
@@ -68,6 +79,81 @@ const Login = () => {
         password: password,
       }),
     );
+  };
+
+  useEffect(() => {
+    SplashScreen.hide();
+    GoogleSignin.configure({
+      webClientId:
+        '578889650978-hsdsorj4pv1f75d746m36itlvuut1i8a.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
+    return () => {};
+  }, []);
+
+  console.log({facebookUser});
+
+  const signInGmail = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {idToken} = await GoogleSignin.signIn();
+      setLoading(true);
+      console.log(idToken);
+      dispatch(
+        loginWithSocialNetworks({
+          tokenAccess: idToken,
+        }),
+      );
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
+
+  const loginFacebook = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (!result.isCancelled) {
+        const data = await AccessToken.getCurrentAccessToken();
+        if (!data) {
+          throw new Error('Something went wrong obtaining access token');
+        }
+        // setFacebookToken(data);
+        getInfoFromToken(data);
+      }
+    } catch (error) {
+      console.log('Login fail with error: ' + error);
+    }
+  };
+
+  const getInfoFromToken = (token) => {
+    const PROFILE_REQUEST_PARAMS = {
+      fields: {
+        string: 'id,name,first_name,last_name,email,picture',
+      },
+    };
+    const profileRequest = new GraphRequest(
+      '/me',
+      {token, parameters: PROFILE_REQUEST_PARAMS},
+      (error, user) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+          setFacebookUser({userInfo: user});
+        }
+      },
+    );
+    new GraphRequestManager().addRequest(profileRequest).start();
   };
 
   const mailValidation = (text: string) => {
@@ -147,7 +233,7 @@ const Login = () => {
             fontSize={14}
             width={120}
             height={38}
-            onPress={() => {}}
+            onPress={() => loginFacebook()}
             backgroundColor="#3B5998"
             fontType="bold"
           />
@@ -156,9 +242,7 @@ const Login = () => {
             fontSize={14}
             width={120}
             height={38}
-            onPress={() => {
-              console.log('Aqui');
-            }}
+            onPress={() => signInGmail()}
             backgroundColor="#FFFFFF"
             fontColor="#CE2020"
           />

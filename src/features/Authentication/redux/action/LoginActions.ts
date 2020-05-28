@@ -4,6 +4,8 @@ import {
   IAuthenticationSuccess,
   ICreateUser,
   ICreateUserSuccess,
+  ILoginWithSocialNetworks,
+  ILoginWithSocialNetworksSuccess,
 } from '../types/LoginPayloadTypes';
 
 export interface ILoginBaseAction {
@@ -12,7 +14,9 @@ export interface ILoginBaseAction {
     | IAuthentication
     | IAuthenticationSuccess
     | ICreateUser
-    | ICreateUserSuccess;
+    | ICreateUserSuccess
+    | ILoginWithSocialNetworks
+    | ILoginWithSocialNetworksSuccess;
 }
 
 export interface ILoginAuthenticate extends ILoginBaseAction {
@@ -23,6 +27,15 @@ export interface ILoginAuthenticate extends ILoginBaseAction {
 export interface ILoginAuthenticateSuccess extends ILoginBaseAction {
   type: ILoginTypes;
   payload: IAuthenticationSuccess;
+}
+
+export interface ILoginAuthenticateWithSocial extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: ILoginWithSocialNetworks;
+}
+export interface ILoginAuthenticateWIthSocialSuccess extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: ILoginWithSocialNetworksSuccess;
 }
 
 export interface ICreateUsers extends ILoginBaseAction {
@@ -59,6 +72,33 @@ export function loginErrored(
 ): ILoginAuthenticateSuccess {
   return {
     type: LoginActions.AUTHENTICATION_LOGIN_ERRORED,
+    payload,
+  };
+}
+
+export function loginWithSocialNetworks(
+  payload: ILoginWithSocialNetworks,
+): ILoginAuthenticateWithSocial {
+  return {
+    type: LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS,
+    payload,
+  };
+}
+
+export function loginWithSocialNetworksSuccess(
+  payload: ILoginWithSocialNetworksSuccess,
+): ILoginAuthenticateWIthSocialSuccess {
+  return {
+    type: LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS_SUCCESS,
+    payload,
+  };
+}
+
+export function loginWithSocialNetworksErrored(
+  payload: ILoginWithSocialNetworks,
+): ILoginAuthenticateWithSocial {
+  return {
+    type: LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS_ERRORED,
     payload,
   };
 }

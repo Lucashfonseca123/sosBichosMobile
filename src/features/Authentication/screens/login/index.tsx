@@ -95,12 +95,13 @@ const Login = () => {
   const signInGmail = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const {idToken} = await GoogleSignin.signIn();
+      const resp = await GoogleSignin.signIn();
+      const {accessToken} = await GoogleSignin.getTokens();
       setLoading(true);
-      console.log(idToken);
+      console.log(accessToken);
       dispatch(
         loginWithSocialNetworks({
-          tokenAccess: idToken,
+          tokenAccess: accessToken,
           provider: 'google',
         }),
       );

@@ -170,6 +170,7 @@ const SignIn = () => {
             <TextField
               ref={refEmail}
               autoCapitalize="none"
+              keyboardType="email-address"
               onChangeText={mailValidation}
               returnKeyType="next"
               placeholder="Digite seu e-mail..."

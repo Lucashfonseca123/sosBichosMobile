@@ -142,31 +142,12 @@ const Login = () => {
     }
   };
 
-  // const getInfoFromToken = (token) => {
-  //   const PROFILE_REQUEST_PARAMS = {
-  //     fields: {
-  //       string: 'id,name,first_name,last_name,email,picture',
-  //     },
-  //   };
-  //   const profileRequest = new GraphRequest(
-  //     '/me',
-  //     {token, parameters: PROFILE_REQUEST_PARAMS},
-  //     (error, user) => {
-  //       if (error) {
-  //         console.log('login info has error: ' + error);
-  //       } else {
-  //         setFacebookUser({userInfo: user});
-  //       }
-  //     },
-  //   );
-  //   new GraphRequestManager().addRequest(profileRequest).start();
-  // };
-
   const mailValidation = (text: string) => {
     if (EmailValidator.validate(text)) {
       setMail(text);
       setIsValidEmail(true);
     } else {
+      setMail('');
       setIsValidEmail(false);
     }
   };
@@ -200,6 +181,7 @@ const Login = () => {
           onChangeText={mailValidation}
           returnKeyType="next"
           keyboardType="email-address"
+          value={mail}
           onSubmitEditing={() => passwordRef.current.focus()}
         />
         <TextField
@@ -210,6 +192,7 @@ const Login = () => {
           onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
           returnKeyType="send"
+          value={password}
           onSubmitEditing={() =>
             !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
           }

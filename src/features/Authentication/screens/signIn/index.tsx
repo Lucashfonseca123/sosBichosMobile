@@ -141,6 +141,7 @@ const SignIn = () => {
       setMail(text);
       setIsValidEmail(true);
     } else {
+      setMail('');
       setIsValidEmail(false);
     }
   };
@@ -159,11 +160,11 @@ const SignIn = () => {
             </DivImage>
             <TextField
               ref={refName}
-              autoCompleteType="email"
               autoCapitalize="none"
               onChangeText={(text) => setName(text)}
               returnKeyType="next"
               placeholder="Digite seu nome..."
+              value={name}
               onSubmitEditing={() => refEmail.current.focus()}
             />
             <Padding />
@@ -174,6 +175,7 @@ const SignIn = () => {
               onChangeText={mailValidation}
               returnKeyType="next"
               placeholder="Digite seu e-mail..."
+              value={mail}
               onSubmitEditing={() => refPassword.current.focus()}
             />
             <Padding />
@@ -183,6 +185,7 @@ const SignIn = () => {
               onChangeText={(text) => setPassword(text)}
               returnKeyType="next"
               placeholder="Digite sua senha..."
+              value={password}
               onSubmitEditing={() => refConfirmPassword.current.focus()}
               secureTextEntry={true}
             />
@@ -193,7 +196,10 @@ const SignIn = () => {
               onChangeText={(text) => setConfirmPassword(text)}
               returnKeyType="done"
               placeholder="Confirme sua senha..."
-              onSubmitEditing={() => sendRegister()}
+              value={confirmPassword}
+              onSubmitEditing={() =>
+                isDisabled ? dataErrored() : sendRegister()
+              }
               secureTextEntry={true}
             />
             <ContainerButton>

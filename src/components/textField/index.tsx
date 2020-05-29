@@ -4,6 +4,7 @@ import React, {
   useRef,
   useCallback,
   useState,
+  useEffect,
 } from 'react';
 import {TextInputProps} from 'react-native';
 
@@ -11,13 +12,24 @@ import {TextInput} from './styles';
 
 interface ITextField extends TextInputProps {
   borderFocus?: boolean;
+  value?: string;
 }
 
-const TextField = ({borderFocus, ...rest}: ITextField, ref: any) => {
+const TextField = ({borderFocus, value, ...rest}: ITextField, ref: any) => {
   const inputElementRef = useRef();
 
   const [isFocused, setIsFocused] = useState<boolean>();
   const [isFilled, setIsFilled] = useState<boolean>();
+
+  console.log(value);
+
+  useEffect(() => {
+    if (value && value !== '') {
+      setIsFilled(true);
+    } else {
+      setIsFilled(false);
+    }
+  }, [value]);
 
   useImperativeHandle(ref, () => ({
     focus() {

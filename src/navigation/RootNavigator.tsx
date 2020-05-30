@@ -28,6 +28,11 @@ const RootNavigator = () => {
         component={FeedNavigator}
         options={{title: 'Primeira tela deu boa', headerShown: false}}
       />
+      <Stack.Screen
+        name="BottomTabNavigator"
+        component={BottomTabNavigator}
+        options={{title: 'Primeira tela deu boa', headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

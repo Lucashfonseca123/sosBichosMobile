@@ -43,7 +43,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Doações',
           tabBarIcon: ({color, size}) => (
-            <Paw name="paw" color={color} width={size} height={size} />
+            <Paw name="paw" color="#e91e63" width={size} height={size} />
           ),
         }}
       />
@@ -53,7 +53,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Feed',
           tabBarIcon: ({color, size}) => (
-            <Love name="feed" color={color} width={size} height={size} />
+            <Love name="feed" color="#e9e9e9" width={size} height={size} />
           ),
         }}
       />
@@ -65,7 +65,8 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({color, size}) => (
             <Notification
               name="bell"
-              color={color}
+              fill="red"
+              backgroundColor={{color: 'green'}}
               width={size}
               height={size}
             />
@@ -78,7 +79,17 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Updates',
           tabBarIcon: ({color, size}) => (
-            <Prof name="bell" color={color} width={size} height={size} />
+            <>
+              {/* <View style={{backgroundColor: color, width: 40, height: 30}} /> */}
+              <Prof
+                name="bell"
+                fill="red"
+                style={{color: 'green'}}
+                color={color}
+                width={size}
+                height={size}
+              />
+            </>
           ),
         }}
       />

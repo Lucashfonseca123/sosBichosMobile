@@ -62,7 +62,7 @@ const Login = () => {
   useEffect(() => {
     if (tokenMatch === true) {
       setLoading(false);
-      navigation.navigate('FeedNavigator', {screen: 'FeedHome'});
+      navigation.navigate('BottomTabNavigator');
       dispatch(initialTokenMatch());
     } else if (tokenMatch === false) {
       setLoading(false);
@@ -87,7 +87,7 @@ const Login = () => {
       webClientId:
         '578889650978-hsdsorj4pv1f75d746m36itlvuut1i8a.apps.googleusercontent.com',
       offlineAccess: true,
-      forceCodeForRefreshToken: true,
+      // forceCodeForRefreshToken: true,
     });
     return () => {};
   }, []);

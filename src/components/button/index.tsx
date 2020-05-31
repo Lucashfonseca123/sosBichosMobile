@@ -14,11 +14,13 @@ const Button: React.FC<ButtonProps> = ({
   fontSize,
   text,
   disabled,
+  children,
   ...rest
 }) => (
   <Container disabled={disabled} {...rest}>
     <ButtonText fontColor={fontColor} fontSize={fontSize}>
       {text}
+      {children}
     </ButtonText>
   </Container>
 );

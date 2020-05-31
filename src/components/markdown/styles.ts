@@ -5,6 +5,7 @@ interface IMarkdown {
   color?: string;
   size?: number;
   fontFamily?: string;
+  elevation?: number;
 }
 
 const Text = styled.Text`
@@ -18,6 +19,7 @@ const Text = styled.Text`
       : 'RobotoSlab-Regular'};
     color: ${props.color ? props.color : '#B8B8B8'};
     font-size: ${props.size ? props.size : '16'}px;
+    elevation: ${props.elevation ? props.elevation : 0};
   `}
 `;
 

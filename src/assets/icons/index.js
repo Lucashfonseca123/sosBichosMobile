@@ -1,6 +1,9 @@
+export {default as Close} from './close';
 export {default as Logo} from './logo';
 export {default as Love} from './love';
 export {default as Notification} from './notification';
 export {default as Paw} from './paw';
 export {default as Profile} from './profile';
+export {default as SexMale} from './sexMale';
+export {default as Question} from './question';
 export {default as User} from './user';

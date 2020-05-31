@@ -8,11 +8,24 @@ interface IMarkdown extends TextProps {
   type?: 'bold' | 'regular' | 'light' | 'semiBold';
   fontColor?: string;
   fontSize?: number;
+  elevation?: number;
 }
 
-const Markdown = ({text, type, fontColor, fontSize, ...rest}: IMarkdown) => {
+const Markdown = ({
+  text,
+  type,
+  fontColor,
+  fontSize,
+  elevation,
+  ...rest
+}: IMarkdown) => {
   return (
-    <Text {...rest} type={type} color={fontColor} size={fontSize}>
+    <Text
+      {...rest}
+      elevation={elevation}
+      type={type}
+      color={fontColor}
+      size={fontSize}>
       {text}
     </Text>
   );

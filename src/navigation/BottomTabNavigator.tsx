@@ -2,14 +2,15 @@ import * as React from 'react';
 import {Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Love, Notification, Paw, Profile as Prof} from 'assets/icons';
-import {FeedHome} from 'features/Feed/screens';
+
+import FeedNavigator from './FeedNavigator';
 
 const Tab = createBottomTabNavigator();
 
-function Feed() {
+function Favorites() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Feed!</Text>
+      <Text>Favoritos!</Text>
     </View>
   );
 }
@@ -17,7 +18,7 @@ function Feed() {
 function Profile() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Profile!</Text>
+      <Text>Perfil!</Text>
     </View>
   );
 }
@@ -25,7 +26,7 @@ function Profile() {
 function Notifications() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Notifications!</Text>
+      <Text>Notificações!</Text>
     </View>
   );
 }
@@ -33,27 +34,39 @@ function Notifications() {
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Doações"
       tabBarOptions={{
         activeTintColor: '#e91e63',
       }}>
       <Tab.Screen
-        name="Doações"
-        component={Profile}
+        name="Feed"
+        component={FeedNavigator}
         options={{
-          tabBarLabel: 'Doações',
+          tabBarLabel: 'Feed',
           tabBarIcon: ({color, size}) => (
-            <Paw name="paw" color="#e91e63" width={size} height={size} />
+            <Paw
+              name="paw"
+              fill={color}
+              color="#e91e63"
+              width={size}
+              height={size}
+            />
           ),
         }}
       />
       <Tab.Screen
-        name="Feed"
-        component={FeedHome}
+        name="Favorites"
+        component={Favorites}
         options={{
-          tabBarLabel: 'Feed',
+          tabBarLabel: 'Favoritos',
           tabBarIcon: ({color, size}) => (
-            <Love name="feed" color="#e9e9e9" width={size} height={size} />
+            <Love
+              name="feed"
+              fill={color}
+              color="#e9e9e9"
+              width={size}
+              height={size}
+            />
           ),
         }}
       />
@@ -61,11 +74,11 @@ const BottomTabNavigator = () => {
         name="Notifications"
         component={Notifications}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Notificações',
           tabBarIcon: ({color, size}) => (
             <Notification
               name="bell"
-              fill="red"
+              fill={color}
               backgroundColor={{color: 'green'}}
               width={size}
               height={size}
@@ -75,15 +88,14 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Notifications}
+        component={Profile}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({color, size}) => (
             <>
-              {/* <View style={{backgroundColor: color, width: 40, height: 30}} /> */}
               <Prof
                 name="bell"
-                fill="red"
+                fill={color}
                 style={{color: 'green'}}
                 color={color}
                 width={size}

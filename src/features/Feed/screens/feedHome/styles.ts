@@ -8,8 +8,9 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
-  border-radius: 20px;
-  padding-top: -10px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  padding-top: 20px;
   padding-left: 20px;
   padding-bottom: 20px;
   background-color: #fff;

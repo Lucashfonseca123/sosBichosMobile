@@ -1,71 +1,115 @@
-import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {TouchableOpacity, FlatList, View} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
-import {Text, View, ScrollView} from 'react-native';
 import {Container, Content} from './styles';
 import {PetCard, Markdown, Button} from 'components';
 
-import {Paw} from 'assets/icons';
+import {getInfoFeed, setReset} from '../../redux/action/FeedActions';
+
+import {Paw, Close} from 'assets/icons';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppState} from 'store/RootReducer';
 
 const FeedHome = () => {
   const [activeSections, setActiveSections] = useState<boolean>();
-  const [activeSections2, setActiveSections2] = useState<boolean>();
+  const [id, setId] = useState('');
+
+  const dispatch = useDispatch();
+
+  const pets = useSelector((appState: AppState) => appState.Feed.state.pet);
+
+  const currentPage = useSelector(
+    (appState: AppState) => appState.Feed.state.current_page,
+  );
+
+  const reset = useSelector((appState: AppState) => appState.Feed.state.reset);
+
+  useEffect(() => {
+    dispatch(
+      getInfoFeed({
+        current_page: 1,
+      }),
+    );
+  }, []);
+
+  const nextPage = () => {
+    dispatch(
+      getInfoFeed({
+        current_page: currentPage + 1,
+      }),
+    );
+  };
+
+  const getDescription = () => {
+    const indexPet = pets.findIndex((item) => item.id === id);
+
+    if (indexPet < 0) {
+      return '';
+    } else {
+      return pets[indexPet].description;
+    }
+  };
 
   return (
-    <Container>
-      <ScrollView>
-        <TouchableOpacity onPress={() => setActiveSections(!activeSections)}>
-          <PetCard />
-        </TouchableOpacity>
-        <Collapsible collapsed={activeSections} align="center">
-          <Content>
+    <>
+      <FlatList
+        data={pets}
+        renderItem={({item}) => (
+          <>
+            <Container>
+              <TouchableOpacity
+                onPress={() => {
+                  setId(item.id);
+                  setActiveSections(!activeSections);
+                }}>
+                <PetCard
+                  title={item.name}
+                  sex={item.sex}
+                  photo_url={item.avatar}
+                />
+              </TouchableOpacity>
+            </Container>
+          </>
+        )}
+        keyExtractor={(item) => item.id}
+        // ListFooterComponent={nextPage}
+        onRefresh={nextPage}
+        refreshing={false}
+      />
+
+      <Collapsible collapsed={activeSections} align="center">
+        <Content>
+          <View
+            style={{
+              width: '100%',
+              alignItems: 'flex-end',
+              marginRight: 40,
+            }}>
+            <TouchableOpacity
+              style={{padding: 10, borderRadius: 20}}
+              onPress={() => {}}>
+              <Close width={24} height={24} />
+            </TouchableOpacity>
+          </View>
+          <Markdown style={{paddingBottom: 8}} text={getDescription()} />
+          <Button
+            onPress={() => alert('Doação é bom também.')}
+            fontSize={15}
+            style={{
+              width: 218,
+              height: 32,
+            }}>
             <Markdown
-              style={{paddingTop: 8}}
-              text="Precisa de cuidados para sua patinha quebrada. É velhinho mas gosta de dar atenção e brincar com os menores. #AssistaUmAnuncioPorMim"
+              text="Faça uma doação  "
+              type="semiBold"
+              fontColor="white"
             />
-            <Button
-              onPress={() => alert('Vai para os favoritos')}
-              fontSize={15}
-              style={{
-                width: 218,
-                height: 32,
-              }}>
-              <Markdown
-                text="Faça uma doação  "
-                type="semiBold"
-                fontColor="white"
-              />
-              <Paw width={20} height={20} fill="white" />
-            </Button>
-          </Content>
-        </Collapsible>
-        <TouchableOpacity
-          style={{marginTop: 8, marginBottom: 8}}
-          onPress={() => setActiveSections2(!activeSections2)}>
-          <PetCard />
-        </TouchableOpacity>
-        <Collapsible collapsed={activeSections2} align="center">
-          <Content>
-            <Markdown text="Precisa de cuidados para sua patinha quebrada. É velhinho mas gosta de dar atenção e brincar com os menores. #AssistaUmAnuncioPorMim" />
-            <Button
-              onPress={() => alert('Vai para os favoritos')}
-              fontSize={15}
-              style={{
-                width: 218,
-                height: 32,
-              }}>
-              <Markdown
-                text="Faça uma doação  "
-                type="semiBold"
-                fontColor="white"
-              />
-              <Paw width={20} height={20} fill="white" />
-            </Button>
-          </Content>
-        </Collapsible>
-      </ScrollView>
-    </Container>
+            <Paw width={20} height={20} fill="white" />
+          </Button>
+        </Content>
+      </Collapsible>
+    </>
   );
 };
 

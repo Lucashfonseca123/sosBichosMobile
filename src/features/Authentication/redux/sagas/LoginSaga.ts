@@ -1,5 +1,6 @@
 import {call, put, takeLeading} from 'redux-saga/effects';
 import {LoginActions} from '../types/LoginActionsTypes';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   ILoginAuthenticate,
   loginSuccess,
@@ -35,6 +36,7 @@ function* workerLoginRequest(action: ILoginAuthenticate) {
       password: payload.password,
     });
     if (token) {
+      yield call(AsyncStorage.setItem, 'tokenAccess', token);
       yield put(loginSuccess({tokenAccess: token, user: user}));
     } else {
       console.log('Deu ruim');
@@ -56,6 +58,7 @@ export function* workerCreateUser(action: ICreateUsers) {
       password: payload.password,
     });
     if (token) {
+      yield call(AsyncStorage.setItem, 'tokenAccess', token);
       yield put(createUserSuccess({tokenAccess: token, user: user}));
     } else {
       yield put(
@@ -77,6 +80,7 @@ export function* workerLoginWithSocialRequest(
       provider: payload.provider,
     });
     if (token) {
+      yield call(AsyncStorage.setItem, 'tokenAccess', token);
       yield put(
         loginWithSocialNetworksSuccess({tokenAccess: token, user: user}),
       );

@@ -13,6 +13,7 @@ interface IFeedPet {
   sex: string;
   description: string;
   avatar: string;
+  recued_at: string;
 }
 
 export interface IGetFeedErrored {
@@ -24,5 +25,11 @@ export interface ISetCurrentPage {
 }
 
 export interface ISetCurrentErrored {
+  message: string;
+}
+export interface ISetFavorite {
+  id: string;
+}
+export interface ISetFavoriteSuccessOrErrored {
   message: string;
 }

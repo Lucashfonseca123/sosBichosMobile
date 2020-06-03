@@ -6,13 +6,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AuthenticationNavigator from './AuthenticationNavigator';
 import BottomTabNavigator from './BottomTabNavigator';
 import FeedNavigator from './FeedNavigator';
+import {AppState} from 'store/RootReducer';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
+  const isAuthenticate = useSelector(
+    (appState: AppState) => appState.Authentication.state.tokenAccess,
+  );
+
   return (
     <Stack.Navigator
-      initialRouteName="AuthenticationNavigator"
+      initialRouteName={
+        isAuthenticate === '' ? 'AuthenticationNavigator' : 'BottomTabNavigator'
+      }
       screenOptions={{
         cardStyle: {
           backgroundColor: '#FFF',

@@ -1,4 +1,6 @@
+export {default as Announcement} from './announcement';
 export {default as Close} from './close';
+export {default as Favorite} from './favorite';
 export {default as Logo} from './logo';
 export {default as Love} from './love';
 export {default as Notification} from './notification';
@@ -7,4 +9,5 @@ export {default as Profile} from './profile';
 export {default as SexFemale} from './sexFemale';
 export {default as SexMale} from './sexMale';
 export {default as Question} from './question';
+export {default as Share} from './share';
 export {default as User} from './user';

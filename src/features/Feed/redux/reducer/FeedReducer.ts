@@ -10,10 +10,13 @@ const initialState: IFeedState = {
       description: '',
       avatar: '',
       sex: '',
+      rescued_at: '',
     },
   ],
   current_page: 1,
   reset: false,
+  isLoading: false,
+  message: '',
 };
 
 export default function (
@@ -27,7 +30,7 @@ export default function (
     }
 
     case FeedActions.GET_INFO_SUCCESS: {
-      return Object.assign({}, state, payload);
+      return Object.assign({}, state, payload, {isLoading: true});
     }
 
     case FeedActions.GET_INFO_ERRORED: {
@@ -36,6 +39,18 @@ export default function (
 
     case FeedActions.SET_RESET: {
       return Object.assign({}, state, {reset: false});
+    }
+
+    case FeedActions.SET_FAVORITE_SUCCESS: {
+      return Object.assign({}, state, payload);
+    }
+
+    case FeedActions.SET_FAVORITE_ERRORED: {
+      return Object.assign({}, state, payload);
+    }
+
+    case FeedActions.SET_FAVORITE_MESSAGE_TO_INITIAL: {
+      return Object.assign({}, state, {message: ''});
     }
 
     default:

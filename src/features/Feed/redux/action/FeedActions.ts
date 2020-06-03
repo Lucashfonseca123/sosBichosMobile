@@ -5,6 +5,8 @@ import {
   IGetFeedErrored,
   ISetCurrentPage,
   ISetCurrentErrored,
+  ISetFavorite,
+  ISetFavoriteSuccessOrErrored,
 } from '../types/FeedPayloadTypes';
 
 export interface IFeedBaseAction {
@@ -14,7 +16,9 @@ export interface IFeedBaseAction {
     | IGetFeedSuccess
     | IGetFeedErrored
     | ISetCurrentPage
-    | ISetCurrentErrored;
+    | ISetCurrentErrored
+    | ISetFavorite
+    | ISetFavoriteSuccessOrErrored;
 }
 
 export interface IGetInfoFeed extends IFeedBaseAction {
@@ -43,6 +47,17 @@ export interface ISetCurrentFeedPageErrored extends IFeedBaseAction {
 }
 
 export interface ISetReset extends IFeedBaseAction {
+  type: IFeedTypes;
+}
+export interface ISetFavoriteFeed extends IFeedBaseAction {
+  type: IFeedTypes;
+  payload: ISetFavorite;
+}
+export interface ISetFavoriteSuccessOrErroredFeed extends IFeedBaseAction {
+  type: IFeedTypes;
+  payload: ISetFavoriteSuccessOrErrored;
+}
+export interface ISetFavoriteMessageInitial extends IFeedBaseAction {
   type: IFeedTypes;
 }
 
@@ -99,5 +114,32 @@ export function setCurrentPageErrored(
 export function setReset(): ISetReset {
   return {
     type: FeedActions.SET_RESET,
+  };
+}
+export function setFavorite(payload: ISetFavorite): ISetFavoriteFeed {
+  return {
+    type: FeedActions.SET_FAVORITE,
+    payload,
+  };
+}
+export function setFavoriteSuccess(
+  payload: ISetFavoriteSuccessOrErrored,
+): ISetFavoriteSuccessOrErroredFeed {
+  return {
+    type: FeedActions.SET_FAVORITE_SUCCESS,
+    payload,
+  };
+}
+export function setFavoriteErrored(
+  payload: ISetFavoriteSuccessOrErrored,
+): ISetFavoriteSuccessOrErroredFeed {
+  return {
+    type: FeedActions.SET_FAVORITE_ERRORED,
+    payload,
+  };
+}
+export function setFavoriteMessageToInitial(): ISetFavoriteMessageInitial {
+  return {
+    type: FeedActions.SET_FAVORITE_MESSAGE_TO_INITIAL,
   };
 }

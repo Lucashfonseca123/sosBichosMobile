@@ -20,3 +20,23 @@ export const Content = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const FooterComponent = styled.View`
+  padding: 8px;
+  margin-top: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+`;
+
+export const ViewRescuedAndDescription = styled.View`
+  width: 100%;
+  margin-bottom: 16px;
+`;
+
+export const ContainerContent = styled.View`
+  width: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-right: 40px;
+  flex-direction: row;
+`;

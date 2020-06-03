@@ -5,15 +5,9 @@ import {Love, Notification, Paw, Profile as Prof} from 'assets/icons';
 
 import FeedNavigator from './FeedNavigator';
 
-const Tab = createBottomTabNavigator();
+import {FavoritedScreen} from 'features/Favorites/screens';
 
-function Favorites() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Favoritos!</Text>
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 function Profile() {
   return (
@@ -56,7 +50,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Favorites"
-        component={Favorites}
+        component={FavoritedScreen}
         options={{
           tabBarLabel: 'Favoritos',
           tabBarIcon: ({color, size}) => (

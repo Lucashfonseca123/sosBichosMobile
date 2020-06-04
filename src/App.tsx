@@ -9,7 +9,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 
 import RootNavigator from './navigation/RootNavigator';
 import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 
 console.disableYellowBox = true;
 

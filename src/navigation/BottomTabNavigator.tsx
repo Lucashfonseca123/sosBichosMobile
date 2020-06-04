@@ -38,13 +38,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Feed',
           tabBarIcon: ({color, size}) => (
-            <Paw
-              name="paw"
-              fill={color}
-              color="#e91e63"
-              width={size}
-              height={size}
-            />
+            <Paw name="paw" fill={color} width={size} height={size} />
           ),
         }}
       />
@@ -54,13 +48,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Favoritos',
           tabBarIcon: ({color, size}) => (
-            <Love
-              name="feed"
-              fill={color}
-              color="#e9e9e9"
-              width={size}
-              height={size}
-            />
+            <Love name="feed" fill={color} width={size} height={size} />
           ),
         }}
       />
@@ -70,13 +58,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarLabel: 'Notificações',
           tabBarIcon: ({color, size}) => (
-            <Notification
-              name="bell"
-              fill={color}
-              backgroundColor={{color: 'green'}}
-              width={size}
-              height={size}
-            />
+            <Notification name="bell" fill={color} width={size} height={size} />
           ),
         }}
       />
@@ -90,7 +72,6 @@ const BottomTabNavigator = () => {
               <Prof
                 name="bell"
                 fill={color}
-                style={{color: 'green'}}
                 color={color}
                 width={size}
                 height={size}

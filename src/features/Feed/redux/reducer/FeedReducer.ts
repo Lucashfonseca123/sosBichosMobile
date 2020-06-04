@@ -11,6 +11,7 @@ const initialState: IFeedState = {
       avatar: '',
       sex: '',
       rescued_at: '',
+      favorited: false,
     },
   ],
   current_page: 1,

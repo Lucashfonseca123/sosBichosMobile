@@ -1,9 +1,8 @@
 import styled, {css} from 'styled-components/native';
 import {StyleSheet} from 'react-native';
-import {Directions} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
-  padding: 16px;
+  padding: 10px;
   width: 100%;
   border-width: ${StyleSheet.hairlineWidth};
   border-radius: 20;
@@ -26,3 +25,14 @@ export const ContainerTop = styled.View`
   flex-direction: row;
   width: 100%;
 `;
+
+export const ViewHeaderButton = styled.View`
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  padding-right: 4px;
+  padding-top: 4px;
+  z-index: 1;
+`;
+
+export const TouchableButtons = styled.TouchableOpacity``;

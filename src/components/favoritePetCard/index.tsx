@@ -1,54 +1,88 @@
 import React from 'react';
 
-import {Image, View, TouchableOpacity, Alert} from 'react-native';
+import {Image, View} from 'react-native';
 
-import {Container, ContainerButton, ContainerTop} from './styles';
+import {
+  Container,
+  ContainerButton,
+  ContainerTop,
+  TouchableButtons,
+  ViewHeaderButton,
+} from './styles';
 import {Markdown, Button} from 'components';
+
+import {parseDate} from 'utils/date_fns';
 
 import {Close, Announcement, Share} from 'assets/icons';
 
-const FavoritePetCard = () => {
+interface IFavoritePetCard {
+  onPressedDonation?: Function;
+  onPressedAdopt?: Function;
+  onPressedRemove?: Function;
+  onPressedShare?: Function;
+  onPressedAnnouncement?: Function;
+  photoUri: string;
+  name: string;
+  rescued_date: string;
+  description: string;
+}
+
+const FavoritePetCard = (props: IFavoritePetCard) => {
   return (
     <Container>
       <ContainerTop>
         <Image
-          style={{width: 110, height: 140, borderRadius: 20}}
+          style={{width: 100, height: 130, borderRadius: 20}}
           source={{
-            uri:
-              'https://storage.googleapis.com/download/storage/v1/b/sosbichos-test/o/pet18.jpeg?generation=1590819253400495&alt=media',
+            uri: props.photoUri,
           }}
         />
-        <View style={{flexDirection: 'row', position: 'absolute', right: 0}}>
-          <TouchableOpacity
-            onPress={() => alert('Opoa, assista um anúncio pra mim')}>
+        <ViewHeaderButton>
+          <TouchableButtons
+            onPress={
+              props.onPressedAnnouncement
+                ? props.onPressedAnnouncement()
+                : () => alert('To no anúncio.')
+            }>
             <Announcement width={28} height={28} style={{marginRight: 8}} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => alert('Compartilha ai')}>
+          </TouchableButtons>
+          <TouchableButtons
+            onPress={
+              props.onPressedShare
+                ? props.onPressedShare()
+                : () => alert('To no share.')
+            }>
             <Share width={28} height={28} style={{marginRight: 16}} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{width: '100%'}}
-            onPress={() => alert('Certeza que deseja remover o dog?')}>
+          </TouchableButtons>
+          <TouchableButtons
+            onPress={props.onPressedRemove ? props.onPressedRemove : () => {}}>
             <Close width={14} height={14} />
-          </TouchableOpacity>
-        </View>
+          </TouchableButtons>
+        </ViewHeaderButton>
         <View style={{flex: 1}}>
           <Markdown
-            style={{paddingLeft: 16, paddingTop: 16}}
+            style={{
+              paddingLeft: 10,
+              paddingTop: 8,
+            }}
             fontColor="#Ce2020"
             type="semiBold"
-            text="Tonico"
+            text={props.name ? props.name : ''}
           />
           <Markdown
-            style={{paddingLeft: 16, paddingTop: 8}}
+            style={{paddingLeft: 10, paddingTop: 8}}
             fontColor="#000"
             fontSize={12}
-            text="Resgatado em 12/05/2019"
+            text={`Resgatado ${
+              props.rescued_date
+                ? parseDate(props.rescued_date, 'dd/MM/yyyy')
+                : ''
+            }`}
           />
           <Markdown
-            style={{paddingLeft: 16, paddingTop: 8}}
+            style={{paddingLeft: 10, paddingTop: 8}}
             fontSize={12}
-            text="Precisa de cuidados pra sua patinha quebrada. É velhinho mas adora brincar com os mais novos"
+            text={props.description ? props.description : ''}
           />
         </View>
       </ContainerTop>
@@ -56,13 +90,21 @@ const FavoritePetCard = () => {
       <ContainerButton>
         <Button
           text="Me adote"
-          onPress={() => alert('Opa, bora pra casa')}
+          onPress={
+            props.onPressedAdopt
+              ? props.onPressedAdopt
+              : () => alert('Opa, bora pra casa')
+          }
           style={{width: 110, height: 35}}
           fontSize={13}
         />
         <Button
           text="Faça uma doação"
-          onPress={() => alert('Aguardo doação')}
+          onPress={
+            props.onPressedDonation
+              ? props.onPressedDonation
+              : () => alert('Aguardo doação')
+          }
           style={{width: 170, height: 35}}
           fontSize={13}
         />

@@ -14,6 +14,7 @@ interface IFeedPet {
   description: string;
   avatar: string;
   recued_at: string;
+  favorited: boolean;
 }
 
 export interface IGetFeedErrored {

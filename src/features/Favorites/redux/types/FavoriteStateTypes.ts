@@ -1,9 +1,7 @@
-export interface IFeedState {
+export interface IFavoriteState {
   pet: IFeedPet[];
-  current_page: number;
-  reset: boolean;
-  isLoading: boolean;
   message: string;
+  statusRemove: boolean;
 }
 
 interface IFeedPet {
@@ -13,5 +11,4 @@ interface IFeedPet {
   description: string;
   avatar: string;
   rescued_at: string;
-  favorited: boolean;
 }

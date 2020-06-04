@@ -11,6 +11,8 @@ import {
 } from './styles';
 import {PetCard, Markdown, Button, ActivityIndicator, Toast} from 'components';
 
+import {parseDate} from 'utils/date_fns';
+
 import {
   getInfoFeed,
   setReset,
@@ -18,17 +20,21 @@ import {
   setFavoriteMessageToInitial,
 } from '../../redux/action/FeedActions';
 
+import {
+  setRemovePet,
+  setRemovePetToInitialStatus,
+} from '../../../Favorites/redux/actions/FavoriteActions';
+
 import {Paw, Close, Favorite, Share} from 'assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const FeedHome = () => {
   const [activeSections, setActiveSections] = useState<boolean>();
   const [id, setId] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [visibleToast, setVisibleToast] = useState<boolean>(false);
-  const navigation = useNavigation();
 
   const refFlatList = useRef();
 
@@ -44,6 +50,10 @@ const FeedHome = () => {
 
   const messageFavorites = useSelector(
     (appState: AppState) => appState.Feed.state.message,
+  );
+
+  const statusRemoveFavorites = useSelector(
+    (appState: AppState) => appState.Favorites.state.statusRemove,
   );
 
   useFocusEffect(
@@ -69,11 +79,25 @@ const FeedHome = () => {
       setVisibleToast(true);
       setActiveSections(true);
       dispatch(setFavoriteMessageToInitial());
+      dispatch(
+        getInfoFeed({
+          current_page: currentPage,
+        }),
+      );
+    }
+    if (statusRemoveFavorites === true) {
+      setActiveSections(true);
+      dispatch(setRemovePetToInitialStatus());
+      dispatch(
+        getInfoFeed({
+          current_page: currentPage,
+        }),
+      );
     }
     setTimeout(() => {
       setVisibleToast(false);
     }, 3000);
-  }, [messageFavorites]);
+  }, [messageFavorites, statusRemoveFavorites]);
 
   useEffect(() => {
     dispatch(
@@ -95,7 +119,7 @@ const FeedHome = () => {
     );
   };
 
-  const getData = (parameters: string) => {
+  const getData = (parameters: string | boolean) => {
     const indexPet = pets.findIndex((item) => item.id === id);
 
     if (indexPet < 0) {
@@ -107,9 +131,14 @@ const FeedHome = () => {
         case 'description':
           return pets[indexPet].description;
         case 'rescued_at':
-          return `Resgatado em: ${pets[indexPet].rescued_at}`;
+          return `Resgatado ${parseDate(
+            pets[indexPet].rescued_at,
+            'dd/MM/yyyy',
+          )}`;
         case 'id':
           return pets[indexPet].id;
+        case 'favorited':
+          return pets[indexPet].favorited;
       }
     }
   };
@@ -127,6 +156,14 @@ const FeedHome = () => {
   const setFavoritePet = (params?: string) => {
     dispatch(
       setFavorite({
+        id: params,
+      }),
+    );
+  };
+
+  const setRemovePets = (params?: string) => {
+    dispatch(
+      setRemovePet({
         id: params,
       }),
     );
@@ -202,11 +239,15 @@ const FeedHome = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{borderRadius: 20}}
-                onPress={() => setFavoritePet(getData('id'))}>
+                onPress={
+                  getData('favorited') === true
+                    ? () => setRemovePets(getData('id'))
+                    : () => setFavoritePet(getData('id'))
+                }>
                 <Favorite
                   style={{top: -3, marginRight: 16}}
                   width={33}
-                  fill="#000"
+                  fill={getData('favorited') === true ? '#FAE861' : '#000'}
                   height={33}
                 />
               </TouchableOpacity>

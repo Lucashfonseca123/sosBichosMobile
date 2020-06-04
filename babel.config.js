@@ -26,6 +26,7 @@ module.exports = {
           features: './src/features',
           navigation: './src/navigation',
           store: './src/store',
+          utils: './src/utils',
         },
       },
     ],

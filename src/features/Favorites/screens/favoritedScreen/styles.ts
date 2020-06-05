@@ -9,3 +9,9 @@ export const Container = styled.View`
 export const PaddingLine = styled.View`
   padding-top: 8px;
 `;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

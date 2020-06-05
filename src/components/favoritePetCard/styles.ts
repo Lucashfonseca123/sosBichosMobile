@@ -7,6 +7,7 @@ export const Container = styled.View`
   border-width: ${StyleSheet.hairlineWidth};
   border-radius: 20;
   border-color: #cecece;
+  background-color: #fff;
 `;
 
 export const Image = styled.Image`

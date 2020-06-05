@@ -1,5 +1,11 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
-import {TouchableOpacity, FlatList, View, BackHandler} from 'react-native';
+import {
+  TouchableOpacity,
+  FlatList,
+  View,
+  BackHandler,
+  Share,
+} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
 import {
@@ -8,10 +14,12 @@ import {
   FooterComponent,
   ViewRescuedAndDescription,
   ContainerContent,
+  ContainerLoading,
 } from './styles';
 import {PetCard, Markdown, Button, ActivityIndicator, Toast} from 'components';
 
 import {parseDate} from 'utils/date_fns';
+import {makeURL} from 'utils/url';
 
 import {
   getInfoFeed,
@@ -25,7 +33,7 @@ import {
   setRemovePetToInitialStatus,
 } from '../../../Favorites/redux/actions/FavoriteActions';
 
-import {Paw, Close, Favorite, Share} from 'assets/icons';
+import {Paw, Close, Favorite, Share as IconShare} from 'assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 import {useFocusEffect} from '@react-navigation/native';
@@ -131,10 +139,11 @@ const FeedHome = () => {
         case 'description':
           return pets[indexPet].description;
         case 'rescued_at':
-          return `Resgatado ${parseDate(
-            pets[indexPet].rescued_at,
-            'dd/MM/yyyy',
-          )}`;
+          return `Resgatado ${
+            pets[indexPet].rescued_at
+              ? parseDate(pets[indexPet].rescued_at, 'dd/MM/yyyy')
+              : 'Data inválida'
+          }`;
         case 'id':
           return pets[indexPet].id;
         case 'favorited':
@@ -171,123 +180,135 @@ const FeedHome = () => {
 
   return (
     <>
-      <Toast visible={visibleToast} message="Pet favoritado com sucesso" />
-      {isLoading || pets.length === 0 ? (
-        <View style={{marginTop: 16}}>
-          <ActivityIndicator />
-        </View>
+      {pets[0].id === '' ? (
+        <ContainerLoading>
+          <ActivityIndicator size="large" />
+        </ContainerLoading>
       ) : (
-        false
+        <>
+          <Toast visible={visibleToast} message="Pet favoritado com sucesso" />
+          {isLoading || pets.length === 0 ? (
+            <View style={{marginTop: 16}}>
+              <ActivityIndicator />
+            </View>
+          ) : (
+            false
+          )}
+          <FlatList
+            data={pets}
+            ref={refFlatList}
+            renderItem={({item}) => (
+              <>
+                <Container>
+                  <TouchableOpacity
+                    style={{opacity: 1}}
+                    onPress={() => {
+                      setId(item.id);
+                      setActiveSections(!activeSections);
+                    }}>
+                    <PetCard
+                      title={item.name}
+                      sex={item.sex}
+                      photo_url={item.avatar}
+                    />
+                  </TouchableOpacity>
+                </Container>
+              </>
+            )}
+            keyExtractor={(item) => item.id}
+            ListFooterComponent={
+              <FooterComponent>
+                <TouchableOpacity
+                  onPress={endList}
+                  style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Markdown
+                    type="semiBold"
+                    fontColor="#3A84FF"
+                    text="Clique aqui ou puxe para atualizar a lista."
+                  />
+                </TouchableOpacity>
+              </FooterComponent>
+            }
+            // onEndReached={nextPage}
+            // onEndReachedThreshold={1}
+            onRefresh={nextPage}
+            refreshing={false}
+          />
+          <Collapsible collapsed={activeSections} align="center">
+            <Content>
+              <ContainerContent>
+                <View>
+                  <Markdown
+                    style={{paddingLeft: 20, paddingBottom: 16}}
+                    type="semiBold"
+                    fontSize={18}
+                    fontColor="#CE2020"
+                    text={getData('name')}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity
+                    style={{paddingBottom: 16, borderRadius: 20}}
+                    onPress={() => onShare()}>
+                    <IconShare
+                      style={{marginRight: 16}}
+                      width={28}
+                      height={28}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{borderRadius: 20}}
+                    onPress={
+                      getData('favorited') === true
+                        ? () => setRemovePets(getData('id'))
+                        : () => setFavoritePet(getData('id'))
+                    }>
+                    <Favorite
+                      style={{top: -3, marginRight: 16}}
+                      width={33}
+                      fill={getData('favorited') === true ? '#FAE861' : '#000'}
+                      height={33}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{paddingBottom: 16, borderRadius: 20}}
+                    onPress={() => {
+                      setActiveSections(true);
+                    }}>
+                    <Close width={24} height={24} />
+                  </TouchableOpacity>
+                </View>
+              </ContainerContent>
+              <ViewRescuedAndDescription>
+                <Markdown
+                  text={getData('rescued_at')}
+                  fontSize={12}
+                  fontColor="#000000"
+                />
+                <Markdown
+                  style={{paddingTop: 16}}
+                  fontSize={12}
+                  text={getData('description')}
+                />
+              </ViewRescuedAndDescription>
+              <Button
+                onPress={() => alert('Doação é bom também.')}
+                fontSize={15}
+                style={{
+                  width: 218,
+                  height: 32,
+                }}>
+                <Markdown
+                  text="Faça uma doação  "
+                  type="semiBold"
+                  fontColor="white"
+                />
+                <Paw width={20} height={20} fill="white" />
+              </Button>
+            </Content>
+          </Collapsible>
+        </>
       )}
-      <FlatList
-        data={pets}
-        ref={refFlatList}
-        renderItem={({item}) => (
-          <>
-            <Container>
-              <TouchableOpacity
-                style={{opacity: 1}}
-                onPress={() => {
-                  setId(item.id);
-                  setActiveSections(!activeSections);
-                }}>
-                <PetCard
-                  title={item.name}
-                  sex={item.sex}
-                  photo_url={item.avatar}
-                />
-              </TouchableOpacity>
-            </Container>
-          </>
-        )}
-        keyExtractor={(item) => item.id}
-        ListFooterComponent={
-          <FooterComponent>
-            <TouchableOpacity
-              onPress={endList}
-              style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Markdown
-                type="semiBold"
-                fontColor="#3A84FF"
-                text="Clique aqui ou puxe para atualizar a lista."
-              />
-            </TouchableOpacity>
-          </FooterComponent>
-        }
-        // onEndReached={nextPage}
-        // onEndReachedThreshold={1}
-        onRefresh={nextPage}
-        refreshing={false}
-      />
-      <Collapsible collapsed={activeSections} align="center">
-        <Content>
-          <ContainerContent>
-            <View>
-              <Markdown
-                style={{paddingLeft: 20, paddingBottom: 16}}
-                type="semiBold"
-                fontSize={18}
-                fontColor="#CE2020"
-                text={getData('name')}
-              />
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity
-                style={{paddingBottom: 16, borderRadius: 20}}
-                onPress={() => {}}>
-                <Share style={{marginRight: 16}} width={28} height={28} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{borderRadius: 20}}
-                onPress={
-                  getData('favorited') === true
-                    ? () => setRemovePets(getData('id'))
-                    : () => setFavoritePet(getData('id'))
-                }>
-                <Favorite
-                  style={{top: -3, marginRight: 16}}
-                  width={33}
-                  fill={getData('favorited') === true ? '#FAE861' : '#000'}
-                  height={33}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{paddingBottom: 16, borderRadius: 20}}
-                onPress={() => {
-                  setActiveSections(true);
-                }}>
-                <Close width={24} height={24} />
-              </TouchableOpacity>
-            </View>
-          </ContainerContent>
-          <ViewRescuedAndDescription>
-            <Markdown
-              text={getData('rescued_at')}
-              fontSize={12}
-              fontColor="#000000"
-            />
-            <Markdown
-              style={{paddingTop: 16}}
-              fontSize={12}
-              text={getData('description')}
-            />
-          </ViewRescuedAndDescription>
-          <Button
-            onPress={() => alert('Doação é bom também.')}
-            fontSize={15}
-            style={{
-              width: 218,
-              height: 32,
-            }}>
-            <Markdown
-              text="Faça uma doação  "
-              type="semiBold"
-              fontColor="white"
-            />
-            <Paw width={20} height={20} fill="white" />
-          </Button>
-        </Content>
-      </Collapsible>
     </>
   );
 };

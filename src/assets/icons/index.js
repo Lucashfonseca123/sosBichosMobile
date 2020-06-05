@@ -1,10 +1,14 @@
 export {default as Announcement} from './announcement';
 export {default as Close} from './close';
+export {default as ContactPhone} from './contactPhone';
+export {default as CreditCard} from './creditCard';
 export {default as Favorite} from './favorite';
 export {default as Logo} from './logo';
 export {default as Love} from './love';
+export {default as MobileShare} from './mobileShare';
 export {default as Notification} from './notification';
 export {default as Paw} from './paw';
+export {default as Peoples} from './peoples';
 export {default as Profile} from './profile';
 export {default as SexFemale} from './sexFemale';
 export {default as SexMale} from './sexMale';

@@ -6,16 +6,9 @@ import {Love, Notification, Paw, Profile as Prof} from 'assets/icons';
 import FeedNavigator from './FeedNavigator';
 
 import {FavoritedScreen} from 'features/Favorites/screens';
+import {ProfileHome} from 'features/Profile/screens';
 
 const Tab = createBottomTabNavigator();
-
-function Profile() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Perfil!</Text>
-    </View>
-  );
-}
 
 function Notifications() {
   return (
@@ -64,7 +57,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileHome}
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({color, size}) => (

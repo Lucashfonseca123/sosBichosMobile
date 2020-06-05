@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 
-import {Container, PaddingLine} from './styles';
+import {Container, PaddingLine, ContainerLoading} from './styles';
 import {FavoritePetCard, Modal, ActivityIndicator, Toast} from 'components';
 
 import {
@@ -53,28 +53,36 @@ const FavoriteScreen = () => {
 
   return (
     <>
-      <Toast visible={visibleToast} message="Pet removido com sucesso" />
-      <FlatList
-        data={pets}
-        renderItem={({item}) => (
-          <Container>
-            <FavoritePetCard
-              name={item.name}
-              rescued_date={item.rescued_at}
-              description={item.description}
-              photoUri={item.avatar}
-              onPressedRemove={() => setRemove(item.id)}
-            />
-          </Container>
-        )}
-        keyExtractor={(item) => item.id}
-        onRefresh={() => setRefreshing(true)}
-        refreshing={false}
-        ListFooterComponent={<PaddingLine />}
-      />
-      <Modal width={30} isVisible={isLoading}>
-        <ActivityIndicator size="large" />
-      </Modal>
+      {pets[0].id === '' ? (
+        <ContainerLoading>
+          <ActivityIndicator size="large" />
+        </ContainerLoading>
+      ) : (
+        <>
+          <Toast visible={visibleToast} message="Pet removido com sucesso" />
+          <FlatList
+            data={pets}
+            renderItem={({item}) => (
+              <Container>
+                <FavoritePetCard
+                  name={item.name}
+                  rescued_date={item.rescued_at}
+                  description={item.description}
+                  photoUri={item.avatar}
+                  onPressedRemove={() => setRemove(item.id)}
+                />
+              </Container>
+            )}
+            keyExtractor={(item) => item.id}
+            onRefresh={() => setRefreshing(true)}
+            refreshing={false}
+            ListFooterComponent={<PaddingLine />}
+          />
+          <Modal width={30} isVisible={isLoading}>
+            <ActivityIndicator size="large" />
+          </Modal>
+        </>
+      )}
     </>
   );
 };

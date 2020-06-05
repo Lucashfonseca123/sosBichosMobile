@@ -23,6 +23,7 @@ const FeedNavigator = () => {
       <Stack.Screen
         name="FeedHome"
         component={FeedHome}
+        key="FeedHome"
         options={{
           title: 'Feed',
           headerTintColor: '#333333',

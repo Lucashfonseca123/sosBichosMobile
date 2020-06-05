@@ -40,3 +40,9 @@ export const ContainerContent = styled.View`
   margin-right: 40px;
   flex-direction: row;
 `;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

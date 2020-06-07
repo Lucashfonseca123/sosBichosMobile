@@ -1,50 +1,52 @@
 import React from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 import {MobileShare, ContactPhone, CreditCard, Peoples} from 'assets/icons';
 
 import {
   MiddleContainer,
-  TopContainer,
+  TopImageContainer,
   Scaffold,
   ImageUser,
   ContainerButtons,
   BottomContainer,
   TouchableButtons,
+  DivInfoDogs,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
 import {Markdown} from 'components';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfileHome = () => {
+  const navigation = useNavigation();
+
   const user = useSelector(
     (appState: AppState) => appState.Authentication.state.user,
   );
 
+  const petsFavorited = useSelector(
+    (appState: AppState) => appState.Favorites.state.pet,
+  );
+
   return (
     <Scaffold>
-      <TopContainer>
-        <Image source={require('assets/background/ComponentBackground.jpg')} />
+      <TopImageContainer
+        source={require('assets/background/ComponentBackground.jpg')}>
         <ImageUser
           source={{
             uri: `${user.avatar}`,
           }}
         />
         <Markdown
+          style={{textAlign: 'center'}}
           text={user.name}
           fontSize={24}
           fontColor="white"
           type="bold"
-          style={{
-            position: 'absolute',
-            top: '82%',
-            left: '30%',
-          }}
         />
-        <TouchableOpacity
-          onPress={() => alert('Suas infos serão mudadas')}
-          style={{position: 'absolute', top: '102%', left: '29%'}}>
+        <TouchableOpacity onPress={() => alert('Suas infos serão mudadas')}>
           <Markdown
             text="Mudar informações do perfil"
             fontSize={12}
@@ -52,15 +54,39 @@ const ProfileHome = () => {
             type="bold"
           />
         </TouchableOpacity>
-      </TopContainer>
+      </TopImageContainer>
       <MiddleContainer>
-        <Markdown fontSize={12} text="Dogs ajudados" />
-        <Markdown fontSize={12} text="Dogs favoritados" />
-        <Markdown fontSize={12} text="Dogs Dogs em risco" />
+        <DivInfoDogs>
+          <Markdown
+            type="semiBold"
+            fontColor="#040C47"
+            fontSize={16}
+            text="82"
+          />
+          <Markdown fontSize={14} text="Dogs ajudados" />
+        </DivInfoDogs>
+        <DivInfoDogs>
+          <Markdown
+            type="semiBold"
+            fontColor="#040C47"
+            fontSize={16}
+            text={petsFavorited.length}
+          />
+          <Markdown fontSize={14} text="Dogs favoritados" />
+        </DivInfoDogs>
+        <DivInfoDogs>
+          <Markdown
+            type="semiBold"
+            fontColor="#040C47"
+            fontSize={16}
+            text="32"
+          />
+          <Markdown fontSize={14} text="Dogs em risco" />
+        </DivInfoDogs>
       </MiddleContainer>
       <BottomContainer>
         <ContainerButtons>
-          <TouchableButtons>
+          <TouchableButtons onPress={() => navigation.navigate('SosInfo')}>
             <Peoples style={{marginBottom: 16}} width={69} height={44} />
             <Markdown fontColor="#828282" text="Quem somos" />
           </TouchableButtons>

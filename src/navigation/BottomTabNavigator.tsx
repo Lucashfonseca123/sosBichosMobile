@@ -4,9 +4,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Love, Notification, Paw, Profile as Prof} from 'assets/icons';
 
 import FeedNavigator from './FeedNavigator';
+import ProfileNavigator from './ProfileNavigator';
+import FavoriteNavigator from './FavoriteNavigator';
 
 import {FavoritedScreen} from 'features/Favorites/screens';
-import {ProfileHome} from 'features/Profile/screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +38,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Favorites"
-        component={FavoritedScreen}
+        component={FavoriteNavigator}
         options={{
           tabBarLabel: 'Favoritos',
           tabBarIcon: ({color, size}) => (
@@ -57,7 +58,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileHome}
+        component={ProfileNavigator}
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({color, size}) => (

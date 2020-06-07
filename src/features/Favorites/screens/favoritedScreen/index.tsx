@@ -14,12 +14,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
 import {parseDate} from 'utils/date_fns';
+import {useNavigation} from '@react-navigation/native';
 
 const FavoriteScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleToast, setVisibleToast] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const setRemove = (id: string) => {
     setIsLoading(true);
@@ -51,6 +53,12 @@ const FavoriteScreen = () => {
     return setRefreshing(true);
   }, [refreshing, removeStatus, petFeed]);
 
+  const navigationToAdopt = (id: string) => {
+    navigation.navigate('TermsUse', {
+      item: id,
+    });
+  };
+
   return (
     <>
       {pets[0].id === '' ? (
@@ -69,6 +77,7 @@ const FavoriteScreen = () => {
                   rescued_date={item.rescued_at}
                   description={item.description}
                   photoUri={item.avatar}
+                  onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
                 />
               </Container>

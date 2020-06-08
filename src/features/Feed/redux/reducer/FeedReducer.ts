@@ -3,6 +3,7 @@ import {IFeedState} from '../types/FeedStateTypes';
 import {IFeedBaseAction} from '../action/FeedActions';
 
 const initialState: IFeedState = {
+  pagination: {},
   pet: [
     {
       id: '',

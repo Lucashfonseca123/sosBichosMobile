@@ -19,7 +19,6 @@ import {
 import {PetCard, Markdown, Button, ActivityIndicator, Toast} from 'components';
 
 import {parseDate} from 'utils/date_fns';
-import {makeURL} from 'utils/url';
 
 import {
   getInfoFeed,
@@ -176,6 +175,25 @@ const FeedHome = () => {
         id: params,
       }),
     );
+  };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Siga o SOS Bichos e encontrei seu amigo(a)!',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (

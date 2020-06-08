@@ -17,7 +17,7 @@ const Text = styled.Text`
       : props.type === 'semiBold'
       ? 'RobotoSlab-SemiBold'
       : 'RobotoSlab-Regular'};
-    color: ${props.color ? props.color : '#B8B8B8'};
+    color: ${props.color ? props.color : '#ACACAC'};
     font-size: ${props.size ? props.size : '16'}px;
     elevation: ${props.elevation ? props.elevation : 0};
   `}

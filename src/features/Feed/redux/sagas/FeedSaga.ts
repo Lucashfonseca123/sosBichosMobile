@@ -19,12 +19,16 @@ export function* watchFeedRequest() {
 function* workerFeedInfoRequest(action: IGetInfoFeed) {
   try {
     const {payload} = action;
-    const {pets} = yield call(GET_INFO, {
+    const {pets, pagination} = yield call(GET_INFO, {
       page: payload.current_page,
     });
     if (pets.length !== 0) {
       yield put(
-        getInfoFeedSuccess({pet: pets, current_page: payload.current_page}),
+        getInfoFeedSuccess({
+          pagination: pagination,
+          pet: pets,
+          current_page: payload.current_page,
+        }),
       );
     } else {
       console.log('Lista vazia');

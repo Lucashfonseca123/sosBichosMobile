@@ -4,6 +4,7 @@ export interface IFeedState {
   reset: boolean;
   isLoading: boolean;
   message: string;
+  pagination: object;
 }
 
 interface IFeedPet {

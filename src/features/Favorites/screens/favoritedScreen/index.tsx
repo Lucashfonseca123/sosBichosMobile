@@ -3,7 +3,14 @@ import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 
 import {Container, PaddingLine, ContainerLoading} from './styles';
-import {FavoritePetCard, Modal, ActivityIndicator, Toast} from 'components';
+import {BadEmoji} from 'assets/icons';
+import {
+  FavoritePetCard,
+  Modal,
+  ActivityIndicator,
+  Toast,
+  Markdown,
+} from 'components';
 
 import {
   getInfoFavorites,
@@ -54,14 +61,29 @@ const FavoriteScreen = () => {
   }, [refreshing, removeStatus, petFeed]);
 
   const navigationToAdopt = (id: string) => {
-    navigation.navigate('TermsUse', {
-      item: id,
+    navigation.navigate('FavoriteNavigatorWithoutBottomTab', {
+      screen: 'TermsUse',
+      params: {
+        item: id,
+      },
     });
   };
 
   return (
     <>
-      {pets[0].id === '' ? (
+      {pets.length === 0 ? (
+        <ContainerLoading>
+          <BadEmoji width={100} height={100} />
+          <Markdown
+            type="semiBold"
+            text="Você ainda não favoritou nenhum PET."
+          />
+          <Markdown
+            style={{textAlign: 'center', paddingTop: 2}}
+            text="Entre na aba do Feed e favorite um pet para aparecer aqui!"
+          />
+        </ContainerLoading>
+      ) : pets[0].id === '' ? (
         <ContainerLoading>
           <ActivityIndicator size="large" />
         </ContainerLoading>
@@ -70,6 +92,7 @@ const FavoriteScreen = () => {
           <Toast visible={visibleToast} message="Pet removido com sucesso" />
           <FlatList
             data={pets}
+            style={{backgroundColor: '#F8F8F8'}}
             renderItem={({item}) => (
               <Container>
                 <FavoritePetCard

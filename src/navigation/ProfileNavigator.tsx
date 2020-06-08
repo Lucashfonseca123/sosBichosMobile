@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {ProfileHome, SosInfo} from 'features/Profile/screens';
+import {ProfileHome} from 'features/Profile/screens';
 
 const Stack = createStackNavigator();
 
@@ -19,16 +19,6 @@ const ProfileNavigator = () => {
         name="ProfileHome"
         component={ProfileHome}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="SosInfo"
-        component={SosInfo}
-        options={{
-          title: 'Quem somos?',
-          headerTintColor: '#333333',
-          //   headerTitleStyle: {color: '#CE2020'},
-          headerTitleAlign: 'center',
-        }}
       />
     </Stack.Navigator>
   );

@@ -1,7 +1,13 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Share} from 'react-native';
 
-import {MobileShare, ContactPhone, CreditCard, Peoples} from 'assets/icons';
+import {
+  MobileShare,
+  ContactPhone,
+  CreditCard,
+  Peoples,
+  Camera,
+} from 'assets/icons';
 
 import {
   MiddleContainer,
@@ -30,10 +36,39 @@ const ProfileHome = () => {
     (appState: AppState) => appState.Favorites.state.pet,
   );
 
+  const allPets = useSelector(
+    (appState: AppState) => appState.Feed.state.pagination.total,
+  );
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Olá, esse é um link para você conhecer o aplicativo SOS Bichos e poder encontrar seu amigo(a)!',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <Scaffold>
       <TopImageContainer
         source={require('assets/background/ComponentBackground.jpg')}>
+        <TouchableOpacity
+          onPress={() => alert('Vai abrir a câmera')}
+          style={{position: 'absolute', right: '35%', top: '50%', zIndex: 5}}>
+          <Camera width={30} height={30} />
+        </TouchableOpacity>
         <ImageUser
           source={{
             uri: `${user.avatar}`,
@@ -61,7 +96,7 @@ const ProfileHome = () => {
             type="semiBold"
             fontColor="#040C47"
             fontSize={16}
-            text="82"
+            text="5"
           />
           <Markdown fontSize={14} text="Dogs ajudados" />
         </DivInfoDogs>
@@ -79,7 +114,7 @@ const ProfileHome = () => {
             type="semiBold"
             fontColor="#040C47"
             fontSize={16}
-            text="32"
+            text={allPets}
           />
           <Markdown fontSize={14} text="Dogs em risco" />
         </DivInfoDogs>
@@ -88,19 +123,22 @@ const ProfileHome = () => {
         <ContainerButtons>
           <TouchableButtons onPress={() => navigation.navigate('SosInfo')}>
             <Peoples style={{marginBottom: 16}} width={69} height={44} />
-            <Markdown fontColor="#828282" text="Quem somos" />
+            <Markdown fontColor="#828282" text="Quem somos?" />
           </TouchableButtons>
-          <TouchableButtons>
+          <TouchableButtons onPress={() => navigation.navigate('HowToHelp')}>
             <CreditCard style={{marginBottom: 16}} width={69} height={44} />
             <Markdown fontColor="#828282" text="Como ajudar" />
           </TouchableButtons>
         </ContainerButtons>
         <ContainerButtons>
-          <TouchableButtons>
+          <TouchableButtons
+            onPress={() => {
+              navigation.navigate('ContactUs');
+            }}>
             <ContactPhone style={{marginBottom: 16}} width={69} height={44} />
             <Markdown fontColor="#828282" text="Entre em contato" />
           </TouchableButtons>
-          <TouchableButtons>
+          <TouchableButtons onPress={() => onShare()}>
             <MobileShare
               style={{marginTop: 20, marginBottom: 16}}
               width={69}

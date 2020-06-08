@@ -20,15 +20,6 @@ const ProfileNavigator = () => {
         component={FavoritedScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="TermsUse"
-        component={TermsUse}
-        options={{
-          title: 'Termos de Adoção',
-          headerTintColor: '#333333',
-          headerTitleAlign: 'center',
-        }}
-      />
     </Stack.Navigator>
   );
 };

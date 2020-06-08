@@ -3,6 +3,7 @@ export interface IGetFeed {
 }
 
 export interface IGetFeedSuccess {
+  pagination: object;
   pet: IFeedPet[];
   current_page: number;
 }

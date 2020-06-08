@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Container} from './styles';
+import {Container, Line} from './styles';
 import {ScrollView} from 'react-native';
 import {Markdown} from 'components';
 
@@ -8,12 +8,25 @@ const SosInfo = () => {
   return (
     <ScrollView>
       <Container>
-        <Markdown
-          style={{textAlign: 'auto'}}
-          fontColor="#a2a2a2"
-          text=" Lorem ipsum dolor sit amet. Sapien vel viverra. Nunc, gravida nulla in sed condimentum lorem magna diam urna. At magna suscipit euismod ultricies ante. Tellus rhoncus cursus a id arcu arcu, integer cursus amet. Nunc ut sapien erat maecenas sed mauris. Condimentum lorem sem diam consectetur duis rhoncus justo. Tincidunt semper cursus quis senectus magna. Cursus condimentum porta habitant et, eget bibendum nulla vitae. Phasellus bibendum proin pharetra consequat.
-        hendrerit porttitor lacus pellentesquacus pellentesquacus pellentesquacus pellentesquacus pellentesquacus pellentesquacus pellentesque pretium, eu. Luctus eget dui vel dictum quisque elit tortor vestibulum. Pulvinar amet a sit at risus varius nulla praesent. Amet interdum morbi at eget lorem. Diam rutrum consectetur dictumst at felis aliquam. Ante eget massa tincidunt odio id porttitor malesuada fermentum. Sit amet, elit augue suspendisse mattis velit eget."
-        />
+        <Markdown text="   Associação não governamental, sem fins lucrativos, fundada em 04 de março de 2011, na cidade de Ponta Grossa, estado do Paraná, e inscrita no CNPJ sob nº 13.393.050/0001-28." />
+        <Line />
+        <Markdown type="semiBold" fontColor="#707070" text="Objetivos:" />
+        <Line />
+        <Markdown text="• Defender, preservar e conservar o meio ambiente e promover o desenvolvimento sustentável." />
+        <Line />
+        <Markdown text="• Promover o voluntariado." />
+        <Line />
+        <Markdown text="• Promover e estimular o controle de natalidade dos animais, inclusive através de procedimento cirúrgico." />
+        <Line />
+        <Markdown text="• Dar assistência médico-veterinária a animais de rua, abandonados e para os de propriedade da população hipossuficiente, bem como para os animais silvestres." />
+        <Line />
+        <Markdown text="• Estimular o ato da adoção de animais adultos e filhotes." />
+        <Line />
+        <Markdown text="• Fiscalizar o cumprimento de leis relativas a animais, promovendo as ações competentes, quando necessário, judicial e extrajudicialmente." />
+        <Line />
+        <Markdown text="• Colaborar com o Poder Legislativo no sentido de aprimorar a legislação relativa aos direitos dos animais, de todas as espécies." />
+        <Line />
+        <Markdown text="•  Promover cursos e campanhas educativas sobre guarda responsável, respeito e amor aos animais, utilizando-se de palestras em escolas, eventos, meios de comunicação, etc." />
       </Container>
     </ScrollView>
   );

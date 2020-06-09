@@ -20,9 +20,18 @@ const HowToHelp = () => {
   );
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: 'white'}}>
       <Container>
         <Markdown text="      Existem alguns métodos para ajudar a ong, desde o voluntáriado a doaçoes físicas, abaixo segue algumas opções de doações em dinheiro e cartão. Para voluntariado, entre em contato conosco pelo whatsapp." />
+        <Markdown
+          style={{marginTop: 8}}
+          text="Se preferir, leve para nós pessoalmente:"
+        />
+        <Markdown
+          type="semiBold"
+          style={{marginTop: 8}}
+          text="• ESPAÇO ANIMAL CLÍNICA VETERINÁRIA: Rua Balduíno Taques, 289, Centro, Ponta Grossa/PR"
+        />
         <Button
           text="Whatsapp"
           style={{backgroundColor: '#34AF23', marginTop: 32}}
@@ -93,7 +102,10 @@ const HowToHelp = () => {
               fontColor="#828282"
               text="Escolha o valor a ser doado:"
             />
-            <Markdown text="• Você será redirecionado para uma página do boletobancario.com, onde ira gerar o boleto com o valor selecionado." />
+            <Markdown
+              style={{marginBottom: 8}}
+              text="• Você será redirecionado para uma página do boletobancario.com, onde ira gerar o boleto com o valor selecionado."
+            />
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL('http://www.sosbichos.org.br/doar/boleto.shtml')
@@ -107,11 +119,14 @@ const HowToHelp = () => {
           <ContainerCollapsible style={{alignItems: 'center'}}>
             <Markdown
               style={{paddingBottom: 8}}
-              type="bold"
-              fontColor="#828282"
+              type="semiBold"
               text="Faça uma doação em alguma de nossas vakinhas:"
             />
-            <Markdown text="• Vaquinha bicheira." />
+            <Markdown
+              type="bold"
+              fontColor="#828282"
+              text="• Vaquinha bicheira."
+            />
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL(
@@ -120,7 +135,11 @@ const HowToHelp = () => {
               }>
               <Vakinha width={127} height={79} />
             </TouchableOpacity>
-            <Markdown text="• Vaquinha novo abrigo." />
+            <Markdown
+              type="bold"
+              fontColor="#828282"
+              text="• Vaquinha novo abrigo."
+            />
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL(

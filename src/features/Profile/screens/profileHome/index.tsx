@@ -23,10 +23,11 @@ import {useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
 import {Markdown} from 'components';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const ProfileHome = () => {
   const navigation = useNavigation();
+  const route = useRoute();
 
   const user = useSelector(
     (appState: AppState) => appState.Authentication.state.user,
@@ -38,6 +39,10 @@ const ProfileHome = () => {
 
   const allPets = useSelector(
     (appState: AppState) => appState.Feed.state.pagination.total,
+  );
+
+  const photoUrl = useSelector(
+    (appState: AppState) => appState.Profile.state.url,
   );
 
   const onShare = async () => {
@@ -65,13 +70,19 @@ const ProfileHome = () => {
       <TopImageContainer
         source={require('assets/background/ComponentBackground.jpg')}>
         <TouchableOpacity
-          onPress={() => alert('Vai abrir a câmera')}
+          onPress={() => navigation.navigate('CameraScreen')}
           style={{position: 'absolute', right: '35%', top: '50%', zIndex: 5}}>
           <Camera width={30} height={30} />
         </TouchableOpacity>
         <ImageUser
           source={{
-            uri: `${user.avatar}`,
+            uri: `${
+              photoUrl
+                ? photoUrl
+                : user.avatar
+                ? user.avatar
+                : 'https://www.uvu.edu/chss/images/events/presenter-imgs/end_violence/user-icon-silhouette.png'
+            }`,
           }}
         />
         <Markdown
@@ -81,7 +92,7 @@ const ProfileHome = () => {
           fontColor="white"
           type="bold"
         />
-        <TouchableOpacity onPress={() => alert('Suas infos serão mudadas')}>
+        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
           <Markdown
             text="Mudar informações do perfil"
             fontSize={12}

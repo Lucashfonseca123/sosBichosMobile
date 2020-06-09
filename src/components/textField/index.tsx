@@ -6,7 +6,9 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import {TextInputProps} from 'react-native';
+import {TextInputProps, View} from 'react-native';
+
+import SplashScreen from 'react-native-splash-screen';
 
 import {TextInput} from './styles';
 
@@ -37,6 +39,10 @@ const TextField = ({borderFocus, value, ...rest}: ITextField, ref: any) => {
     },
   }));
 
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   const handleInputFocus = useCallback(() => {
     setIsFocused(true);
   }, []);
@@ -46,15 +52,17 @@ const TextField = ({borderFocus, value, ...rest}: ITextField, ref: any) => {
   }, []);
 
   return (
-    <TextInput
-      ref={inputElementRef}
-      placeholderTextColor={isFocused ? '#59B1F0' : '#ADB0B3'}
-      border={isFocused}
-      onFocus={handleInputFocus}
-      onBlur={handleInputBlur}
-      isFilled={isFilled}
-      {...rest}
-    />
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <TextInput
+        ref={inputElementRef}
+        placeholderTextColor={isFocused ? '#59B1F0' : '#ADB0B3'}
+        border={isFocused}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        isFilled={isFilled}
+        {...rest}
+      />
+    </View>
   );
 };
 

@@ -29,7 +29,7 @@ const TermsUse = () => {
       <Container>
         <Toast
           visible={toastIsVisible}
-          message="Por favor, confirme todos os termos de uso"
+          message="Por favor, aceite todos os termos de uso."
         />
         <Markdown
           style={{
@@ -147,9 +147,10 @@ const TermsUse = () => {
             />
           </ButtonModalLeft>
           <ButtonModalRight
-            onPress={() =>
-              alert(`Pedido de adoção enviado para o id: ${route.params.item}`)
-            }>
+            onPress={() => {
+              alert(`Pedido de adoção enviado para o id: ${route.params.item}`);
+              setModalIsVisible(false);
+            }}>
             <Markdown
               fontColor="#CE2020"
               type="semiBold"

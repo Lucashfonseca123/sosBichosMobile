@@ -100,6 +100,7 @@ const FavoriteScreen = () => {
                   rescued_date={item.rescued_at}
                   description={item.description}
                   photoUri={item.avatar}
+                  onPressedDonation={() => navigation.navigate('HowToHelp')}
                   onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
                 />

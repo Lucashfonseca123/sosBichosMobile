@@ -6,7 +6,7 @@ import {Markdown} from 'components';
 
 const SosInfo = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: 'white'}}>
       <Container>
         <Markdown text="   Associação não governamental, sem fins lucrativos, fundada em 04 de março de 2011, na cidade de Ponta Grossa, estado do Paraná, e inscrita no CNPJ sob nº 13.393.050/0001-28." />
         <Line />

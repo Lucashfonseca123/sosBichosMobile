@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import RNModal from 'react-native-modal';
 import {Container} from './styles';
+import {ScrollView} from 'react-native';
 
 interface IModal {
   isVisible?: boolean;

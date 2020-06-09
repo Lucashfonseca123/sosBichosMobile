@@ -1,6 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react';
 
-import {View, Linking, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Linking,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {
   Markdown,
   TextField,
@@ -23,12 +29,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import {
-  LoginManager,
-  AccessToken,
-  GraphRequest,
-  GraphRequestManager,
-} from 'react-native-fbsdk';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
 
 import * as EmailValidator from 'email-validator';
 
@@ -174,6 +175,7 @@ const Login = () => {
         <Toast visible={visibleToast} message={message} />
         <Logo width={180} height={180} />
         <TextField
+          style={{width: 300}}
           ref={userRef}
           autoCorrect={false}
           autoCapitalize="none"
@@ -185,6 +187,7 @@ const Login = () => {
           onSubmitEditing={() => passwordRef.current.focus()}
         />
         <TextField
+          style={{width: 300}}
           ref={passwordRef}
           autoCorrect={false}
           autoCapitalize="none"
@@ -197,23 +200,21 @@ const Login = () => {
             !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
           }
         />
-        <DivButton>
-          <Button
-            text="Entrar"
-            width={162}
-            height={51}
-            onPress={() =>
-              !isValidEmail || password === ''
-                ? getErrored()
-                : sendAuthenticate()
-            }
-            backgroundColor="#CE2020"
-          />
-        </DivButton>
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
-        </TouchableOpacity>
       </DivMiddle>
+      <DivButton>
+        <Button
+          text="Entrar"
+          width={162}
+          height={51}
+          onPress={() =>
+            !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
+          }
+          backgroundColor="#CE2020"
+        />
+      </DivButton>
+      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+        <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
+      </TouchableOpacity>
       <DivBottom>
         <Markdown type="semiBold" text="Ou entre com:" />
         <DivBottomButton>

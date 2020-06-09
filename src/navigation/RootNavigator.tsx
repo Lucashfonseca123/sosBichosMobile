@@ -32,7 +32,7 @@ const RootNavigator = () => {
       }
       screenOptions={{
         cardStyle: {
-          // backgroundColor: '#FFF',
+          backgroundColor: '#FFF',
         },
       }}>
       <Stack.Screen

@@ -5,6 +5,7 @@ export const Container = styled.View`
   padding-right: 24px;
   padding-top: 32px;
   flex: 1;
+  background-color: white;
 `;
 
 export const DivImage = styled.View`

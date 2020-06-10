@@ -8,10 +8,15 @@ import {
   ICreateUsers,
   createUserSuccess,
   createUserErrored,
+  getCepSuccess,
+  getCepErrored,
   ILoginAuthenticateWithSocial,
   loginWithSocialNetworksSuccess,
   loginWithSocialNetworksErrored,
+  IGetCepAction,
 } from '../action/LoginActions';
+
+import {GET_CEP} from 'api/Location';
 
 import {
   AUTHENTICATION,
@@ -26,6 +31,7 @@ export function* watchLoginRequest() {
     LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS,
     workerLoginWithSocialRequest,
   );
+  yield takeLeading(LoginActions.GET_CEP, workerGetCepRequest);
 }
 
 function* workerLoginRequest(action: ILoginAuthenticate) {
@@ -93,5 +99,22 @@ export function* workerLoginWithSocialRequest(
     }
   } catch (err) {
     console.log('erro', err);
+  }
+}
+
+function* workerGetCepRequest(action: IGetCepAction) {
+  try {
+    const {payload} = action;
+    const response = yield call(GET_CEP, {
+      cep: payload.cep,
+    });
+    if (response) {
+      yield put(getCepSuccess({address: response}));
+    } else {
+      console.log('Deu ruim');
+      yield put(getCepErrored());
+    }
+  } catch (err) {
+    console.log('error', err);
   }
 }

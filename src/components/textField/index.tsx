@@ -23,8 +23,6 @@ const TextField = ({borderFocus, value, ...rest}: ITextField, ref: any) => {
   const [isFocused, setIsFocused] = useState<boolean>();
   const [isFilled, setIsFilled] = useState<boolean>();
 
-  console.log(value);
-
   useEffect(() => {
     if (value && value !== '') {
       setIsFilled(true);

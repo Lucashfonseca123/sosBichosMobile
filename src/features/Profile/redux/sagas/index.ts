@@ -1,6 +1,6 @@
 import {fork} from 'redux-saga/effects';
-import {watchLoginRequest} from './LoginSaga';
+import {watchCepRequest} from './ProfileSaga';
 
 export default function* authenticationSaga() {
-  yield fork(watchLoginRequest);
+  yield fork(watchCepRequest);
 }

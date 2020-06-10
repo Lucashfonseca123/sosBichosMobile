@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 
 import {Container} from './styles';
 import {Markdown} from 'components';
 
 interface IHeader {
   title: string;
+  children: ReactNode;
 }
 
-const Header = (props: IHeader) => {
+const Header = ({title, children}: IHeader) => {
   return (
     <Container>
-      <Markdown fontColor="black" text={props.title} />
+      <Markdown fontColor="black" text={title} />
+      {children}
     </Container>
   );
 };

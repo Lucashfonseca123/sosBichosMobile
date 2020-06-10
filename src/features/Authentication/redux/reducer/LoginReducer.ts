@@ -5,7 +5,9 @@ import {ILoginBaseAction} from '../action/LoginActions';
 const initialState: ILoginState = {
   tokenAccess: '',
   match: undefined,
-  user: {},
+  user: {
+    address: {},
+  },
 };
 
 export default function (
@@ -40,6 +42,15 @@ export default function (
 
     case LoginActions.INITIAL_MATCH_TOKEN: {
       return Object.assign({}, state, {match: undefined});
+    }
+
+    case LoginActions.GET_CEP_SUCCESS: {
+      state.user.address = payload.address;
+      return state;
+    }
+
+    case LoginActions.GET_CEP_ERRORED: {
+      return Object.assign({}, state, payload);
     }
 
     default:

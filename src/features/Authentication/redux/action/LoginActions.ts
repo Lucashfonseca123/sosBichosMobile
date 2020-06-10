@@ -6,6 +6,8 @@ import {
   ICreateUserSuccess,
   ILoginWithSocialNetworks,
   ILoginWithSocialNetworksSuccess,
+  IGetCep,
+  IGetCepSuccess,
 } from '../types/LoginPayloadTypes';
 
 export interface ILoginBaseAction {
@@ -15,6 +17,8 @@ export interface ILoginBaseAction {
     | IAuthenticationSuccess
     | ICreateUser
     | ICreateUserSuccess
+    | IGetCep
+    | IGetCepSuccess
     | ILoginWithSocialNetworks
     | ILoginWithSocialNetworksSuccess;
 }
@@ -48,6 +52,18 @@ export interface ICreateUsersSuccessOrErrored extends ILoginBaseAction {
 }
 
 export interface IInitialMatchToken extends ILoginBaseAction {
+  type: ILoginTypes;
+}
+
+export interface IGetCepAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: IGetCep;
+}
+export interface IGetCepSuccessAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: IGetCepSuccess;
+}
+export interface IGetCepErroredAction extends ILoginBaseAction {
   type: ILoginTypes;
 }
 
@@ -131,5 +147,23 @@ export function createUserErrored(
 export function initialTokenMatch(): IInitialMatchToken {
   return {
     type: LoginActions.INITIAL_MATCH_TOKEN,
+  };
+}
+
+export function getCep(payload: IGetCep): IGetCepAction {
+  return {
+    type: LoginActions.GET_CEP,
+    payload,
+  };
+}
+export function getCepSuccess(payload: IGetCepSuccess): IGetCepSuccessAction {
+  return {
+    type: LoginActions.GET_CEP_SUCCESS,
+    payload,
+  };
+}
+export function getCepErrored(): IGetCepErroredAction {
+  return {
+    type: LoginActions.GET_CEP_ERRORED,
   };
 }

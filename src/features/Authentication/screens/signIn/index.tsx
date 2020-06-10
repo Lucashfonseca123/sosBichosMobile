@@ -148,7 +148,7 @@ const SignIn = () => {
 
   return (
     <>
-      <ScrollView style={{flex: 1, backgroundColor: '#F8F8F8'}}>
+      <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
         <Container>
           <Toast visible={visibleToast} message={messageToast} />
           <KeyboardAvoidingView

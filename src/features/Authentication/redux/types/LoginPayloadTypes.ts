@@ -28,3 +28,19 @@ export interface ILoginWithSocialNetworksSuccess {
   tokenAccess: string;
   user: object;
 }
+
+export interface IGetCep {
+  cep: string;
+}
+export interface IGetCepSuccess {
+  address: IAddress;
+}
+
+interface IAddress {
+  cep: string;
+  logradoura: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+}

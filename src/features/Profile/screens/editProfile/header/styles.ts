@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
 
 export const Container = styled.View`
+  flex-direction: row;
   background-color: #f8f8f8;
   width: 100%;
   height: 51px;

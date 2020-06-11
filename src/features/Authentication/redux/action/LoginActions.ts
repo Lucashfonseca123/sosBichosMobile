@@ -8,6 +8,8 @@ import {
   ILoginWithSocialNetworksSuccess,
   IGetCep,
   IGetCepSuccess,
+  IProfileEditUser,
+  IProfileEditUserSuccess,
 } from '../types/LoginPayloadTypes';
 
 export interface ILoginBaseAction {
@@ -19,6 +21,8 @@ export interface ILoginBaseAction {
     | ICreateUserSuccess
     | IGetCep
     | IGetCepSuccess
+    | IProfileEditUser
+    | IProfileEditUserSuccess
     | ILoginWithSocialNetworks
     | ILoginWithSocialNetworksSuccess;
 }
@@ -64,6 +68,17 @@ export interface IGetCepSuccessAction extends ILoginBaseAction {
   payload: IGetCepSuccess;
 }
 export interface IGetCepErroredAction extends ILoginBaseAction {
+  type: ILoginTypes;
+}
+export interface ISetProfileEditAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: IProfileEditUser;
+}
+export interface ISetProfileEditSuccessAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: IProfileEditUserSuccess;
+}
+export interface ISetProfileEditErroredAction extends ILoginBaseAction {
   type: ILoginTypes;
 }
 
@@ -156,14 +171,40 @@ export function getCep(payload: IGetCep): IGetCepAction {
     payload,
   };
 }
+
 export function getCepSuccess(payload: IGetCepSuccess): IGetCepSuccessAction {
   return {
     type: LoginActions.GET_CEP_SUCCESS,
     payload,
   };
 }
+
 export function getCepErrored(): IGetCepErroredAction {
   return {
     type: LoginActions.GET_CEP_ERRORED,
+  };
+}
+
+export function setProfileEditUser(
+  payload: IProfileEditUser,
+): ISetProfileEditAction {
+  return {
+    type: LoginActions.SET_EDIT_USER,
+    payload,
+  };
+}
+
+export function setProfileEditUserSuccess(
+  payload: IProfileEditUserSuccess,
+): ISetProfileEditSuccessAction {
+  return {
+    type: LoginActions.SET_EDIT_USER_SUCCESS,
+    payload,
+  };
+}
+
+export function setProfileEditUserErrored(): ISetProfileEditErroredActionAction {
+  return {
+    type: LoginActions.SET_EDIT_USER_ERRORED,
   };
 }

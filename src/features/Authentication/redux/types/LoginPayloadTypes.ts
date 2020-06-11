@@ -44,3 +44,21 @@ interface IAddress {
   localidade: string;
   uf: string;
 }
+
+export interface IProfileEditUser {
+  name?: string;
+  cellphone_number?: number;
+  birthdate?: Date;
+  profession?: string;
+  email?: string;
+  address?: IAddress;
+}
+
+export interface IProfileEditUserSuccess {
+  name?: string;
+  cellphone_number?: number;
+  birthdate?: Date;
+  profession?: string;
+  email?: string;
+  address?: IAddress;
+}

@@ -113,4 +113,4 @@ const FavoritePetCard = (props: IFavoritePetCard) => {
   );
 };
 
-export default FavoritePetCard;
+export default React.memo(FavoritePetCard);

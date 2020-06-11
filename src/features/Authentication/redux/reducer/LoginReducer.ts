@@ -53,6 +53,14 @@ export default function (
       return Object.assign({}, state, payload);
     }
 
+    case LoginActions.SET_EDIT_USER_SUCCESS: {
+      return Object.assign({}, state, payload);
+    }
+
+    case LoginActions.SET_EDIT_USER_ERRORED: {
+      return Object.assign({}, state, payload);
+    }
+
     default:
       return state;
   }

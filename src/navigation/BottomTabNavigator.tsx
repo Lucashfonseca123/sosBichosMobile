@@ -6,18 +6,9 @@ import {Love, Notification, Paw, Profile as Prof} from 'assets/icons';
 import FeedNavigator from './FeedNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import FavoriteNavigator from './FavoriteNavigator';
-
-import {FavoritedScreen} from 'features/Favorites/screens';
+import NewsNavigator from './NewsNavigator';
 
 const Tab = createBottomTabNavigator();
-
-function Notifications() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Notificações!</Text>
-    </View>
-  );
-}
 
 const BottomTabNavigator = () => {
   return (
@@ -48,7 +39,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={Notifications}
+        component={NewsNavigator}
         options={{
           tabBarLabel: 'Notificações',
           tabBarIcon: ({color, size}) => (

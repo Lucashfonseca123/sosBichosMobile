@@ -16,4 +16,7 @@ export const LoginActions = Object.freeze({
   GET_CEP: '@auth/GET_CEP' as '@auth/GET_CEP',
   GET_CEP_SUCCESS: '@auth/GET_CEP_SUCCESS' as '@auth/GET_CEP_SUCCESS',
   GET_CEP_ERRORED: '@auth/GET_CEP_ERRORED' as '@auth/GET_CEP_ERRORED',
+  SET_EDIT_USER: '@auth/SET_EDIT_USER' as '@auth/SET_EDIT_USER',
+  SET_EDIT_USER_SUCCESS: '@auth/SET_EDIT_USER_SUCCESS' as '@auth/SET_EDIT_USER_SUCCESS',
+  SET_EDIT_USER_ERRORED: '@auth/SET_EDIT_USER_ERRORED' as '@auth/SET_EDIT_USER_ERRORED',
 });

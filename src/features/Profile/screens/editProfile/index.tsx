@@ -46,8 +46,10 @@ const EditProfile = () => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const address = useSelector(
-    (appState: AppState) => appState.Authentication.state.user.address,
+  const address = useSelector((appState: AppState) =>
+    appState.Authentication.state.user.address
+      ? appState.Authentication.state.user.address
+      : '',
   );
 
   const user = useSelector(
@@ -61,17 +63,15 @@ const EditProfile = () => {
   }, [cep]);
 
   useEffect(() => {
-    setStreet(address.logradouro);
-    setDistric(address.bairro);
-    setCity(address.localidade);
+    setStreet(address.logradouro ? address.logradouro : '');
+    setDistric(address.bairro ? address.bairro : '');
+    setCity(address.localidade ? address.localidade : '');
   }, [address]);
 
   useEffect(() => {
     setName(user.name);
     setMail(user.email);
   }, []);
-
-  console.log(mail);
 
   const mailValidation = (text: string) => {
     if (EmailValidator.validate(text)) {

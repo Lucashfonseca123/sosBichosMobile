@@ -38,7 +38,7 @@ import {AppState} from 'store/RootReducer';
 import {useFocusEffect} from '@react-navigation/native';
 
 const FeedHome = () => {
-  const [activeSections, setActiveSections] = useState<boolean>();
+  const [activeSections, setActiveSections] = useState<boolean>(true);
   const [id, setId] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [visibleToast, setVisibleToast] = useState<boolean>(false);

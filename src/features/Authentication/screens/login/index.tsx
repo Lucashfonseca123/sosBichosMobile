@@ -244,7 +244,7 @@ const Login = () => {
           <Markdown text="http://www.sosbichosderua.org.br" />
         </TouchableOpacity>
       </View>
-      <Modal width={30} isVisible={loading}>
+      <Modal modal={true} width={30} isVisible={loading}>
         <ActivityIndicator size="large" />
       </Modal>
       <Modal width={80} closeModal={closeModalError} isVisible={modalError}>

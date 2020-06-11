@@ -133,12 +133,22 @@ const ProfileHome = () => {
       <BottomContainer>
         <ContainerButtons>
           <TouchableButtons onPress={() => navigation.navigate('SosInfo')}>
-            <Peoples style={{marginBottom: 16}} width={69} height={44} />
-            <Markdown fontColor="#828282" text="Quem somos?" />
+            <Peoples
+              fill="#3A84FF"
+              style={{marginBottom: 16}}
+              width={69}
+              height={44}
+            />
+            <Markdown fontColor="#3A84FF" text="Quem somos?" />
           </TouchableButtons>
           <TouchableButtons onPress={() => navigation.navigate('HowToHelp')}>
-            <CreditCard style={{marginBottom: 16}} width={69} height={44} />
-            <Markdown fontColor="#828282" text="Como ajudar" />
+            <CreditCard
+              fill="#3A84FF"
+              style={{marginBottom: 16}}
+              width={69}
+              height={44}
+            />
+            <Markdown fontColor="#3A84FF" text="Como ajudar" />
           </TouchableButtons>
         </ContainerButtons>
         <ContainerButtons>
@@ -146,17 +156,23 @@ const ProfileHome = () => {
             onPress={() => {
               navigation.navigate('ContactUs');
             }}>
-            <ContactPhone style={{marginBottom: 16}} width={69} height={44} />
-            <Markdown fontColor="#828282" text="Entre em contato" />
+            <ContactPhone
+              fill="#3A84FF"
+              style={{marginBottom: 16}}
+              width={69}
+              height={44}
+            />
+            <Markdown fontColor="#3A84FF" text="Entre em contato" />
           </TouchableButtons>
           <TouchableButtons onPress={() => onShare()}>
             <MobileShare
               style={{marginTop: 20, marginBottom: 16}}
+              fill="#3A84FF"
               width={69}
               height={44}
             />
             <Markdown
-              fontColor="#828282"
+              fontColor="#3A84FF"
               style={{textAlign: 'center'}}
               text="Compartilhe e convide seus amigos!"
             />

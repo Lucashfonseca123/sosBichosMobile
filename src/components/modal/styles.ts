@@ -3,12 +3,13 @@ import styled, {css} from 'styled-components/native';
 interface IModal {
   width?: number;
   noPaddingBottom?: boolean;
+  modal?: boolean;
 }
 
 const Container = styled.View`
   ${(props: IModal) => css`
     width: ${props.width ? props.width : 100}%;
-    padding-bottom: ${props.noPaddingBottom ? 0 : 20}px;
+    padding-bottom: ${props.noPaddingBottom ? 0 : props.modal ? 30 : 20}px;
     padding-left: ${props.noPaddingBottom ? 0 : 20}px;
     padding-right: ${props.noPaddingBottom ? 0 : 20}px;
   `}

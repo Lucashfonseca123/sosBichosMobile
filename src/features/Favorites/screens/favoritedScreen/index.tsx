@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 
 import {Container, PaddingLine, ContainerLoading} from './styles';
 import {BadEmoji} from 'assets/icons';
@@ -111,7 +111,7 @@ const FavoriteScreen = () => {
             refreshing={false}
             ListFooterComponent={<PaddingLine />}
           />
-          <Modal width={30} isVisible={isLoading}>
+          <Modal modal={true} width={30} isVisible={isLoading}>
             <ActivityIndicator size="large" />
           </Modal>
         </>

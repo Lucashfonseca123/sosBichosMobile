@@ -8,15 +8,25 @@ interface IModal {
   children?: ReactNode;
   width?: number;
   noPaddingBottom?: boolean;
+  modal?: boolean;
 }
 
-const Modal = ({isVisible, children, width, noPaddingBottom}: IModal) => {
+const Modal = ({
+  isVisible,
+  children,
+  width,
+  noPaddingBottom,
+  modal,
+}: IModal) => {
   return (
     <>
       <RNModal
         style={{justifyContent: 'center', alignItems: 'center'}}
         isVisible={isVisible}>
-        <Container noPaddingBottom={noPaddingBottom} width={width}>
+        <Container
+          modal={modal}
+          noPaddingBottom={noPaddingBottom}
+          width={width}>
           {children}
         </Container>
       </RNModal>

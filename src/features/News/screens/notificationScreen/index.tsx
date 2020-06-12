@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Container} from './styles';
-import {SectionList, Text} from 'react-native';
+import {Container, ContainerHeader} from './styles';
+import {SectionList, View} from 'react-native';
 import {Markdown} from 'components';
 
 import NewsCard from './newsCard';
@@ -18,7 +18,7 @@ const DATA = [
           'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
       },
       {
-        title: 'Bazar de roupas',
+        title: 'Feira de adoção',
         date: '24 de abril',
         local: 'Uepg uvaranas',
         description:
@@ -87,23 +87,29 @@ const DATA = [
 
 const NotificationScreen = () => {
   return (
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => index}
-      renderItem={({item}) => (
-        <Container>
-          <NewsCard
-            title={item.title}
-            date={item.date}
-            location={item.local}
-            description={item.description}
-          />
-        </Container>
-      )}
-      renderSectionHeader={({section: {date}}) => (
-        <Text style={{marginLeft: 16}}>{date}</Text>
-      )}
-    />
+    <>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item.title}
+        ListHeaderComponent={<View />}
+        ListFooterComponent={<View style={{marginTop: 16}} />}
+        renderItem={({item}) => (
+          <Container>
+            <NewsCard
+              title={item.title}
+              date={item.date}
+              location={item.local}
+              description={item.description}
+            />
+          </Container>
+        )}
+        renderSectionHeader={({section: {date}}) => (
+          <ContainerHeader>
+            <Markdown fontColor="#717171" type="semiBold" text={date} />
+          </ContainerHeader>
+        )}
+      />
+    </>
   );
 };
 

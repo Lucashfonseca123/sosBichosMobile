@@ -20,7 +20,7 @@ const NewsNavigator = () => {
       initialRouteName="TermsUse"
       screenOptions={{
         cardStyle: {
-          backgroundColor: '#FFF',
+          backgroundColor: '#f9f9f9',
         },
       }}>
       <Stack.Screen

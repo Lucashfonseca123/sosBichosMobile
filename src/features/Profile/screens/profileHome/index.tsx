@@ -133,22 +133,17 @@ const ProfileHome = () => {
       <BottomContainer>
         <ContainerButtons>
           <TouchableButtons onPress={() => navigation.navigate('SosInfo')}>
-            <Peoples
-              fill="#3A84FF"
-              style={{marginBottom: 16}}
-              width={69}
-              height={44}
-            />
-            <Markdown fontColor="#3A84FF" text="Quem somos?" />
+            <Peoples style={{marginBottom: 16}} width={69} height={44} />
+            <Markdown fontColor="#a2a2a2" type="semiBold" text="Quem somos?" />
           </TouchableButtons>
           <TouchableButtons onPress={() => navigation.navigate('HowToHelp')}>
             <CreditCard
-              fill="#3A84FF"
+              fill="#CDCDCD"
               style={{marginBottom: 16}}
               width={69}
               height={44}
             />
-            <Markdown fontColor="#3A84FF" text="Como ajudar" />
+            <Markdown fontColor="#a2a2a2" type="semiBold" text="Como ajudar" />
           </TouchableButtons>
         </ContainerButtons>
         <ContainerButtons>
@@ -157,22 +152,27 @@ const ProfileHome = () => {
               navigation.navigate('ContactUs');
             }}>
             <ContactPhone
-              fill="#3A84FF"
+              fill="#CDCDCD"
               style={{marginBottom: 16}}
               width={69}
               height={44}
             />
-            <Markdown fontColor="#3A84FF" text="Entre em contato" />
+            <Markdown
+              fontColor="#a2a2a2"
+              type="semiBold"
+              text="Entre em contato"
+            />
           </TouchableButtons>
           <TouchableButtons onPress={() => onShare()}>
             <MobileShare
               style={{marginTop: 20, marginBottom: 16}}
-              fill="#3A84FF"
+              fill="#CDCDCD"
               width={69}
               height={44}
             />
             <Markdown
-              fontColor="#3A84FF"
+              fontColor="#a2a2a2"
+              type="semiBold"
               style={{textAlign: 'center'}}
               text="Compartilhe e convide seus amigos!"
             />

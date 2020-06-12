@@ -203,7 +203,7 @@ export function setProfileEditUserSuccess(
   };
 }
 
-export function setProfileEditUserErrored(): ISetProfileEditErroredActionAction {
+export function setProfileEditUserErrored(): ISetProfileEditErroredAction {
   return {
     type: LoginActions.SET_EDIT_USER_ERRORED,
   };

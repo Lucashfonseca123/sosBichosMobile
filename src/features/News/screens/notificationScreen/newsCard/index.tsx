@@ -42,6 +42,7 @@ const FavoritePetCard = (props: INewsCard) => {
           />
           <Markdown
             style={{paddingLeft: 10, paddingTop: 8}}
+            type="light"
             fontSize={12}
             text={props.description}
           />

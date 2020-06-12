@@ -1,0 +1,179 @@
+[33mcommit c23827e8f0a06830f7b19b9051667750cdf74743[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Fri Jun 12 15:22:51 2020 -0300
+
+    Resolvido problema do push
+
+[33mcommit d637b1d98d56e3277b4f9b599691d08d62ed76b6[m[33m ([m[1;32mmaster[m[33m)[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Fri Jun 12 15:02:12 2020 -0300
+
+    Finalizado projeto UI
+
+[33mcommit e1cdd4fdc1ddb872ffe2a6019571d8cf7ccb0095[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Thu Jun 11 02:46:25 2020 -0300
+
+    Adicionado tela de notificações
+
+[33mcommit a50aabdcdf283d835bbe43a62b8c51050c3de416[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Thu Jun 11 02:43:34 2020 -0300
+
+    Adicionado tela de notificações
+
+[33mcommit 4f527447b96657f73ea5edf06231803c224567e2[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Wed Jun 10 22:49:01 2020 -0300
+
+    Corrigido bugs inicio do editar perfil, adicionado types editProfile
+
+[33mcommit 7b225ee336f914df7075aeea595271ababbbe308[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue Jun 9 23:38:34 2020 -0300
+
+    Finalizado edição do perfil
+
+[33mcommit 7f948eb184d74f23beb06310a4858b0f8f04b9ec[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue Jun 9 01:00:48 2020 -0300
+
+    Tentativa correção tela login
+
+[33mcommit 194a8935de13a457fe05cd44848772a3773eaa14[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue Jun 9 00:24:13 2020 -0300
+
+    Adicionado pagina de edição, finalizado favoritos e troca de foto de perfil
+
+[33mcommit 2c0e04bb453e6acf1917ed5fffbc4e0c9361cb2f[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sun Jun 7 23:47:55 2020 -0300
+
+    Finalizado menus do profile, corrigo bug caso não tenha pets favoritados
+
+[33mcommit 9e0a1cc1420a6c194ad6dc2fe402d2d754ae5445[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sun Jun 7 03:08:10 2020 -0300
+
+    Finalizado profileScreen e adicionado termos de adoção
+
+[33mcommit bb6e25cb9764e8fe530eaedd486966efb937290a[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Fri Jun 5 01:21:00 2020 -0300
+
+    Adicionado tela profile
+
+[33mcommit 753d5e76f0e955c5c1db185e7d325c73dedae6ce[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Thu Jun 4 01:01:49 2020 -0300
+
+    Finalizado feed e favorites
+
+[33mcommit 1766f21fb3d94ae8413db2767406238a3f9cab5f[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Wed Jun 3 00:24:24 2020 -0300
+
+    Finalizado Feed e adicionado card do petFavorito
+
+[33mcommit a372fb02aa72cfa1f532afcb40b2991b610b57d4[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue Jun 2 01:42:43 2020 -0300
+
+    Avançado Feed, falta finalização
+
+[33mcommit 929aee90498404299a6f7962540366093455dee0[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sun May 31 02:17:53 2020 -0300
+
+    Iniciado card dos pets
+
+[33mcommit 7b02b061434fc5b76de7b05dd95a0b2e11547cb5[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sat May 30 03:32:13 2020 -0300
+
+    Tentativa de correção cores icones
+
+[33mcommit 6343f619aa9983288ee161fb0525c3a2804fe180[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Fri May 29 12:46:29 2020 -0300
+
+    Corrigido textField com info
+
+[33mcommit 3b0ca3479d1427b61ff675c68336ed4f54b2c042[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Thu May 28 16:40:48 2020 -0300
+
+    Corrigido login com face e gmail
+
+[33mcommit 06c24c9a3a903b76d213ae205ca5b1c33f2dca83[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Thu May 28 00:53:20 2020 -0300
+
+    Finalizado login com facebook
+
+[33mcommit 86e23c34b542534376331dbc7502da5fcb49c56d[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Wed May 27 22:30:19 2020 -0300
+
+    Adicionado login com redes sociais
+
+[33mcommit 17897e45194b5ef54c99bda697ad4eba53579f41[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Wed May 27 01:41:21 2020 -0300
+
+    Adicionado bottomTabBar
+
+[33mcommit 4c48bc08829d80f474adb5a6aaaf795b55ea5f0d[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Wed May 27 00:10:47 2020 -0300
+
+    Tentativa de correção
+
+[33mcommit 9c118df1246619ea50d97c076931a80d98c701e4[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue May 26 22:56:59 2020 -0300
+
+    Correção de termos
+
+[33mcommit 5e24bf5f5f03a5890901b89b054679146cffbcd4[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue May 26 22:39:28 2020 -0300
+
+    Terminado validação de login e criação de usuários
+
+[33mcommit 6124d1a08689ba6fe047a4587076ff0e412c1fc2[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue May 26 01:36:49 2020 -0300
+
+    Feita correção com banco remoto
+
+[33mcommit f1800f2125775d328a71e1dfd944d08274816bc5[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue May 26 00:53:22 2020 -0300
+
+    Adicionado onChange
+
+[33mcommit 9fc03570c590dbbb45a936763253bd73ee66aa14[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Tue May 26 00:15:32 2020 -0300
+
+    Adicionado pagina de cadastro
+
+[33mcommit fd31c816223f1b056048d598ebdefa3bf9db216e[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sat May 23 21:20:58 2020 -0300
+
+    Adicionado focus
+
+[33mcommit 9fa626da43a54b91696f7f5f9527afc4a89a493a[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sat May 23 17:11:58 2020 -0300
+
+    Iniciado dev, adicionado icones, fonts, componentes, estrutura, navigation, features, estilizações
+
+[33mcommit 2135e362581dcdfc0fefd60efd8722c9bac4dbd1[m
+Author: lucas.fonseca <lucas.fonseca@trizy.com.br>
+Date:   Sat May 23 11:43:32 2020 -0300
+
+    Initial commit

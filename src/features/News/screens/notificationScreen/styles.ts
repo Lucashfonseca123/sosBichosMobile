@@ -8,7 +8,7 @@ export const Container = styled.View`
 `;
 
 export const ContainerHeader = styled.View`
-  margin-left: 16px;
+  margin-left: 24px;
   margin-top: 16px;
   margin-bottom: 8px;
 `;

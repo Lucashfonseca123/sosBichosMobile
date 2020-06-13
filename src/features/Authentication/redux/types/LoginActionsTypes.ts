@@ -19,4 +19,5 @@ export const LoginActions = Object.freeze({
   SET_EDIT_USER: '@auth/SET_EDIT_USER' as '@auth/SET_EDIT_USER',
   SET_EDIT_USER_SUCCESS: '@auth/SET_EDIT_USER_SUCCESS' as '@auth/SET_EDIT_USER_SUCCESS',
   SET_EDIT_USER_ERRORED: '@auth/SET_EDIT_USER_ERRORED' as '@auth/SET_EDIT_USER_ERRORED',
+  SET_IS_CONNECTED: '@auth/SET_IS_CONNECTED' as '@auth/SET_IS_CONNECTED',
 });

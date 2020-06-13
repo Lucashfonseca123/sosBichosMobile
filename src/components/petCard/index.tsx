@@ -16,7 +16,7 @@ interface IPetCard {
 const PetCard = (props: IPetCard) => {
   return (
     <Container>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity activeOpacity={100} onPress={() => {}}>
         <Image
           source={{
             uri: `${props.photo_url}`,

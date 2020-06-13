@@ -8,6 +8,7 @@ const initialState: ILoginState = {
   user: {
     address: {},
   },
+  isConnected: false,
 };
 
 export default function (
@@ -58,6 +59,10 @@ export default function (
     }
 
     case LoginActions.SET_EDIT_USER_ERRORED: {
+      return Object.assign({}, state, payload);
+    }
+
+    case LoginActions.SET_IS_CONNECTED: {
       return Object.assign({}, state, payload);
     }
 

@@ -49,7 +49,7 @@ const FavoritePetCard = (props: IFavoritePetCard) => {
           <TouchableButtons
             onPress={
               props.onPressedShare
-                ? props.onPressedShare()
+                ? props.onPressedShare(props.name)
                 : () => alert('To no share.')
             }>
             <Share width={28} height={28} style={{marginRight: 16}} />

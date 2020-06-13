@@ -10,6 +10,7 @@ import {
   IGetCepSuccess,
   IProfileEditUser,
   IProfileEditUserSuccess,
+  IConnected,
 } from '../types/LoginPayloadTypes';
 
 export interface ILoginBaseAction {
@@ -23,6 +24,7 @@ export interface ILoginBaseAction {
     | IGetCepSuccess
     | IProfileEditUser
     | IProfileEditUserSuccess
+    | IConnected
     | ILoginWithSocialNetworks
     | ILoginWithSocialNetworksSuccess;
 }
@@ -80,6 +82,10 @@ export interface ISetProfileEditSuccessAction extends ILoginBaseAction {
 }
 export interface ISetProfileEditErroredAction extends ILoginBaseAction {
   type: ILoginTypes;
+}
+export interface ISetIsConnectedAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: IConnected;
 }
 
 export function login(payload: IAuthentication): ILoginAuthenticate {
@@ -206,5 +212,12 @@ export function setProfileEditUserSuccess(
 export function setProfileEditUserErrored(): ISetProfileEditErroredAction {
   return {
     type: LoginActions.SET_EDIT_USER_ERRORED,
+  };
+}
+
+export function isConnected(payload: IConnected): ISetIsConnectedAction {
+  return {
+    type: LoginActions.SET_IS_CONNECTED,
+    payload,
   };
 }

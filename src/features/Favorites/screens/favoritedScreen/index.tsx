@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList, View} from 'react-native';
+import {FlatList, Share, View} from 'react-native';
 
 import {Container, PaddingLine, ContainerLoading} from './styles';
 import {BadEmoji} from 'assets/icons';
@@ -20,13 +20,15 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
-import {parseDate} from 'utils/date_fns';
 import {useNavigation} from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native';
 
 const FavoriteScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [visibleToast, setVisibleToast] = useState(false);
+  const [modalConnected, setModalConnected] = useState(false);
+  const [sharedName, setSharedName] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -36,8 +38,8 @@ const FavoriteScreen = () => {
     setRefreshing(true);
   };
 
-  const pets = useSelector(
-    (appState: AppState) => appState.Favorites.state.pet,
+  const pets = useSelector((appState: AppState) =>
+    appState.Favorites.state.pet ? appState.Favorites.state.pet : [],
   );
 
   const removeStatus = useSelector(
@@ -45,6 +47,18 @@ const FavoriteScreen = () => {
   );
 
   const petFeed = useSelector((appState: AppState) => appState.Feed.state.pet);
+
+  const isConnected = useSelector(
+    (appState: AppState) => appState.Authentication.state.isConnected,
+  );
+
+  useEffect(() => {
+    if (!isConnected) {
+      setModalConnected(true);
+    } else {
+      setModalConnected(false);
+    }
+  }, [isConnected]);
 
   useEffect(() => {
     dispatch(getInfoFavorites());
@@ -69,9 +83,59 @@ const FavoriteScreen = () => {
     });
   };
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `Olá, esse conhece o pet ${sharedName}, ele pode ser seu novo amigo (a) !`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <>
-      {pets.length === 0 ? (
+      {!isConnected ? (
+        <Modal width={80} isVisible={modalConnected}>
+          <View>
+            <Markdown
+              style={{textAlign: 'center', paddingBottom: 16}}
+              text="Internet não identificada, conecte-se para ver os favoritos."
+            />
+            <TouchableOpacity
+              style={{
+                borderRadius: 20,
+                padding: 12,
+                borderWidth: 1,
+                borderColor: '#CE2020',
+                shadowRadius: 20,
+                alignItems: 'center',
+              }}
+              onPress={() => {
+                setModalConnected(false);
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'Feed',
+                });
+              }}>
+              <Markdown
+                fontColor="#CE2020"
+                type="semiBold"
+                fontSize={14}
+                text="IR PARA O FEED"
+              />
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      ) : pets.length === 0 ? (
         <ContainerLoading>
           <BadEmoji width={100} height={100} />
           <Markdown
@@ -95,6 +159,7 @@ const FavoriteScreen = () => {
             style={{backgroundColor: '#F8F8F8'}}
             renderItem={({item}) => (
               <Container>
+                {setSharedName(item.name)}
                 <FavoritePetCard
                   name={item.name}
                   rescued_date={item.rescued_at}
@@ -103,6 +168,7 @@ const FavoriteScreen = () => {
                   onPressedDonation={() => navigation.navigate('HowToHelp')}
                   onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
+                  onPressedShare={(text) => onShare}
                 />
               </Container>
             )}

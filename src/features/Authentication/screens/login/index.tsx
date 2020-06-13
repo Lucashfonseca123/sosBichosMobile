@@ -99,7 +99,6 @@ const Login = () => {
       const resp = await GoogleSignin.signIn();
       const {accessToken} = await GoogleSignin.getTokens();
       setLoading(true);
-      console.log(accessToken);
       dispatch(
         loginWithSocialNetworks({
           tokenAccess: accessToken,

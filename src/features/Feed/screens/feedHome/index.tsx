@@ -16,7 +16,14 @@ import {
   ContainerContent,
   ContainerLoading,
 } from './styles';
-import {PetCard, Markdown, Button, ActivityIndicator, Toast} from 'components';
+import {
+  PetCard,
+  Markdown,
+  Button,
+  ActivityIndicator,
+  Toast,
+  Modal,
+} from 'components';
 
 import {parseDate} from 'utils/date_fns';
 
@@ -27,6 +34,8 @@ import {
   setFavoriteMessageToInitial,
 } from '../../redux/action/FeedActions';
 
+import {isConnected} from 'features/Authentication/redux/action/LoginActions';
+
 import {
   setRemovePet,
   setRemovePetToInitialStatus,
@@ -36,12 +45,16 @@ import {Paw, Close, Favorite, Share as IconShare} from 'assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 import {useFocusEffect} from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
 
 const FeedHome = () => {
   const [activeSections, setActiveSections] = useState<boolean>(true);
   const [id, setId] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [visibleToast, setVisibleToast] = useState<boolean>(false);
+  const [modalConnectedToast, setModalConnectedToast] = useState<boolean>(
+    false,
+  );
 
   const refFlatList = useRef();
 
@@ -62,6 +75,24 @@ const FeedHome = () => {
   const statusRemoveFavorites = useSelector(
     (appState: AppState) => appState.Favorites.state.statusRemove,
   );
+
+  const isConnectedStore = useSelector(
+    (appState: AppState) => appState.Authentication.state.isConnected,
+  );
+
+  useEffect(() => {
+    async function _getNetInfo() {
+      try {
+        const resultNetInfo = await NetInfo.fetch();
+        console.log(resultNetInfo);
+        dispatch(isConnected({isConnected: resultNetInfo.isConnected}));
+      } catch (error) {
+        dispatch(isConnected({isConnected: false}));
+        console.log('error _getNetInfo', error);
+      }
+    }
+    _getNetInfo();
+  }, [dispatch]);
 
   useFocusEffect(
     useCallback(() => {
@@ -205,6 +236,10 @@ const FeedHome = () => {
       ) : (
         <>
           <Toast visible={visibleToast} message="Pet favoritado com sucesso" />
+          <Toast
+            visible={modalConnectedToast}
+            message="Sem conexão, conecte-se para favoritar um pet"
+          />
           {isLoading || pets.length === 0 ? (
             <View style={{marginTop: 16}}>
               <ActivityIndicator />
@@ -276,11 +311,16 @@ const FeedHome = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={{borderRadius: 20}}
-                    onPress={
-                      getData('favorited') === true
+                    onPress={() => {
+                      !isConnectedStore
+                        ? (setModalConnectedToast(true),
+                          setTimeout(() => {
+                            setModalConnectedToast(false);
+                          }, 3000))
+                        : getData('favorited') === true
                         ? () => setRemovePets(getData('id'))
-                        : () => setFavoritePet(getData('id'))
-                    }>
+                        : () => setFavoritePet(getData('id'));
+                    }}>
                     <Favorite
                       style={{top: -3, marginRight: 16}}
                       width={33}

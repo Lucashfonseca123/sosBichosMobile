@@ -40,8 +40,6 @@ function* workerRequestRemoveFavorite(action: ISetRemoveFavoritePet) {
   try {
     const {payload} = action;
     const response = yield call(SET_REMOVE_ITEM_FAVORITE, {id: payload.id});
-    console.log(response);
-    console.log('to aqui');
     if (response) {
       yield put(
         setRemovePetSuccess({

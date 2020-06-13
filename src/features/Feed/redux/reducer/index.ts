@@ -7,7 +7,7 @@ import FeedReducer from './FeedReducer';
 const persistConfig = {
   key: 'feed',
   storage: AsyncStorage,
-  whitelist: [],
+  whitelist: ['pet'],
   stateReconciler: autoMergeLevel2,
 };
 

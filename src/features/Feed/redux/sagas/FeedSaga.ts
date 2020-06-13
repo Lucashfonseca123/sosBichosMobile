@@ -45,7 +45,6 @@ function* workerSetFavoriteRequest(action: ISetFavoriteFeed) {
     const response = yield call(SET_FAVORITE, {
       id: payload.id,
     });
-    console.log(response.name);
     if (response.name) {
       yield put(setFavoriteSuccess({message: 'Sucesso'}));
     } else {

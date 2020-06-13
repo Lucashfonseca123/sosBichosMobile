@@ -62,3 +62,7 @@ export interface IProfileEditUserSuccess {
   email?: string;
   address?: IAddress;
 }
+
+export interface IConnected {
+  isConnected: boolean;
+}

@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Doações"
+      initialRouteName="Feed"
       tabBarOptions={{
         activeTintColor: '#e91e63',
       }}>

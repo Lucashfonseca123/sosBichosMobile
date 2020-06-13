@@ -50,8 +50,7 @@ const FavoritePetCard = (props: INewsCard) => {
         <Image
           style={{marginLeft: 4, width: 100, height: 130, borderRadius: 20}}
           source={{
-            uri:
-              'https://storage.googleapis.com/download/storage/v1/b/sosbichos-test/o/pet12.jpeg?generation=1590819249687930&alt=media',
+            uri: props.photoUri,
           }}
         />
       </ContainerTop>

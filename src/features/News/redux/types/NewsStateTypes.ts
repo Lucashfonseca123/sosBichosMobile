@@ -1,3 +1,3 @@
 export interface INewsState {
-  news: object;
+  news: object[];
 }

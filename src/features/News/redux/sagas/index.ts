@@ -1,6 +1,6 @@
 import {fork} from 'redux-saga/effects';
-import {favoriteWatcher} from './NewsSaga';
+import {newsWatcher} from './NewsSaga';
 
 export default function* favoriteSaga() {
-  yield fork(favoriteWatcher);
+  yield fork(newsWatcher);
 }

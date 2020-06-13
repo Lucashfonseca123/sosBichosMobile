@@ -6,7 +6,7 @@ import {persistReducer} from 'redux-persist';
 
 const persistConfig = {
   key: 'favorite',
-  whitelist: ['pet'],
+  whitelist: [],
   storage: AsyncStorage,
   stateReconcilier: autoMergeLevel2,
 };

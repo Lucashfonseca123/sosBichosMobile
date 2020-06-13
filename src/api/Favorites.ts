@@ -4,6 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface ISetRemove {
   id: string;
 }
+interface ISetAdopt {
+  user_id: string;
+  pet_id: string;
+}
 
 const GET_LIST_FAVORITES = async () => {
   const url = API_GATEWAY_ENDPOINT + 'user/favorites';
@@ -63,4 +67,33 @@ const SET_REMOVE_ITEM_FAVORITE = async (props: ISetRemove) => {
   return result;
 };
 
-export {GET_LIST_FAVORITES, SET_REMOVE_ITEM_FAVORITE};
+const SET_ADOPT = async (props: ISetAdopt) => {
+  const url = API_GATEWAY_ENDPOINT + 'user/adoption/request';
+  const method = 'POST';
+  const token = await AsyncStorage.getItem('tokenAccess');
+  const headers = {
+    'Content-Type': 'application/json',
+    authorization: `Bearer ${token}`,
+  };
+
+  let queryParams = {
+    headers,
+    method: method,
+    body: JSON.stringify(props),
+  };
+
+  let result = fetch(url, queryParams)
+    .then((response) => {
+      return response.json().then((responseJson) => {
+        return responseJson;
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
+    });
+
+  return result;
+};
+
+export {GET_LIST_FAVORITES, SET_REMOVE_ITEM_FAVORITE, SET_ADOPT};

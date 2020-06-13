@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {ScrollView, TouchableOpacity} from 'react-native';
 import {
@@ -8,10 +8,17 @@ import {
   ButtonModalLeft,
   ButtonModalRight,
 } from './styles';
-import {Markdown, Button, Modal, Toast} from 'components';
-import {useRoute} from '@react-navigation/native';
+import {Markdown, Button, Modal, Toast, ActivityIndicator} from 'components';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import {Close} from 'assets/icons';
 import CheckBox from '@react-native-community/checkbox';
+
+import {
+  setAdopt,
+  setStatusDispatchToInitial,
+} from '../../redux/actions/FavoriteActions';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppState} from 'store/RootReducer';
 
 const TermsUse = () => {
   const route = useRoute();
@@ -21,11 +28,62 @@ const TermsUse = () => {
   const [checked3, setChecked3] = useState();
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [toastIsVisible, setToastIsVisible] = useState(false);
+  const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // console.log(route.params.item);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const user = useSelector(
+    (appState: AppState) => appState.Authentication.state.user,
+  );
+
+  const status = useSelector(
+    (appState: AppState) => appState.Favorites.state.status,
+  );
+
+  useEffect(() => {
+    if (status) {
+      setLoading(false);
+      setModalSuccessVisible(true);
+      dispatch(setStatusDispatchToInitial());
+    }
+  }, [status]);
 
   return (
     <ScrollView>
+      <Modal modal={true} width={30} isVisible={loading}>
+        <ActivityIndicator size="large" />
+      </Modal>
+      <Modal width={80} isVisible={modalSuccessVisible}>
+        <>
+          <Markdown
+            style={{textAlign: 'center', paddingBottom: 16}}
+            text="Pedido de doação enviado com sucesso! Logo entraremos em contato e você estará com seu pet."
+          />
+          <TouchableOpacity
+            style={{
+              borderRadius: 20,
+              padding: 12,
+              borderWidth: 1,
+              borderColor: '#CE2020',
+              shadowRadius: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('BottomTabNavigator', {
+                screen: 'Feed',
+              });
+              setModalSuccessVisible(false);
+            }}>
+            <Markdown
+              fontColor="#CE2020"
+              type="semiBold"
+              fontSize={14}
+              text="FECHAR"
+            />
+          </TouchableOpacity>
+        </>
+      </Modal>
       <Container>
         <Toast
           visible={toastIsVisible}
@@ -134,7 +192,6 @@ const TermsUse = () => {
           fontSize={14}
           style={{marginTop: 32, paddingHorizontal: 16, textAlign: 'center'}}
           text="Você fará um animalzinho muito feliz e ele irá te amar infinitamente!!"
-          type="light"
         />
         <ContainerModal>
           <ButtonModalLeft onPress={() => setModalIsVisible(false)}>
@@ -148,7 +205,13 @@ const TermsUse = () => {
           </ButtonModalLeft>
           <ButtonModalRight
             onPress={() => {
-              alert(`Pedido de adoção enviado para o id: ${route.params.item}`);
+              setLoading(true),
+                dispatch(
+                  setAdopt({
+                    pet_id: route.params.item,
+                    user_id: user.id,
+                  }),
+                );
               setModalIsVisible(false);
             }}>
             <Markdown

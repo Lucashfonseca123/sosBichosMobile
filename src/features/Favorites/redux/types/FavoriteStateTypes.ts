@@ -2,6 +2,7 @@ export interface IFavoriteState {
   pet: IFeedPet[];
   message: string;
   statusRemove: boolean;
+  status: boolean;
 }
 
 interface IFeedPet {

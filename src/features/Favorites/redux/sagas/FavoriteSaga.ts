@@ -6,13 +6,21 @@ import {
   setRemovePetSuccess,
   setRemovePetErrored,
   ISetRemoveFavoritePet,
+  setAdoptSuccess,
+  setAdoptErrored,
+  ISetAdoptAction,
 } from '../actions/FavoriteActions';
 
-import {GET_LIST_FAVORITES, SET_REMOVE_ITEM_FAVORITE} from 'api/Favorites';
+import {
+  GET_LIST_FAVORITES,
+  SET_REMOVE_ITEM_FAVORITE,
+  SET_ADOPT,
+} from 'api/Favorites';
 
 export function* favoriteWatcher() {
   yield takeLeading(FavoriteActions.GET_INFO, workerGetInfoFavorites);
   yield takeLeading(FavoriteActions.SET_REMOVE, workerRequestRemoveFavorite);
+  yield takeLeading(FavoriteActions.SET_ADOPT, workerRequestAdopt);
 }
 
 function* workerGetInfoFavorites() {
@@ -50,6 +58,32 @@ function* workerRequestRemoveFavorite(action: ISetRemoveFavoritePet) {
       yield put(
         setRemovePetErrored({
           statusRemove: false,
+        }),
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* workerRequestAdopt(action: ISetAdoptAction) {
+  try {
+    const {payload} = action;
+    const response = yield call(SET_ADOPT, {
+      pet_id: payload.pet_id,
+      user_id: payload.user_id,
+    });
+    console.log(response);
+    if (response.user_id !== '') {
+      yield put(
+        setAdoptSuccess({
+          message: 'Deu boa',
+        }),
+      );
+    } else {
+      yield put(
+        setAdoptErrored({
+          message: 'Deu ruim',
         }),
       );
     }

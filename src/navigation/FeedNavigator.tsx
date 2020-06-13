@@ -74,7 +74,7 @@ const FeedNavigator = () => {
                     <Paw width={20} height={20} fill="#CE2020" />
                     <Markdown
                       style={{marginBottom: 16, paddingLeft: 16}}
-                      text="• Na aba Feed todos os PETS da ong serão listados, aqui você pode favoritar eles ou fazer uma doação."
+                      text="• Na aba Feed, todos os PETS da ong serão listados, aqui você pode favoritar eles ou fazer uma doação."
                     />
                   </Container>
                   <Container>

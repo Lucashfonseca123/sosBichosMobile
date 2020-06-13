@@ -1,5 +1,5 @@
 export interface IGetNewsFavoriteSuccess {
-  news: object;
+  news: object[];
 }
 
 export interface IGetNewsFavoriteErrored {

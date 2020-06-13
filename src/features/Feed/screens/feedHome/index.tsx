@@ -84,7 +84,6 @@ const FeedHome = () => {
     async function _getNetInfo() {
       try {
         const resultNetInfo = await NetInfo.fetch();
-        console.log(resultNetInfo);
         dispatch(isConnected({isConnected: resultNetInfo.isConnected}));
       } catch (error) {
         dispatch(isConnected({isConnected: false}));
@@ -311,16 +310,19 @@ const FeedHome = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={{borderRadius: 20}}
-                    onPress={() => {
+                    onPress={
                       !isConnectedStore
-                        ? (setModalConnectedToast(true),
-                          setTimeout(() => {
-                            setModalConnectedToast(false);
-                          }, 3000))
+                        ? () => (
+                            setModalConnectedToast(true),
+                            setTimeout(() => {
+                              setModalConnectedToast(false);
+                            }, 3000),
+                            setActiveSections(!activeSections)
+                          )
                         : getData('favorited') === true
                         ? () => setRemovePets(getData('id'))
-                        : () => setFavoritePet(getData('id'));
-                    }}>
+                        : () => setFavoritePet(getData('id'))
+                    }>
                     <Favorite
                       style={{top: -3, marginRight: 16}}
                       width={33}

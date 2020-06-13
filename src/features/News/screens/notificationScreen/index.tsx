@@ -1,114 +1,95 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-import {Container, ContainerHeader} from './styles';
-import {SectionList, View} from 'react-native';
-import {Markdown} from 'components';
+import {Container, PaddingLine} from './styles';
+import {FlatList, TouchableOpacity} from 'react-native';
+import {Markdown, Modal} from 'components';
+
+import {getInfoNews} from '../../redux/actions/NewsActions';
 
 import NewsCard from './newsCard';
-
-const DATA = [
-  {
-    date: '25 de Março',
-    data: [
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-      {
-        title: 'Feira de adoção',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-    ],
-  },
-  {
-    date: '28 de Abril',
-    data: [
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-    ],
-  },
-  {
-    date: '4 de Maio',
-    data: [
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-    ],
-  },
-  {
-    date: '17 de outubro',
-    data: [
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-      {
-        title: 'Bazar de roupas',
-        date: '24 de abril',
-        local: 'Uepg uvaranas',
-        description:
-          'Bazar para ajuda de custos e compra de ração para os próximos meses, vários modelos, esperamos por você!',
-      },
-    ],
-  },
-];
+import {useSelector, useDispatch} from 'react-redux';
+import {AppState} from 'store/RootReducer';
+import {useNavigation} from '@react-navigation/native';
 
 const NotificationScreen = () => {
+  const dispatch = useDispatch();
+  const [modalConnected, setModalConnected] = useState(false);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    dispatch(getInfoNews());
+  }, []);
+
+  const news = useSelector(
+    (appState: AppState) => appState.News.state.news.news,
+  );
+
+  const isConnected = useSelector(
+    (appState: AppState) => appState.Authentication.state.isConnected,
+  );
+
+  useEffect(() => {
+    if (!isConnected) {
+      setModalConnected(true);
+    } else {
+      setModalConnected(false);
+    }
+  }, [isConnected]);
+
   return (
     <>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item.title}
-        ListHeaderComponent={<View />}
-        ListFooterComponent={<View style={{marginTop: 16}} />}
-        renderItem={({item}) => (
-          <Container>
-            <NewsCard
-              title={item.title}
-              date={item.date}
-              location={item.local}
-              description={item.description}
+      {!isConnected ? (
+        <Modal width={80} isVisible={modalConnected}>
+          <>
+            <Markdown
+              style={{textAlign: 'center', paddingBottom: 16}}
+              text="Internet não identificada, conecte-se para ver as notícias."
             />
-          </Container>
-        )}
-        renderSectionHeader={({section: {date}}) => (
-          <ContainerHeader>
-            <Markdown fontColor="#717171" type="semiBold" text={date} />
-          </ContainerHeader>
-        )}
-      />
+            <TouchableOpacity
+              style={{
+                borderRadius: 20,
+                padding: 12,
+                borderWidth: 1,
+                borderColor: '#CE2020',
+                shadowRadius: 20,
+                alignItems: 'center',
+              }}
+              onPress={() => {
+                setModalConnected(false);
+                navigation.navigate('BottomTabNavigator', {
+                  screen: 'Feed',
+                });
+              }}>
+              <Markdown
+                fontColor="#CE2020"
+                type="semiBold"
+                fontSize={14}
+                text="IR PARA O FEED"
+              />
+            </TouchableOpacity>
+          </>
+        </Modal>
+      ) : (
+        <FlatList
+          data={news}
+          style={{backgroundColor: '#F8F8F8'}}
+          renderItem={({item}) => (
+            <Container>
+              <NewsCard
+                title={item.title}
+                date="23 de março"
+                location={item.subtitle}
+                description={item.body}
+                photoUri={item.folder}
+              />
+            </Container>
+          )}
+          keyExtractor={(item) => item.id}
+          // onRefresh={() => setRefreshing(true)}
+          // refreshing={false}
+          ListFooterComponent={<PaddingLine />}
+        />
+      )}
     </>
   );
 };

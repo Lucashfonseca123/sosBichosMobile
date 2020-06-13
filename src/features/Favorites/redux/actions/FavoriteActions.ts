@@ -5,6 +5,9 @@ import {
   ISetRemovePet,
   ISetRemovePetSuccess,
   ISetRemovePetErrored,
+  ISetAdopt,
+  ISetAdoptErrored,
+  ISetAdoptSuccess,
 } from '../types/FavoritePayloadTypes';
 
 export interface IFavoriteBaseActions {
@@ -12,6 +15,9 @@ export interface IFavoriteBaseActions {
   payload?:
     | IGetInfoFavoriteSuccess
     | IGetInfoFavoriteErrored
+    | ISetAdopt
+    | ISetAdoptSuccess
+    | ISetAdoptErrored
     | ISetRemovePet
     | ISetRemovePetSuccess
     | ISetRemovePetErrored;
@@ -50,8 +56,24 @@ export interface ISetRemoveFavoritePetErrored extends IFavoriteBaseActions {
   type: IFavoriteActions;
   payload: ISetRemovePetErrored;
 }
+export interface ISetAdoptAction extends IFavoriteBaseActions {
+  type: IFavoriteActions;
+  payload: ISetAdopt;
+}
+export interface ISetAdoptActionSuccess extends IFavoriteBaseActions {
+  type: IFavoriteActions;
+  payload: ISetAdoptSuccess;
+}
+export interface ISetAdoptActionErrored extends IFavoriteBaseActions {
+  type: IFavoriteActions;
+  payload: ISetAdoptErrored;
+}
 
 export interface ISetRemoveToInitialStatus extends IFavoriteBaseActions {
+  type: IFavoriteActions;
+}
+export interface ISetStatusDispatchToInitialAction
+  extends IFavoriteBaseActions {
   type: IFavoriteActions;
 }
 
@@ -104,8 +126,37 @@ export function setRemovePetErrored(
   };
 }
 
+export function setAdopt(payload: ISetAdopt): ISetAdoptAction {
+  return {
+    type: FavoriteActions.SET_ADOPT,
+    payload,
+  };
+}
+export function setAdoptSuccess(
+  payload: ISetAdoptSuccess,
+): ISetAdoptActionSuccess {
+  return {
+    type: FavoriteActions.SET_ADOPT_SUCCESS,
+    payload,
+  };
+}
+export function setAdoptErrored(
+  payload: ISetAdoptErrored,
+): ISetAdoptActionErrored {
+  return {
+    type: FavoriteActions.SET_ADOPT_ERRORED,
+    payload,
+  };
+}
+
 export function setRemovePetToInitialStatus(): ISetRemoveToInitialStatus {
   return {
     type: FavoriteActions.SET_REMOVE_TO_INITIAL_STATUS,
+  };
+}
+
+export function setStatusDispatchToInitial(): ISetRemoveToInitialStatus {
+  return {
+    type: FavoriteActions.STATUS_DISPATCH_TO_INITIAL,
   };
 }

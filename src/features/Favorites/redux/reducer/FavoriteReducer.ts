@@ -15,6 +15,7 @@ const initialState: IFavoriteState = {
   ],
   message: '',
   statusRemove: false,
+  status: false,
 };
 
 export default function (state = initialState, action: IFavoriteBaseActions) {
@@ -47,6 +48,18 @@ export default function (state = initialState, action: IFavoriteBaseActions) {
 
     case FavoriteActions.SET_REMOVE_TO_INITIAL_STATUS: {
       return Object.assign({}, state, {statusRemove: false});
+    }
+
+    case FavoriteActions.SET_ADOPT_SUCCESS: {
+      return Object.assign({}, state, {status: true});
+    }
+
+    case FavoriteActions.SET_ADOPT_ERRORED: {
+      return Object.assign({}, state, payload);
+    }
+
+    case FavoriteActions.STATUS_DISPATCH_TO_INITIAL: {
+      return Object.assign({}, state, {status: false});
     }
 
     default: {

@@ -73,7 +73,6 @@ function* workerRequestAdopt(action: ISetAdoptAction) {
       pet_id: payload.pet_id,
       user_id: payload.user_id,
     });
-    console.log(response);
     if (response.user_id !== '') {
       yield put(
         setAdoptSuccess({

@@ -42,8 +42,8 @@ function* workerLoginRequest(action: ILoginAuthenticate) {
       password: payload.password,
     });
     if (token) {
-      yield call(AsyncStorage.setItem, 'tokenAccess', token);
-      yield put(loginSuccess({tokenAccess: token, user: user}));
+      yield call(AsyncStorage.setItem, 'tokenAccess', token.token);
+      yield put(loginSuccess({tokenAccess: token.token, user: user}));
     } else {
       console.log('Deu ruim');
       yield put(
@@ -64,7 +64,7 @@ export function* workerCreateUser(action: ICreateUsers) {
       password: payload.password,
     });
     if (token) {
-      yield call(AsyncStorage.setItem, 'tokenAccess', token);
+      yield call(AsyncStorage.setItem, 'tokenAccess', token.token);
       yield put(createUserSuccess({tokenAccess: token, user: user}));
     } else {
       yield put(
@@ -81,14 +81,17 @@ export function* workerLoginWithSocialRequest(
 ) {
   try {
     const {payload} = action;
-    const {token, user} = yield call(AUTHENTICATION_WITH_SOCIAL_NETWORKS, {
+    const response = yield call(AUTHENTICATION_WITH_SOCIAL_NETWORKS, {
       accessToken: payload.tokenAccess,
       provider: payload.provider,
     });
-    if (token) {
-      yield call(AsyncStorage.setItem, 'tokenAccess', token);
+    if (response.token.token) {
+      yield call(AsyncStorage.setItem, 'tokenAccess', response.token.token);
       yield put(
-        loginWithSocialNetworksSuccess({tokenAccess: token, user: user}),
+        loginWithSocialNetworksSuccess({
+          tokenAccess: response.token.token,
+          user: response.user,
+        }),
       );
     } else {
       yield put(

@@ -54,7 +54,7 @@ const SignIn = () => {
       setLoading(false);
       dispatch(initialTokenMatch());
       setTimeout(() => {
-        navigation.navigate('FeedNavigator', {screen: 'FeedHome'});
+        navigation.navigate('BottomTabNavigator', {screen: 'Feed'});
       }, 500);
     } else if (tokenMatch === false) {
       setLoading(false);

@@ -4,7 +4,10 @@ import {ScrollView, Platform, TouchableOpacity, View} from 'react-native';
 import {Container, ViewRow, ViewTextField, ViewButton} from './styles';
 import {TextField, Button, Markdown, Modal, Toast} from 'components';
 
-import {getCep} from 'features/Authentication/redux/action/LoginActions';
+import {
+  getCep,
+  setProfileEditUser,
+} from 'features/Authentication/redux/action/LoginActions';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -19,7 +22,6 @@ import {AppState} from 'store/RootReducer';
 const EditProfile = () => {
   const dispatch = useDispatch();
   const refName = useRef();
-  const refLastName = useRef();
   const refCellPhone = useRef();
   const refOccupation = useRef();
   const refMail = useRef();
@@ -71,6 +73,8 @@ const EditProfile = () => {
   useEffect(() => {
     setName(user.name);
     setMail(user.email);
+    setCellPhone(user.phone);
+    setOccupation(user.profession);
   }, []);
 
   const mailValidation = (text: string) => {
@@ -79,6 +83,27 @@ const EditProfile = () => {
     } else {
       setMail('');
     }
+  };
+
+  const handleEditUser = () => {
+    dispatch(
+      setProfileEditUser({
+        name: name,
+        email: mail,
+        profession: occupation,
+        cellphone: cellPhone,
+        birthdate: date,
+        address: {
+          cep: cep,
+          logradouro: street,
+          numero: streetNumber,
+          bairro: district,
+          complemento: complement,
+          localidade: city,
+          uf: address.uf ? address.uf : '',
+        },
+      }),
+    );
   };
 
   return (
@@ -106,7 +131,8 @@ const EditProfile = () => {
             <TextField
               ref={refCellPhone}
               onChangeText={(text) => setCellPhone(text)}
-              value={cellPhone}
+              defaultValue={user.phone ? user.phone : ''}
+              value={user.phone ? user.phone : ''}
               placeholder="Celular"
               keyboardType="numeric"
               maxLength={11}
@@ -150,7 +176,8 @@ const EditProfile = () => {
               ref={refOccupation}
               placeholder="Profissão"
               onChangeText={(text) => setOccupation(text)}
-              value={occupation}
+              defaultValue={user.profession ? user.profession : ''}
+              value={user.profession ? user.profession : ''}
               style={{fontSize: 16}}
             />
           </ViewTextField>
@@ -211,6 +238,7 @@ const EditProfile = () => {
               onChangeText={(text) => setStreetNumber(text)}
               keyboardType="numeric"
               placeholder="Número"
+              value={streetNumber}
               style={{fontSize: 16}}
             />
           </ViewTextField>

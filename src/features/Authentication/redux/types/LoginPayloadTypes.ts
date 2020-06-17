@@ -38,7 +38,7 @@ export interface IGetCepSuccess {
 
 interface IAddress {
   cep: string;
-  logradoura: string;
+  logradouro: string;
   complemento: string;
   bairro: string;
   localidade: string;
@@ -47,7 +47,7 @@ interface IAddress {
 
 export interface IProfileEditUser {
   name?: string;
-  cellphone_number?: number;
+  cellphone?: number;
   birthdate?: Date;
   profession?: string;
   email?: string;
@@ -55,12 +55,14 @@ export interface IProfileEditUser {
 }
 
 export interface IProfileEditUserSuccess {
-  name?: string;
-  cellphone_number?: number;
-  birthdate?: Date;
-  profession?: string;
-  email?: string;
-  address?: IAddress;
+  user: {
+    name?: string;
+    cellphone?: number;
+    birthdate?: Date;
+    profession?: string;
+    email?: string;
+    address?: IAddress;
+  };
 }
 
 export interface IConnected {

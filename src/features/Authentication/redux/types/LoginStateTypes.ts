@@ -11,7 +11,7 @@ interface IAddress {
 
 interface IAddressObject {
   cep: string;
-  logradoura: string;
+  logradouro: string;
   complemento: string;
   bairro: string;
   localidade: string;

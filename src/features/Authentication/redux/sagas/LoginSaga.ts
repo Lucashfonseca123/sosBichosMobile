@@ -13,6 +13,9 @@ import {
   ILoginAuthenticateWithSocial,
   loginWithSocialNetworksSuccess,
   loginWithSocialNetworksErrored,
+  ISetProfileEditAction,
+  setProfileEditUserSuccess,
+  setProfileEditUserErrored,
   IGetCepAction,
 } from '../action/LoginActions';
 
@@ -21,6 +24,7 @@ import {GET_CEP} from 'api/Location';
 import {
   AUTHENTICATION,
   CREATE_USER,
+  EDIT_USER,
   AUTHENTICATION_WITH_SOCIAL_NETWORKS,
 } from 'api/Authentication';
 
@@ -70,6 +74,20 @@ export function* workerCreateUser(action: ICreateUsers) {
       yield put(
         createUserErrored({tokenAccess: 'Deu ruim na criação de usuário'}),
       );
+    }
+  } catch (err) {
+    console.log('erro', err);
+  }
+}
+
+export function* workerEditUser(action: ISetProfileEditAction) {
+  try {
+    const {payload} = action;
+    const response = yield call(EDIT_USER, payload);
+    if (response.id !== '') {
+      yield put(setProfileEditUserSuccess({user: response}));
+    } else {
+      yield put(setProfileEditUserErrored());
     }
   } catch (err) {
     console.log('erro', err);

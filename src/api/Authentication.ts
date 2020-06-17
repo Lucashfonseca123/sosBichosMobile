@@ -1,4 +1,5 @@
 import {API_GATEWAY_ENDPOINT} from './Contants';
+import AsyncStorage from '@react-native-community/async-storage';
 
 interface IAuthentication {
   email: string;
@@ -8,6 +9,24 @@ interface IAuthentication {
 interface IAuthenticationWithSocialNetwork {
   accessToken?: string;
   provider?: string;
+}
+
+interface IEditProfileUser {
+  name?: string;
+  cellphone?: number;
+  birthdate?: Date;
+  profession?: string;
+  email?: string;
+  address?: IAddress;
+}
+
+interface IAddress {
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
 }
 
 interface ICreateUser {
@@ -101,4 +120,39 @@ const CREATE_USER = (props: ICreateUser) => {
   return result;
 };
 
-export {AUTHENTICATION, AUTHENTICATION_WITH_SOCIAL_NETWORKS, CREATE_USER};
+const EDIT_USER = async (props: IEditProfileUser) => {
+  // const {username, password} = props;
+  const url = API_GATEWAY_ENDPOINT + 'user/create';
+  const method = 'PUT';
+  const token = await AsyncStorage.getItem('tokenAccess');
+  const headers = {
+    'Content-Type': 'application/json',
+    authorization: `Bearer ${token}`,
+  };
+
+  let queryParams = {
+    headers,
+    method: method,
+    body: JSON.stringify(props),
+  };
+
+  let result = fetch(url, queryParams)
+    .then((response) => {
+      return response.json().then((responseJson) => {
+        return responseJson;
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
+    });
+
+  return result;
+};
+
+export {
+  AUTHENTICATION,
+  AUTHENTICATION_WITH_SOCIAL_NETWORKS,
+  CREATE_USER,
+  EDIT_USER,
+};

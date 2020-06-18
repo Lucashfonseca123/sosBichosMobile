@@ -33,6 +33,7 @@ interface ICreateUser {
   name: string;
   email: string;
   password: string;
+  password_confirmation: string;
 }
 
 const AUTHENTICATION = (props: IAuthentication) => {
@@ -122,7 +123,7 @@ const CREATE_USER = (props: ICreateUser) => {
 
 const EDIT_USER = async (props: IEditProfileUser) => {
   // const {username, password} = props;
-  const url = API_GATEWAY_ENDPOINT + 'user/create';
+  const url = API_GATEWAY_ENDPOINT + 'user';
   const method = 'PUT';
   const token = await AsyncStorage.getItem('tokenAccess');
   const headers = {

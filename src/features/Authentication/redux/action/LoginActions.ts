@@ -10,6 +10,7 @@ import {
   IGetCepSuccess,
   IProfileEditUser,
   IProfileEditUserSuccess,
+  IProfileEditUserErrored,
   IConnected,
 } from '../types/LoginPayloadTypes';
 
@@ -26,6 +27,7 @@ export interface ILoginBaseAction {
     | IProfileEditUserSuccess
     | IConnected
     | ILoginWithSocialNetworks
+    | IProfileEditUserErrored
     | ILoginWithSocialNetworksSuccess;
 }
 
@@ -82,10 +84,17 @@ export interface ISetProfileEditSuccessAction extends ILoginBaseAction {
 }
 export interface ISetProfileEditErroredAction extends ILoginBaseAction {
   type: ILoginTypes;
+  payload: IProfileEditUserErrored;
 }
 export interface ISetIsConnectedAction extends ILoginBaseAction {
   type: ILoginTypes;
   payload: IConnected;
+}
+export interface ISetInitialLoadingAction extends ILoginBaseAction {
+  type: ILoginTypes;
+}
+export interface ISetInitialMessageAction extends ILoginBaseAction {
+  type: ILoginTypes;
 }
 
 export function login(payload: IAuthentication): ILoginAuthenticate {
@@ -209,9 +218,12 @@ export function setProfileEditUserSuccess(
   };
 }
 
-export function setProfileEditUserErrored(): ISetProfileEditErroredAction {
+export function setProfileEditUserErrored(
+  payload: IProfileEditUserErrored,
+): ISetProfileEditErroredAction {
   return {
     type: LoginActions.SET_EDIT_USER_ERRORED,
+    payload,
   };
 }
 
@@ -219,5 +231,17 @@ export function isConnected(payload: IConnected): ISetIsConnectedAction {
   return {
     type: LoginActions.SET_IS_CONNECTED,
     payload,
+  };
+}
+
+export function setInitialLoading(): ISetInitialLoadingAction {
+  return {
+    type: LoginActions.SET_INITIAL_LOADING,
+  };
+}
+
+export function setInitialMessage(): ISetInitialMessageAction {
+  return {
+    type: LoginActions.SET_INITIAL_MESSAGE,
   };
 }

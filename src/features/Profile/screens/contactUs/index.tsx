@@ -17,7 +17,10 @@ const ContactUs = () => {
   return (
     <Container>
       <TopContainer>
-        <Markdown text="Siga a gente em nossas redes sociais!" />
+        <Markdown
+          fontColor="#909090"
+          text="Siga a gente em nossas redes sociais!"
+        />
       </TopContainer>
       <ListItem
         onPress={() =>
@@ -25,6 +28,7 @@ const ContactUs = () => {
         }>
         <Facebook width={39} height={39} />
         <Markdown
+          fontColor="#3A84FF"
           style={{paddingLeft: 16}}
           text="facebook.com/SosBichosDeRua"
         />
@@ -34,14 +38,22 @@ const ContactUs = () => {
           Linking.openURL('https://www.instagram.com/SosBichosPG')
         }>
         <Instagram width={39} height={39} />
-        <Markdown style={{paddingLeft: 16}} text="instagram.com/SosBichosPG" />
+        <Markdown
+          fontColor="#3A84FF"
+          style={{paddingLeft: 16}}
+          text="instagram.com/SosBichosPG"
+        />
       </ListItem>
       <ListItem
         onPress={() =>
           Linking.openURL('https://www.twitter.com/SosBichosdeRua')
         }>
         <Twitter width={39} height={39} />
-        <Markdown style={{paddingLeft: 16}} text="twitter.com/SosBichosdeRua" />
+        <Markdown
+          fontColor="#3A84FF"
+          style={{paddingLeft: 16}}
+          text="twitter.com/SosBichosdeRua"
+        />
       </ListItem>
       <ListItem
         onPress={() =>
@@ -51,6 +63,7 @@ const ContactUs = () => {
         }>
         <Mail width={39} height={39} />
         <Markdown
+          fontColor="#3A84FF"
           style={{paddingLeft: 16}}
           text="contato@sosbichosderua.org.br"
         />

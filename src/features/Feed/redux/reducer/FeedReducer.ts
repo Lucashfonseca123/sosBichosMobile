@@ -19,6 +19,7 @@ const initialState: IFeedState = {
   reset: false,
   isLoading: false,
   message: '',
+  statusFavorite: false,
 };
 
 export default function (
@@ -27,10 +28,6 @@ export default function (
 ) {
   const {type, payload} = action;
   switch (type) {
-    case FeedActions.GET_INFO: {
-      return Object.assign({}, state, payload);
-    }
-
     case FeedActions.GET_INFO_SUCCESS: {
       return Object.assign({}, state, payload, {isLoading: true});
     }
@@ -53,6 +50,10 @@ export default function (
 
     case FeedActions.SET_FAVORITE_MESSAGE_TO_INITIAL: {
       return Object.assign({}, state, {message: ''});
+    }
+
+    case FeedActions.SET_FAVORITE_STATUS_SUCCESS: {
+      return Object.assign({}, state, {statusFavorite: true});
     }
 
     default:

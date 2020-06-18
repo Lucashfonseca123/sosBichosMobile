@@ -69,6 +69,7 @@ const SignIn = () => {
         name: name,
         email: mail,
         password: password,
+        password_confirmation: confirmPassword,
       }),
     );
     setLoading(true);

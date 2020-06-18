@@ -61,6 +61,8 @@ export interface ISetFavoriteMessageInitial extends IFeedBaseAction {
   type: IFeedTypes;
 }
 
+export interface ISetFeedSuccess extends IFeedBaseAction {}
+
 export function getInfoFeed(payload: IGetFeed): IGetInfoFeed {
   return {
     type: FeedActions.GET_INFO,
@@ -141,5 +143,11 @@ export function setFavoriteErrored(
 export function setFavoriteMessageToInitial(): ISetFavoriteMessageInitial {
   return {
     type: FeedActions.SET_FAVORITE_MESSAGE_TO_INITIAL,
+  };
+}
+
+export function setFeedFavoritesSuccess(): ISetFeedSuccess {
+  return {
+    type: FeedActions.SET_FAVORITE_STATUS_SUCCESS,
   };
 }

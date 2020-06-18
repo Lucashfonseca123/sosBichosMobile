@@ -9,6 +9,8 @@ const initialState: ILoginState = {
     address: {},
   },
   isConnected: false,
+  isLoading: false,
+  message: '',
 };
 
 export default function (
@@ -64,6 +66,14 @@ export default function (
 
     case LoginActions.SET_IS_CONNECTED: {
       return Object.assign({}, state, payload);
+    }
+
+    case LoginActions.SET_INITIAL_LOADING: {
+      return Object.assign({}, state, {isLoading: false});
+    }
+
+    case LoginActions.SET_INITIAL_MESSAGE: {
+      return Object.assign({}, state, {message: ''});
     }
 
     default:

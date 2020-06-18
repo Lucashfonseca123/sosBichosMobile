@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {FavoritedScreen, TermsUse} from 'features/Favorites/screens';
+import {FavoritedScreen} from 'features/Favorites/screens';
 
 const Stack = createStackNavigator();
 
@@ -17,8 +17,12 @@ const ProfileNavigator = () => {
       }}>
       <Stack.Screen
         name="FavoritedScreen"
+        options={{
+          title: 'Favoritos',
+          headerTintColor: '#ce2020',
+          headerTitleAlign: 'center',
+        }}
         component={FavoritedScreen}
-        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {Container, PaddingLine} from './styles';
+import {Container, PaddingLine, EmptyView} from './styles';
 import {FlatList, TouchableOpacity} from 'react-native';
 import {Markdown, Modal} from 'components';
 
@@ -20,9 +20,7 @@ const NotificationScreen = () => {
     dispatch(getInfoNews());
   }, []);
 
-  const news = useSelector(
-    (appState: AppState) => appState.News.state.news.news,
-  );
+  const news = useSelector((appState: AppState) => appState.News.state.news);
 
   const isConnected = useSelector(
     (appState: AppState) => appState.Authentication.state.isConnected,
@@ -43,7 +41,7 @@ const NotificationScreen = () => {
           <>
             <Markdown
               style={{textAlign: 'center', paddingBottom: 16}}
-              text="Internet não identificada, conecte-se para ver as notícias."
+              text="Por favor, conecte-se e reinicie o aplicativo para visualizar as notificações."
             />
             <TouchableOpacity
               style={{
@@ -69,6 +67,10 @@ const NotificationScreen = () => {
             </TouchableOpacity>
           </>
         </Modal>
+      ) : news.length === 0 ? (
+        <EmptyView>
+          <Markdown text="Por enquanto, estamos sem avisos." />
+        </EmptyView>
       ) : (
         <FlatList
           data={news}

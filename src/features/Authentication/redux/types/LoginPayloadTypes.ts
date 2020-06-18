@@ -12,6 +12,7 @@ export interface ICreateUser {
   name: string;
   email: string;
   password: string;
+  password_confirmation: string;
 }
 
 export interface ICreateUserSuccess {
@@ -39,6 +40,7 @@ export interface IGetCepSuccess {
 interface IAddress {
   cep: string;
   logradouro: string;
+  numero: number;
   complemento: string;
   bairro: string;
   localidade: string;
@@ -63,8 +65,13 @@ export interface IProfileEditUserSuccess {
     email?: string;
     address?: IAddress;
   };
+  isLoading: boolean;
+  message: '';
 }
 
+export interface IProfileEditUserErrored {
+  message: string;
+}
 export interface IConnected {
   isConnected: boolean;
 }

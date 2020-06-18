@@ -86,7 +86,7 @@ const FavoriteScreen = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: `Olá, esse conhece o pet ${sharedName}, ele pode ser seu novo amigo (a) !`,
+        message: `Olá, esse é o pet ${sharedName}, ele pode ser seu novo amigo (a) !`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -109,7 +109,7 @@ const FavoriteScreen = () => {
           <View>
             <Markdown
               style={{textAlign: 'center', paddingBottom: 16}}
-              text="Internet não identificada, conecte-se para ver os favoritos."
+              text="Por favor, conecte-se e reinicie o aplicativo para visualizar os pets favoritados."
             />
             <TouchableOpacity
               style={{
@@ -169,6 +169,7 @@ const FavoriteScreen = () => {
                   onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
                   onPressedShare={(text) => onShare}
+                  inAdoptionProcess={item.inAdoptionProcess}
                 />
               </Container>
             )}

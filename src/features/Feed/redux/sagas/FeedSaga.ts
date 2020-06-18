@@ -28,6 +28,7 @@ function* workerFeedInfoRequest(action: IGetInfoFeed) {
           pagination: pagination,
           pet: pets,
           current_page: payload.current_page,
+          statusFavorite: false,
         }),
       );
     } else {

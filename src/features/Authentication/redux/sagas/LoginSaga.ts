@@ -36,6 +36,7 @@ export function* watchLoginRequest() {
     workerLoginWithSocialRequest,
   );
   yield takeLeading(LoginActions.GET_CEP, workerGetCepRequest);
+  yield takeLeading(LoginActions.SET_EDIT_USER, workerEditUser);
 }
 
 function* workerLoginRequest(action: ILoginAuthenticate) {
@@ -66,6 +67,7 @@ export function* workerCreateUser(action: ICreateUsers) {
       name: payload.name,
       email: payload.email,
       password: payload.password,
+      password_confirmation: payload.password_confirmation,
     });
     if (token) {
       yield call(AsyncStorage.setItem, 'tokenAccess', token.token);
@@ -84,10 +86,28 @@ export function* workerEditUser(action: ISetProfileEditAction) {
   try {
     const {payload} = action;
     const response = yield call(EDIT_USER, payload);
-    if (response.id !== '') {
-      yield put(setProfileEditUserSuccess({user: response}));
+    if (response.name) {
+      yield put(
+        setProfileEditUserSuccess({
+          user: response,
+          isLoading: true,
+          message: '',
+        }),
+      );
     } else {
-      yield put(setProfileEditUserErrored());
+      if (response.message === 'This E-mail already exist') {
+        yield put(
+          setProfileEditUserErrored({
+            message: 'E-mail selecionado ja está cadastrado, tente outro.',
+          }),
+        );
+      } else {
+        yield put(
+          setProfileEditUserErrored({
+            message: 'Erro desconhecido.',
+          }),
+        );
+      }
     }
   } catch (err) {
     console.log('erro', err);

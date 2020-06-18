@@ -21,6 +21,7 @@ interface IFavoritePetCard {
   onPressedRemove?: Function;
   onPressedShare?: Function;
   onPressedAnnouncement?: Function;
+  inAdoptionProcess?: boolean;
   photoUri: string;
   name: string;
   rescued_date: string;
@@ -88,16 +89,32 @@ const FavoritePetCard = (props: IFavoritePetCard) => {
       </ContainerTop>
 
       <ContainerButton>
-        <Button
-          text="Me adote"
-          onPress={
-            props.onPressedAdopt
-              ? props.onPressedAdopt
-              : () => alert('Opa, bora pra casa')
-          }
-          style={{width: 110, height: 35}}
-          fontSize={13}
-        />
+        {props.inAdoptionProcess ? (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 8,
+            }}>
+            <Markdown fontColor="#ce2020" text="Em aprovação" />
+            <Markdown
+              fontSize={10}
+              fontColor="#ce2020"
+              text="Entraremos em contato"
+            />
+          </View>
+        ) : (
+          <Button
+            text="Me adote"
+            onPress={
+              props.onPressedAdopt
+                ? props.onPressedAdopt
+                : () => alert('Opa, bora pra casa')
+            }
+            style={{width: 110, height: 35}}
+            fontSize={13}
+          />
+        )}
         <Button
           text="Faça uma doação"
           onPress={

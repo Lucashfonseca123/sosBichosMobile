@@ -41,10 +41,10 @@ import {
   setRemovePetToInitialStatus,
 } from '../../../Favorites/redux/actions/FavoriteActions';
 
-import {Paw, Close, Favorite, Share as IconShare} from 'assets/icons';
+import {Paw, Close, Favorite, Share as IconShare, User} from 'assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 
 const FeedHome = () => {
@@ -55,11 +55,9 @@ const FeedHome = () => {
   const [modalConnectedToast, setModalConnectedToast] = useState<boolean>(
     false,
   );
-
+  const navigation = useNavigation();
   const refFlatList = useRef();
-
   const dispatch = useDispatch();
-
   const pets = useSelector((appState: AppState) => appState.Feed.state.pet);
 
   const currentPage = useSelector(
@@ -78,6 +76,10 @@ const FeedHome = () => {
 
   const isConnectedStore = useSelector(
     (appState: AppState) => appState.Authentication.state.isConnected,
+  );
+
+  const statusFavorite = useSelector(
+    (appState: AppState) => appState.Feed.state.statusFavorite,
   );
 
   useEffect(() => {
@@ -155,6 +157,12 @@ const FeedHome = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    if (statusFavorite) {
+      nextPage();
+    }
+  }, [statusFavorite]);
 
   const getData = (parameters: string | boolean) => {
     const indexPet = pets.findIndex((item) => item.id === id);
@@ -237,7 +245,7 @@ const FeedHome = () => {
           <Toast visible={visibleToast} message="Pet favoritado com sucesso" />
           <Toast
             visible={modalConnectedToast}
-            message="Sem conexão, conecte-se para favoritar um pet"
+            message="Por favor, conecte-se e reinicie o aplicativo para favoritar um pet."
           />
           {isLoading || pets.length === 0 ? (
             <View style={{marginTop: 16}}>
@@ -352,11 +360,12 @@ const FeedHome = () => {
                 />
               </ViewRescuedAndDescription>
               <Button
-                onPress={() => alert('Doação é bom também.')}
+                onPress={() => navigation.navigate('HowToHelp')}
                 fontSize={15}
                 style={{
                   width: 218,
-                  height: 32,
+                  height: 35,
+                  paddingBottom: 4,
                 }}>
                 <Markdown
                   text="Faça uma doação  "

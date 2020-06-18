@@ -3,6 +3,8 @@ export interface ILoginState {
   match?: boolean;
   user?: object | IAddress;
   isConnected: boolean;
+  isLoading: boolean;
+  message: string;
 }
 
 interface IAddress {

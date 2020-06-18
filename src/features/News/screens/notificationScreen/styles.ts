@@ -4,7 +4,6 @@ export const Container = styled.View`
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
-  padding-top: 8px;
 `;
 
 export const ContainerHeader = styled.View`
@@ -15,4 +14,10 @@ export const ContainerHeader = styled.View`
 
 export const PaddingLine = styled.View`
   padding-top: 8px;
+`;
+
+export const EmptyView = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;

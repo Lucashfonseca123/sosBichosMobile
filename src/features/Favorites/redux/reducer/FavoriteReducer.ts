@@ -22,10 +22,6 @@ export default function (state = initialState, action: IFavoriteBaseActions) {
   const {type, payload} = action;
 
   switch (type) {
-    case FavoriteActions.GET_INFO: {
-      return Object.assign({}, state, payload);
-    }
-
     case FavoriteActions.GET_INFO_SUCCESS: {
       return Object.assign({}, state, payload);
     }

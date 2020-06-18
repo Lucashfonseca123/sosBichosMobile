@@ -5,6 +5,7 @@ export interface IFeedState {
   isLoading: boolean;
   message: string;
   pagination: object;
+  statusFavorite: boolean;
 }
 
 interface IFeedPet {

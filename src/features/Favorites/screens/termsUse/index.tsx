@@ -17,6 +17,7 @@ import {
   setAdopt,
   setStatusDispatchToInitial,
 } from '../../redux/actions/FavoriteActions';
+import {setFeedFavoritesSuccess} from '../../../Feed/redux/action/FeedActions';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 
@@ -70,6 +71,7 @@ const TermsUse = () => {
               shadowRadius: 20,
             }}
             onPress={() => {
+              dispatch(setFeedFavoritesSuccess());
               navigation.navigate('BottomTabNavigator', {
                 screen: 'Feed',
               });

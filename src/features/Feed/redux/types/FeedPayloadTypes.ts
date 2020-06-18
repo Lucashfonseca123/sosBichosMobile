@@ -6,6 +6,7 @@ export interface IGetFeedSuccess {
   pagination: object;
   pet: IFeedPet[];
   current_page: number;
+  statusFavorite: boolean;
 }
 
 interface IFeedPet {

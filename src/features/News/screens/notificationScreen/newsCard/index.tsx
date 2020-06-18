@@ -48,7 +48,12 @@ const FavoritePetCard = (props: INewsCard) => {
           />
         </View>
         <Image
-          style={{marginLeft: 4, width: 100, height: 130, borderRadius: 20}}
+          style={{
+            marginLeft: 4,
+            width: 100,
+            height: 130,
+            borderRadius: 20,
+          }}
           source={{
             uri: props.photoUri,
           }}

@@ -2,7 +2,7 @@ import {API_GATEWAY_ENDPOINT} from './Contants';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const GET_NEWS = async () => {
-  const url = API_GATEWAY_ENDPOINT + 'news/?page=1';
+  const url = API_GATEWAY_ENDPOINT + 'news';
   const method = 'GET';
   const token = await AsyncStorage.getItem('tokenAccess');
   const headers = {

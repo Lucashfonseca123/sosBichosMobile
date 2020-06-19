@@ -13,9 +13,21 @@ import {SafeAreaView, Platform, Text} from 'react-native';
 
 import BackgroundColor from 'react-native-background-color';
 
+import admob, {MaxAdContentRating} from '@react-native-firebase/admob';
+
 console.disableYellowBox = true;
 
 const App = () => {
+  //Configuração do filtro de anúncios que serão exibidos
+  admob().setRequestConfiguration({
+    maxAdContentRating: MaxAdContentRating.PG,
+    tagForChildDirectedTreatment: true,
+    tagForUnderAgeOfConsent: true,
+  });
+  // .then(() => {
+  //   // Request config successfully set!
+  // });
+
   useEffect(() => {
     Text.defaultProps = Text.defaultProps || {};
     Text.defaultProps.allowFontScaling = false;

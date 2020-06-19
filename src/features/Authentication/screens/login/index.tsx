@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {
   Markdown,
@@ -38,6 +39,7 @@ import {
   initialTokenMatch,
   loginWithSocialNetworks,
 } from 'features/Authentication/redux/action/LoginActions';
+// import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = () => {
   const [mail, setMail] = useState('');
@@ -169,108 +171,114 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <DivMiddle>
-        <Toast visible={visibleToast} message={message} />
-        <Logo width={180} height={180} />
-        <TextField
-          style={{width: 300}}
-          ref={userRef}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Digite seu email..."
-          onChangeText={mailValidation}
-          returnKeyType="next"
-          keyboardType="email-address"
-          value={mail}
-          onSubmitEditing={() => passwordRef.current.focus()}
-        />
-        <TextField
-          style={{width: 300}}
-          ref={passwordRef}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Senha..."
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-          returnKeyType="send"
-          value={password}
-          onSubmitEditing={() =>
-            !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
-          }
-        />
-      </DivMiddle>
-      <DivButton>
-        <Button
-          text="Entrar"
-          width={162}
-          height={51}
-          onPress={() =>
-            !isValidEmail || password === '' ? getErrored() : sendAuthenticate()
-          }
-          backgroundColor="#CE2020"
-        />
-      </DivButton>
-      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-        <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
-      </TouchableOpacity>
-      <DivBottom>
-        <Markdown type="semiBold" text="Ou entre com:" />
-        <DivBottomButton>
-          <Button
-            text="Facebook"
-            fontSize={14}
-            width={120}
-            height={38}
-            onPress={() => loginFacebook()}
-            backgroundColor="#3B5998"
-            fontType="bold"
+    <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+      <Container>
+        <DivMiddle>
+          <Toast visible={visibleToast} message={message} />
+          <Logo width={180} height={180} />
+          <TextField
+            style={{width: 300}}
+            ref={userRef}
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Digite seu email..."
+            onChangeText={mailValidation}
+            returnKeyType="next"
+            keyboardType="email-address"
+            value={mail}
+            onSubmitEditing={() => passwordRef.current.focus()}
           />
-          <Button
-            text="Gmail"
-            fontSize={14}
-            width={120}
-            height={38}
-            onPress={() => signInGmail()}
-            backgroundColor="#FFFFFF"
-            fontColor="#CE2020"
+          <TextField
+            style={{width: 300}}
+            ref={passwordRef}
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Senha..."
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            returnKeyType="send"
+            value={password}
+            onSubmitEditing={() =>
+              !isValidEmail || password === ''
+                ? getErrored()
+                : sendAuthenticate()
+            }
           />
-        </DivBottomButton>
-      </DivBottom>
-      <View style={{paddingTop: 8}}>
-        <TouchableOpacity
-          onPress={() => Linking.openURL('http://www.sosbichosderua.org.br')}>
-          <Markdown text="http://www.sosbichosderua.org.br" />
+        </DivMiddle>
+        <DivButton>
+          <Button
+            text="Entrar"
+            width={162}
+            height={51}
+            onPress={() =>
+              !isValidEmail || password === ''
+                ? getErrored()
+                : sendAuthenticate()
+            }
+            backgroundColor="#CE2020"
+          />
+        </DivButton>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
         </TouchableOpacity>
-      </View>
-      <Modal modal={true} width={30} isVisible={loading}>
-        <ActivityIndicator size="large" />
-      </Modal>
-      <Modal width={80} closeModal={closeModalError} isVisible={modalError}>
-        <>
-          <Markdown
-            style={{textAlign: 'center', paddingBottom: 16}}
-            text="Usuário não identificado, tente novamente."
-          />
-          <TouchableOpacity
-            style={{
-              borderRadius: 20,
-              padding: 12,
-              borderWidth: 1,
-              borderColor: '#CE2020',
-              shadowRadius: 20,
-            }}
-            onPress={() => closeModalError()}>
-            <Markdown
-              fontColor="#CE2020"
-              type="semiBold"
+        <DivBottom>
+          <Markdown type="semiBold" text="Ou entre com:" />
+          <DivBottomButton>
+            <Button
+              text="Facebook"
               fontSize={14}
-              text="TENTAR DE NOVO"
+              width={120}
+              height={38}
+              onPress={() => loginFacebook()}
+              backgroundColor="#3B5998"
+              fontType="bold"
             />
+            <Button
+              text="Gmail"
+              fontSize={14}
+              width={120}
+              height={38}
+              onPress={() => signInGmail()}
+              backgroundColor="#FFFFFF"
+              fontColor="#CE2020"
+            />
+          </DivBottomButton>
+        </DivBottom>
+        <View style={{paddingTop: 8}}>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('http://www.sosbichosderua.org.br')}>
+            <Markdown text="http://www.sosbichosderua.org.br" />
           </TouchableOpacity>
-        </>
-      </Modal>
-    </Container>
+        </View>
+        <Modal modal={true} width={30} isVisible={loading}>
+          <ActivityIndicator size="large" />
+        </Modal>
+        <Modal width={80} closeModal={closeModalError} isVisible={modalError}>
+          <>
+            <Markdown
+              style={{textAlign: 'center', paddingBottom: 16}}
+              text="Usuário não identificado, tente novamente."
+            />
+            <TouchableOpacity
+              style={{
+                borderRadius: 20,
+                padding: 12,
+                borderWidth: 1,
+                borderColor: '#CE2020',
+                shadowRadius: 20,
+              }}
+              onPress={() => closeModalError()}>
+              <Markdown
+                fontColor="#CE2020"
+                type="semiBold"
+                fontSize={14}
+                text="TENTAR DE NOVO"
+              />
+            </TouchableOpacity>
+          </>
+        </Modal>
+      </Container>
+    </ScrollView>
   );
 };
 

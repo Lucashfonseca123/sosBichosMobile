@@ -14,7 +14,7 @@ const Container = styled.View`
 const DivMiddle = styled.View`
   flex: 1;
   padding-top: 32px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `;
 

@@ -25,6 +25,8 @@ import {
   Modal,
 } from 'components';
 
+import {BannerAd, BannerAdSize, TestIds} from '@react-native-firebase/admob';
+
 import {parseDate} from 'utils/date_fns';
 
 import {
@@ -234,8 +236,19 @@ const FeedHome = () => {
     }
   };
 
+  const adUnitId = __DEV__
+    ? TestIds.BANNER
+    : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+
   return (
     <>
+      <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
       {pets[0].id === '' ? (
         <ContainerLoading>
           <ActivityIndicator size="large" />

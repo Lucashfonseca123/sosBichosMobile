@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "578889650978",
+    "firebase_url": "https://sosbichos-1590612687526.firebaseio.com",
+    "project_id": "sosbichos-1590612687526",
+    "storage_bucket": "sosbichos-1590612687526.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578889650978:android:8cecfa58f2d2a373a98b7b",
+        "android_client_info": {
+          "package_name": "com.sosbichosmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578889650978-8sh9gq63h8obaiq60iuogblnm2vc5j71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX7qts19hkPv9_nrgIJNh5Cj4pHRWtvCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578889650978-8sh9gq63h8obaiq60iuogblnm2vc5j71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,9 +31,10 @@ import {
   RewardedAdEventType,
 } from '@react-native-firebase/admob';
 
-const adUnitId = __DEV__
-  ? TestIds.REWARDED
-  : 'ca-app-pub-7880577010811580/4854364219';
+// const adUnitId = __DEV__
+//   ? TestIds.REWARDED
+//   : 'ca-app-pub-7880577010811580/4854364219';
+const adUnitId = TestIds.REWARDED;
 
 const FavoriteScreen = () => {
   const [refreshing, setRefreshing] = useState(false);

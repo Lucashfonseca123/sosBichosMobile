@@ -96,10 +96,10 @@ const FavoriteScreen = () => {
     });
   };
 
-  const onShare = async () => {
+  const onShare = async (name: string) => {
     try {
       const result = await Share.share({
-        message: `Olá, esse é o pet ${sharedName}, ele pode ser seu novo amigo (a) !`,
+        message: `Olá, esse é o pet ${name}, ele pode ser seu novo amigo (a) !`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -197,7 +197,6 @@ const FavoriteScreen = () => {
             style={{backgroundColor: '#F8F8F8'}}
             renderItem={({item}) => (
               <Container>
-                {setSharedName(item.name)}
                 <FavoritePetCard
                   name={item.name}
                   rescued_date={item.rescued_at}
@@ -206,7 +205,9 @@ const FavoriteScreen = () => {
                   onPressedDonation={() => navigation.navigate('HowToHelp')}
                   onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
-                  onPressedShare={(text) => onShare}
+                  onPressedShare={() => {
+                    onShare(item.name);
+                  }}
                   onPressedAnnouncement={() => {
                     setIsLoading(true), show();
                   }}

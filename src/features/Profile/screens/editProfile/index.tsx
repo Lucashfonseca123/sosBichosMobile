@@ -208,9 +208,10 @@ const EditProfile = () => {
               <Markdown
                 fontColor="#FFF"
                 type="semiBold"
+                style={{textAlign: 'center'}}
                 fontSize={14}
                 text={
-                  date.toDateString() != undefined
+                  user.birthdate !== undefined
                     ? `Nascimento: ${format(date, 'dd/MM/yy')}`
                     : 'Data não informada'
                 }

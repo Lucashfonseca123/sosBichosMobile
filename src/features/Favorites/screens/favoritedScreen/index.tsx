@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList, Share, View} from 'react-native';
+import {FlatList, Share, View, Alert} from 'react-native';
 
 import {Container, PaddingLine, ContainerLoading} from './styles';
 import {BadEmoji} from 'assets/icons';
@@ -23,6 +23,18 @@ import {AppState} from 'store/RootReducer';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
 
+import {
+  TestIds,
+  InterstitialAd,
+  AdEventType,
+  RewardedAd,
+  RewardedAdEventType,
+} from '@react-native-firebase/admob';
+
+const adUnitId = __DEV__
+  ? TestIds.REWARDED
+  : 'ca-app-pub-7880577010811580/4854364219';
+
 const FavoriteScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +43,7 @@ const FavoriteScreen = () => {
   const [sharedName, setSharedName] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [loaded, setLoaded] = useState(false);
 
   const setRemove = (id: string) => {
     setIsLoading(true);
@@ -102,6 +115,31 @@ const FavoriteScreen = () => {
     }
   };
 
+  const show = () => {
+    const rewardAd = RewardedAd.createForAdRequest(adUnitId, {
+      requestNonPersonalizedAdsOnly: true,
+      keywords: ['fashion', 'clothing'],
+    });
+
+    rewardAd.onAdEvent((type, error) => {
+      if (type === RewardedAdEventType.LOADED) {
+        rewardAd.show();
+      }
+      setIsLoading(false);
+
+      if (type === RewardedAdEventType.EARNED_REWARD) {
+        Alert.alert(
+          'Reward Ad',
+          'You just earned a reward of 5 lives',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: true},
+        );
+      }
+    });
+
+    rewardAd.load();
+  };
+
   return (
     <>
       {!isConnected ? (
@@ -169,6 +207,9 @@ const FavoriteScreen = () => {
                   onPressedAdopt={() => navigationToAdopt(item.id)}
                   onPressedRemove={() => setRemove(item.id)}
                   onPressedShare={(text) => onShare}
+                  onPressedAnnouncement={() => {
+                    setIsLoading(true), show();
+                  }}
                   inAdoptionProcess={item.inAdoptionProcess}
                 />
               </Container>

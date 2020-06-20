@@ -25,8 +25,6 @@ import {
   Modal,
 } from 'components';
 
-import {BannerAd, BannerAdSize, TestIds} from '@react-native-firebase/admob';
-
 import {parseDate} from 'utils/date_fns';
 
 import {
@@ -52,6 +50,7 @@ import NetInfo from '@react-native-community/netinfo';
 const FeedHome = () => {
   const [activeSections, setActiveSections] = useState<boolean>(true);
   const [id, setId] = useState('');
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [visibleToast, setVisibleToast] = useState<boolean>(false);
   const [modalConnectedToast, setModalConnectedToast] = useState<boolean>(
@@ -236,19 +235,8 @@ const FeedHome = () => {
     }
   };
 
-  const adUnitId = __DEV__
-    ? TestIds.BANNER
-    : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-
   return (
     <>
-      <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
       {pets[0].id === '' ? (
         <ContainerLoading>
           <ActivityIndicator size="large" />

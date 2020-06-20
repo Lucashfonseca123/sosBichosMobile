@@ -221,6 +221,7 @@ const Login = () => {
         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
           <Markdown fontColor="#CE2020" type="semiBold" text="Crie uma conta" />
         </TouchableOpacity>
+
         <DivBottom>
           <Markdown type="semiBold" text="Ou entre com:" />
           <DivBottomButton>

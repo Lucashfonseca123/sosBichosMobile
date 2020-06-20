@@ -42,7 +42,7 @@ const FavoritePetCard = (props: IFavoritePetCard) => {
           <TouchableButtons
             onPress={
               props.onPressedAnnouncement
-                ? props.onPressedAnnouncement()
+                ? props.onPressedAnnouncement
                 : () => alert('To no anúncio.')
             }>
             <Announcement width={28} height={28} style={{marginRight: 8}} />

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 
-import {format} from 'date-fns';
+import {format, isValid} from 'date-fns';
 
 import {ScrollView, Platform, TouchableOpacity, View} from 'react-native';
 import {Container, ViewRow, ViewTextField, ViewButton} from './styles';
@@ -211,7 +211,7 @@ const EditProfile = () => {
                 style={{textAlign: 'center'}}
                 fontSize={14}
                 text={
-                  user.birthdate !== undefined
+                  isValid(date)
                     ? `Nascimento: ${format(date, 'dd/MM/yy')}`
                     : 'Data não informada'
                 }
@@ -220,7 +220,7 @@ const EditProfile = () => {
             {show ? (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={date}
+                value={isValid(date) ? date : new Date()}
                 mode={mode}
                 locale="pt-br"
                 is24Hour={true}

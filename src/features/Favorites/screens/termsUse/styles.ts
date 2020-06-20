@@ -45,3 +45,14 @@ export const ButtonModalRight = styled.TouchableOpacity`
   flex: 1;
   align-items: center;
 `;
+
+export const ButtonModalEditUser = styled.TouchableOpacity`
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-top: 32px;
+  padding: 14px;
+  background-color: #ce2020;
+  elevation: 2px;
+  flex: 1;
+  align-items: center;
+`;

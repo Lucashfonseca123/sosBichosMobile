@@ -11,6 +11,7 @@ const initialState: ILoginState = {
   isConnected: false,
   isLoading: false,
   message: '',
+  userComplete: false,
 };
 
 export default function (
@@ -74,6 +75,10 @@ export default function (
 
     case LoginActions.SET_INITIAL_MESSAGE: {
       return Object.assign({}, state, {message: ''});
+    }
+
+    case LoginActions.SET_USER_COMPLETE: {
+      return Object.assign({}, state, {userComplete: true});
     }
 
     default:

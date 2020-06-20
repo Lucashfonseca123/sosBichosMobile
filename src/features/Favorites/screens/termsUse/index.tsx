@@ -7,6 +7,7 @@ import {
   ContainerModal,
   ButtonModalLeft,
   ButtonModalRight,
+  ButtonModalEditUser,
 } from './styles';
 import {Markdown, Button, Modal, Toast, ActivityIndicator} from 'components';
 import {useRoute, useNavigation} from '@react-navigation/native';
@@ -30,6 +31,7 @@ const TermsUse = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [toastIsVisible, setToastIsVisible] = useState(false);
   const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
+  const [modalCompleteUser, setModalCompleteUser] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -41,6 +43,10 @@ const TermsUse = () => {
 
   const status = useSelector(
     (appState: AppState) => appState.Favorites.state.status,
+  );
+
+  const userComplete = useSelector(
+    (appState: AppState) => appState.Authentication.state.userComplete,
   );
 
   useEffect(() => {
@@ -60,7 +66,7 @@ const TermsUse = () => {
         <>
           <Markdown
             style={{textAlign: 'center', paddingBottom: 16}}
-            text="Pedido de doação enviado com sucesso! Logo entraremos em contato e você estará com seu pet."
+            text="Pedido de adoção enviado com sucesso! Logo entraremos em contato e você estará com seu pet."
           />
           <TouchableOpacity
             style={{
@@ -208,12 +214,14 @@ const TermsUse = () => {
           <ButtonModalRight
             onPress={() => {
               setLoading(true),
-                dispatch(
-                  setAdopt({
-                    pet_id: route.params.item,
-                    user_id: user.id,
-                  }),
-                );
+                userComplete
+                  ? dispatch(
+                      setAdopt({
+                        pet_id: route.params.item,
+                        user_id: user.id,
+                      }),
+                    )
+                  : setModalCompleteUser(true);
               setModalIsVisible(false);
             }}>
             <Markdown
@@ -224,6 +232,49 @@ const TermsUse = () => {
               text="CONFIRMAR"
             />
           </ButtonModalRight>
+        </ContainerModal>
+      </Modal>
+      <Modal isVisible={modalCompleteUser} noPaddingBottom={true}>
+        <TouchableOpacity
+          onPress={() => setModalIsVisible(false)}
+          style={{
+            position: 'absolute',
+            right: 10,
+            top: 12,
+            padding: 8,
+            borderRadius: 16,
+            zIndex: 1,
+          }}>
+          <Close width={16} height={16} />
+        </TouchableOpacity>
+        <Markdown
+          style={{marginTop: 16, textAlign: 'center'}}
+          fontColor="#000"
+          fontSize={18}
+          text="Ops, parece que seu perfil não está completo."
+          type="bold"
+        />
+        <Markdown
+          fontColor="#0E2533"
+          fontSize={14}
+          style={{marginTop: 32, paddingHorizontal: 16, textAlign: 'center'}}
+          text="Complete seu perfil para fazer um pedido de adoção!"
+        />
+        <ContainerModal>
+          <ButtonModalEditUser
+            onPress={() => {
+              setLoading(false);
+              setModalCompleteUser(false);
+              navigation.navigate('EditProfile');
+            }}>
+            <Markdown
+              fontColor="#CE2020"
+              type="semiBold"
+              fontSize={14}
+              fontColor="white"
+              text="Ir para o perfil"
+            />
+          </ButtonModalEditUser>
         </ContainerModal>
       </Modal>
     </ScrollView>

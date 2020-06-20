@@ -41,7 +41,6 @@ const FavoriteScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [visibleToast, setVisibleToast] = useState(false);
   const [modalConnected, setModalConnected] = useState(false);
-  const [sharedName, setSharedName] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [loaded, setLoaded] = useState(false);

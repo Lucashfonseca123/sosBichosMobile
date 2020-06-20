@@ -5,6 +5,7 @@ export interface ILoginState {
   isConnected: boolean;
   isLoading: boolean;
   message: string;
+  userComplete: boolean;
 }
 
 interface IAddress {

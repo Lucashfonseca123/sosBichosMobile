@@ -96,6 +96,9 @@ export interface ISetInitialLoadingAction extends ILoginBaseAction {
 export interface ISetInitialMessageAction extends ILoginBaseAction {
   type: ILoginTypes;
 }
+export interface ISetUserCompleteAction extends ILoginBaseAction {
+  type: ILoginTypes;
+}
 
 export function login(payload: IAuthentication): ILoginAuthenticate {
   return {
@@ -243,5 +246,11 @@ export function setInitialLoading(): ISetInitialLoadingAction {
 export function setInitialMessage(): ISetInitialMessageAction {
   return {
     type: LoginActions.SET_INITIAL_MESSAGE,
+  };
+}
+
+export function setUserComplete(): ISetUserCompleteAction {
+  return {
+    type: LoginActions.SET_USER_COMPLETE,
   };
 }

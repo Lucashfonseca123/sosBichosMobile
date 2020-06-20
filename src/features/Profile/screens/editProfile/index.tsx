@@ -18,6 +18,7 @@ import {
   setProfileEditUser,
   setInitialLoading,
   setInitialMessage,
+  setUserComplete,
 } from 'features/Authentication/redux/action/LoginActions';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -115,6 +116,7 @@ const EditProfile = () => {
       setIsLoading(false);
       setModalVisibleSuccess(true);
       dispatch(setInitialLoading());
+      dispatch(setUserComplete());
     }
   }, [loading]);
 

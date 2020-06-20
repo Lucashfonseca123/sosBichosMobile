@@ -55,10 +55,14 @@ const FavoritePetCard = (props: IFavoritePetCard) => {
             }>
             <Share width={28} height={28} style={{marginRight: 16}} />
           </TouchableButtons>
-          <TouchableButtons
-            onPress={props.onPressedRemove ? props.onPressedRemove : () => {}}>
-            <Close width={14} height={14} />
-          </TouchableButtons>
+          {!props.inAdoptionProcess ? (
+            <TouchableButtons
+              onPress={
+                props.onPressedRemove ? props.onPressedRemove : () => {}
+              }>
+              <Close width={14} height={14} />
+            </TouchableButtons>
+          ) : null}
         </ViewHeaderButton>
         <View style={{flex: 1}}>
           <Markdown

@@ -65,8 +65,15 @@ const TermsUse = () => {
       <Modal width={80} isVisible={modalSuccessVisible}>
         <>
           <Markdown
+            fontSize={18}
+            type="semiBold"
+            fontColor="#ce2020"
             style={{textAlign: 'center', paddingBottom: 16}}
-            text="Pedido de adoção enviado com sucesso! Logo entraremos em contato e você estará com seu pet."
+            text="Pedido de adoção enviado com sucesso!"
+          />
+          <Markdown
+            style={{textAlign: 'center', paddingBottom: 16}}
+            text="Logo entraremos em contato e você estará com seu pet."
           />
           <TouchableOpacity
             style={{

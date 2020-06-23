@@ -151,9 +151,38 @@ const EDIT_USER = async (props: IEditProfileUser) => {
   return result;
 };
 
+const REFRESH_TOKEN = async () => {
+  const url = API_GATEWAY_ENDPOINT + 'session';
+  const method = 'POST';
+  const refreshToken = await AsyncStorage.getItem('refreshToken');
+  const headers = {
+    'Content-Type': 'application/json',
+    authorization: `Bearer ${refreshToken}`,
+  };
+
+  let queryParams = {
+    headers,
+    method: method,
+  };
+
+  let result = fetch(url, queryParams)
+    .then((response) => {
+      return response.json().then((responseJson) => {
+        return responseJson;
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
+    });
+
+  return result;
+};
+
 export {
   AUTHENTICATION,
   AUTHENTICATION_WITH_SOCIAL_NETWORKS,
   CREATE_USER,
   EDIT_USER,
+  REFRESH_TOKEN,
 };

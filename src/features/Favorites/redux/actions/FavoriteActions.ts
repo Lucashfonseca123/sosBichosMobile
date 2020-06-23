@@ -76,6 +76,9 @@ export interface ISetStatusDispatchToInitialAction
   extends IFavoriteBaseActions {
   type: IFavoriteActions;
 }
+export interface ISetInitialStateAction extends IFavoriteBaseActions {
+  type: IFavoriteActions;
+}
 
 export function getInfoFavorites(): IGetInfoFavorite {
   return {
@@ -158,5 +161,11 @@ export function setRemovePetToInitialStatus(): ISetRemoveToInitialStatus {
 export function setStatusDispatchToInitial(): ISetRemoveToInitialStatus {
   return {
     type: FavoriteActions.STATUS_DISPATCH_TO_INITIAL,
+  };
+}
+
+export function setInitialState(): ISetInitialStateAction {
+  return {
+    type: FavoriteActions.SET_INITIAL_STATE,
   };
 }

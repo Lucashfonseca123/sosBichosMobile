@@ -17,6 +17,9 @@ import {
   setProfileEditUserSuccess,
   setProfileEditUserErrored,
   IGetCepAction,
+  setRefreshTokenSuccess,
+  setRefreshTokenErrored,
+  ISetRefreshTokenAction,
 } from '../action/LoginActions';
 
 import {GET_CEP} from 'api/Location';
@@ -26,6 +29,7 @@ import {
   CREATE_USER,
   EDIT_USER,
   AUTHENTICATION_WITH_SOCIAL_NETWORKS,
+  REFRESH_TOKEN,
 } from 'api/Authentication';
 
 export function* watchLoginRequest() {
@@ -37,6 +41,7 @@ export function* watchLoginRequest() {
   );
   yield takeLeading(LoginActions.GET_CEP, workerGetCepRequest);
   yield takeLeading(LoginActions.SET_EDIT_USER, workerEditUser);
+  yield takeLeading(LoginActions.SET_REFRESH_TOKEN, workerSetRefreshToken);
 }
 
 function* workerLoginRequest(action: ILoginAuthenticate) {
@@ -48,11 +53,22 @@ function* workerLoginRequest(action: ILoginAuthenticate) {
     });
     if (token) {
       yield call(AsyncStorage.setItem, 'tokenAccess', token.token);
-      yield put(loginSuccess({tokenAccess: token.token, user: user}));
+      yield call(AsyncStorage.setItem, 'refreshToken', token.refreshToken);
+      yield put(
+        loginSuccess({
+          tokenAccess: token.token,
+          user: user,
+          refreshToken: token.refreshToken,
+        }),
+      );
     } else {
       console.log('Deu ruim');
       yield put(
-        loginErrored({tokenAccess: 'Deu ruim', user: {user: 'desconhecido'}}),
+        loginErrored({
+          tokenAccess: 'Deu ruim',
+          user: {user: 'desconhecido'},
+          refreshToken: 'Não encontrado',
+        }),
       );
     }
   } catch (err) {
@@ -69,7 +85,7 @@ export function* workerCreateUser(action: ICreateUsers) {
       password: payload.password,
       password_confirmation: payload.password_confirmation,
     });
-    if (token) {
+    if (token.token) {
       yield call(AsyncStorage.setItem, 'tokenAccess', token.token);
       yield put(createUserSuccess({tokenAccess: token, user: user}));
     } else {
@@ -125,8 +141,14 @@ export function* workerLoginWithSocialRequest(
     });
     if (response.token.token) {
       yield call(AsyncStorage.setItem, 'tokenAccess', response.token.token);
+      yield call(
+        AsyncStorage.setItem,
+        'refreshToken',
+        response.token.refreshToken,
+      );
       yield put(
         loginWithSocialNetworksSuccess({
+          refreshToken: response.token.refreshToken,
           tokenAccess: response.token.token,
           user: response.user,
         }),
@@ -134,7 +156,7 @@ export function* workerLoginWithSocialRequest(
     } else {
       yield put(
         loginWithSocialNetworksErrored({
-          accessToken: 'Deu ruim na criação de usuário com loginSocial',
+          message: 'Error login with gmail',
         }),
       );
     }
@@ -154,6 +176,24 @@ function* workerGetCepRequest(action: IGetCepAction) {
     } else {
       console.log('Deu ruim');
       yield put(getCepErrored());
+    }
+  } catch (err) {
+    console.log('error', err);
+  }
+}
+
+function* workerSetRefreshToken() {
+  try {
+    const {token} = yield call(REFRESH_TOKEN);
+    if (token.token) {
+      yield put(
+        setRefreshTokenSuccess({
+          tokenAccess: token.token,
+          refreshToken: token.refreshToken,
+        }),
+      );
+    } else {
+      yield put(setRefreshTokenErrored({message: 'Erro'}));
     }
   } catch (err) {
     console.log('error', err);

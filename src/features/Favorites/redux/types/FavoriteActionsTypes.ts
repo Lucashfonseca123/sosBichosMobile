@@ -14,4 +14,5 @@ export const FavoriteActions = Object.freeze({
   SET_ADOPT_SUCCESS: '@favorite/SET_ADOPT_SUCCESS' as '@favorite/SET_ADOPT_SUCCESS',
   SET_ADOPT_ERRORED: '@favorite/SET_ADOPT_ERRORED' as '@favorite/SET_ADOPT_ERRORED',
   STATUS_DISPATCH_TO_INITIAL: '@favorite/STATUS_DISPATCH_TO_INITIAL' as '@favorite/STATUS_DISPATCH_TO_INITIAL',
+  SET_INITIAL_STATE: '@favorite/SET_INITIAL_STATE' as '@favorite/SET_INITIAL_STATE',
 });

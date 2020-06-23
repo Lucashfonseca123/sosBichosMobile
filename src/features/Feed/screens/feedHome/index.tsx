@@ -34,14 +34,17 @@ import {
   setFavoriteMessageToInitial,
 } from '../../redux/action/FeedActions';
 
-import {isConnected} from 'features/Authentication/redux/action/LoginActions';
+import {
+  isConnected,
+  setRefreshToken,
+} from 'features/Authentication/redux/action/LoginActions';
 
 import {
   setRemovePet,
   setRemovePetToInitialStatus,
 } from '../../../Favorites/redux/actions/FavoriteActions';
 
-import {Paw, Close, Favorite, Share as IconShare, User} from 'assets/icons';
+import {Paw, Close, Favorite, Share as IconShare} from 'assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from 'store/RootReducer';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -84,6 +87,7 @@ const FeedHome = () => {
   );
 
   useEffect(() => {
+    dispatch(setRefreshToken());
     async function _getNetInfo() {
       try {
         const resultNetInfo = await NetInfo.fetch();

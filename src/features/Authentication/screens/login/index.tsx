@@ -45,11 +45,11 @@ const Login = () => {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const [visibleToast, setVisibleToast] = useState(false);
   const [modalError, setModalError] = useState<boolean>(false);
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [facebookUser, setFacebookUser] = useState({});
 
   const dispatch = useDispatch();
 
@@ -65,17 +65,19 @@ const Login = () => {
   useEffect(() => {
     if (tokenMatch === true) {
       setLoading(false);
+      setLoadingButton(false);
       navigation.navigate('BottomTabNavigator');
       dispatch(initialTokenMatch());
     } else if (tokenMatch === false) {
       setLoading(false);
+      setLoadingButton(false);
       setModalError(true);
       dispatch(initialTokenMatch());
     }
   }, [tokenMatch]);
 
   const sendAuthenticate = () => {
-    setLoading(true);
+    setLoadingButton(true);
     dispatch(
       login({
         email: mail,
@@ -207,6 +209,7 @@ const Login = () => {
         </DivMiddle>
         <DivButton>
           <Button
+            isLoading={loadingButton}
             text="Entrar"
             width={162}
             height={51}

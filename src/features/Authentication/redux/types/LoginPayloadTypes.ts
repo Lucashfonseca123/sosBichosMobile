@@ -4,6 +4,7 @@ export interface IAuthentication {
 }
 
 export interface IAuthenticationSuccess {
+  refreshToken: string;
   tokenAccess: string;
   user: object;
 }
@@ -27,7 +28,11 @@ export interface ILoginWithSocialNetworks {
 
 export interface ILoginWithSocialNetworksSuccess {
   tokenAccess: string;
+  refreshToken: string;
   user: object;
+}
+export interface ILoginWithSocialNetworksErrored {
+  message: string;
 }
 
 export interface IGetCep {
@@ -74,4 +79,13 @@ export interface IProfileEditUserErrored {
 }
 export interface IConnected {
   isConnected: boolean;
+}
+
+export interface ISetRefreshTokenSuccess {
+  tokenAccess: string;
+  refreshToken: string;
+}
+
+export interface ISetRefreshTokenErrored {
+  message: string;
 }

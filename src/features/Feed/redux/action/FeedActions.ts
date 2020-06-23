@@ -45,7 +45,6 @@ export interface ISetCurrentFeedPageErrored extends IFeedBaseAction {
   type: IFeedTypes;
   payload: ISetCurrentErrored;
 }
-
 export interface ISetReset extends IFeedBaseAction {
   type: IFeedTypes;
 }

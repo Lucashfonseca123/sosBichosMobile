@@ -173,6 +173,7 @@ const EditProfile = () => {
           <ViewTextField>
             <TextField
               ref={refName}
+              autoCapitalize="words"
               placeholder="Nome completo"
               onChangeText={(text) => setName(text)}
               defaultValue={user.name ? user.name : name}
@@ -213,7 +214,7 @@ const EditProfile = () => {
                 text={
                   isValid(date)
                     ? `Nascimento: ${format(date, 'dd/MM/yy')}`
-                    : 'Data não informada'
+                    : 'Data de nascimento'
                 }
               />
             </TouchableOpacity>
@@ -329,7 +330,7 @@ const EditProfile = () => {
                 address.complemento ? address.complemento : complement
               }
               value={address.complemento ? address.complemento : complement}
-              placeholder="Complemento"
+              placeholder="Complemento/Ponto de referência"
               style={{fontSize: 16}}
             />
           </ViewTextField>
@@ -360,7 +361,22 @@ const EditProfile = () => {
                   }, 3000));
             }}
             text="Salvar"
-            style={{backgroundColor: '#34AF23'}}
+            style={{
+              backgroundColor:
+                name &&
+                cellPhone &&
+                occupation &&
+                mail &&
+                cep &&
+                district &&
+                street &&
+                streetNumber &&
+                city &&
+                complement &&
+                isConnected
+                  ? '#34AF23'
+                  : '#a2a2a2',
+            }}
           />
         </ViewButton>
       </Container>

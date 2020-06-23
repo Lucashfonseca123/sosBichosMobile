@@ -178,7 +178,14 @@ const TermsUse = () => {
               setToastIsVisible(false);
             }, 3000);
           }}
-          style={{height: 50, width: '90%'}}
+          style={{
+            height: 50,
+            width: '90%',
+            backgroundColor:
+              checked && checked1 && checked2 && checked3
+                ? '#ce2020'
+                : '#a2a2a2',
+          }}
           text="Enviar pedido de adoção"
         />
       </Container>
@@ -243,7 +250,10 @@ const TermsUse = () => {
       </Modal>
       <Modal isVisible={modalCompleteUser} noPaddingBottom={true}>
         <TouchableOpacity
-          onPress={() => setModalIsVisible(false)}
+          onPress={() => {
+            setLoading(false);
+            setModalCompleteUser(false);
+          }}
           style={{
             position: 'absolute',
             right: 10,

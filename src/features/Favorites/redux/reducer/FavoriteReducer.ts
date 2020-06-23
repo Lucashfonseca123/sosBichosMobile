@@ -58,6 +58,10 @@ export default function (state = initialState, action: IFavoriteBaseActions) {
       return Object.assign({}, state, {status: false});
     }
 
+    case FavoriteActions.SET_INITIAL_STATE: {
+      return initialState;
+    }
+
     default: {
       return state;
     }

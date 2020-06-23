@@ -12,6 +12,9 @@ import {
   IProfileEditUserSuccess,
   IProfileEditUserErrored,
   IConnected,
+  ISetRefreshTokenErrored,
+  ISetRefreshTokenSuccess,
+  ILoginWithSocialNetworksErrored,
 } from '../types/LoginPayloadTypes';
 
 export interface ILoginBaseAction {
@@ -26,8 +29,11 @@ export interface ILoginBaseAction {
     | IProfileEditUser
     | IProfileEditUserSuccess
     | IConnected
+    | ISetRefreshTokenErrored
+    | ISetRefreshTokenSuccess
     | ILoginWithSocialNetworks
     | IProfileEditUserErrored
+    | ILoginWithSocialNetworksErrored
     | ILoginWithSocialNetworksSuccess;
 }
 
@@ -48,6 +54,11 @@ export interface ILoginAuthenticateWithSocial extends ILoginBaseAction {
 export interface ILoginAuthenticateWIthSocialSuccess extends ILoginBaseAction {
   type: ILoginTypes;
   payload: ILoginWithSocialNetworksSuccess;
+}
+export interface ILoginAuthenticateWIthSocialErroredAction
+  extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: ILoginWithSocialNetworksErrored;
 }
 
 export interface ICreateUsers extends ILoginBaseAction {
@@ -99,6 +110,23 @@ export interface ISetInitialMessageAction extends ILoginBaseAction {
 export interface ISetUserCompleteAction extends ILoginBaseAction {
   type: ILoginTypes;
 }
+export interface ISetInititalStateAction extends ILoginBaseAction {
+  type: ILoginTypes;
+}
+
+export interface ISetRefreshTokenAction extends ILoginBaseAction {
+  type: ILoginTypes;
+}
+
+export interface ISetRefreshTokenSuccessAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: ISetRefreshTokenSuccess;
+}
+
+export interface ISetRefreshTokenErrroredAction extends ILoginBaseAction {
+  type: ILoginTypes;
+  payload: ISetRefreshTokenErrored;
+}
 
 export function login(payload: IAuthentication): ILoginAuthenticate {
   return {
@@ -144,8 +172,8 @@ export function loginWithSocialNetworksSuccess(
 }
 
 export function loginWithSocialNetworksErrored(
-  payload: ILoginWithSocialNetworks,
-): ILoginAuthenticateWithSocial {
+  payload: ILoginWithSocialNetworksErrored,
+): ILoginAuthenticateWIthSocialErroredAction {
   return {
     type: LoginActions.AUTHENTICATION_LOGIN_WITH_SOCIAL_NETWORKS_ERRORED,
     payload,
@@ -252,5 +280,35 @@ export function setInitialMessage(): ISetInitialMessageAction {
 export function setUserComplete(): ISetUserCompleteAction {
   return {
     type: LoginActions.SET_USER_COMPLETE,
+  };
+}
+
+export function setInitialAuth(): ISetInititalStateAction {
+  return {
+    type: LoginActions.SET_INITIAL_STATE,
+  };
+}
+
+export function setRefreshToken(): ISetRefreshTokenAction {
+  return {
+    type: LoginActions.SET_REFRESH_TOKEN,
+  };
+}
+
+export function setRefreshTokenSuccess(
+  payload: ISetRefreshTokenSuccess,
+): ISetRefreshTokenSuccessAction {
+  return {
+    type: LoginActions.SET_REFRESH_TOKEN_SUCCESS,
+    payload,
+  };
+}
+
+export function setRefreshTokenErrored(
+  payload: ISetRefreshTokenErrored,
+): ISetRefreshTokenErrroredAction {
+  return {
+    type: LoginActions.SET_REFRESH_TOKEN_ERRORED,
+    payload,
   };
 }

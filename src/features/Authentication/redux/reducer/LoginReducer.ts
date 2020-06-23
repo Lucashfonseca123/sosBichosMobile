@@ -4,6 +4,7 @@ import {ILoginBaseAction} from '../action/LoginActions';
 
 const initialState: ILoginState = {
   tokenAccess: '',
+  refreshToken: '',
   match: undefined,
   user: {
     address: {},
@@ -12,6 +13,7 @@ const initialState: ILoginState = {
   isLoading: false,
   message: '',
   userComplete: false,
+  isLoadingLogout: false,
 };
 
 export default function (
@@ -70,7 +72,10 @@ export default function (
     }
 
     case LoginActions.SET_INITIAL_LOADING: {
-      return Object.assign({}, state, {isLoading: false});
+      return Object.assign({}, state, {
+        isLoading: false,
+        isLoadingLogout: false,
+      });
     }
 
     case LoginActions.SET_INITIAL_MESSAGE: {
@@ -79,6 +84,18 @@ export default function (
 
     case LoginActions.SET_USER_COMPLETE: {
       return Object.assign({}, state, {userComplete: true});
+    }
+
+    case LoginActions.SET_INITIAL_STATE: {
+      return Object.assign({}, initialState, {isLoadingLogout: true});
+    }
+
+    case LoginActions.SET_REFRESH_TOKEN_SUCCESS: {
+      return Object.assign({}, state, payload);
+    }
+
+    case LoginActions.SET_REFRESH_TOKEN_ERRORED: {
+      return Object.assign({}, state, payload);
     }
 
     default:

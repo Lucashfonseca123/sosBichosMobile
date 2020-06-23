@@ -16,6 +16,7 @@ export {default as Galeria} from './Galeria';
 export {default as Instagram} from './instagram';
 export {default as Lantern} from './Lantern';
 export {default as Logo} from './logo';
+export {default as Logout} from './logout';
 export {default as Love} from './love';
 export {default as Mail} from './mail';
 export {default as MobileShare} from './mobileShare';

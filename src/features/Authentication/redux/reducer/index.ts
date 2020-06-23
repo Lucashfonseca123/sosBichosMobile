@@ -7,7 +7,7 @@ import LoginReducer from './LoginReducer';
 const persistConfig = {
   key: 'login',
   storage: AsyncStorage,
-  whitelist: ['user', 'tokenAccess', 'userComplete'],
+  whitelist: ['user', 'tokenAccess', 'userComplete', 'refreshToken'],
   stateReconciler: autoMergeLevel2,
 };
 

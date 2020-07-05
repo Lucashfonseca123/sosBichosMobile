@@ -4,7 +4,9 @@
 
 ### Technologies
 - React Native.
+- React Hooks.
 - TypeScript.
+- Styled components.
 - Redux.
 - Redux Sagas.
 
